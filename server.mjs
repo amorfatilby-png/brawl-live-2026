@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readOfficialArchive } from './official-archive.mjs';
+import { PICK_INTERVAL_MS, readBrawlerPicks } from './pick-stats.mjs';
 import { OFFICIAL_MATCH_IDS, readSupercellFeed } from './supercell-feed.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -37,6 +38,9 @@ let feedRetryAt = 0;
 let officialResponseDates = null;
 let officialAccepted = false;
 let officialArchive = null;
+let pickStats = JSON.parse(await fs.readFile(path.join(ROOT,'data','brawler-picks.json'),'utf8'));
+let pickStatsStatus = 'snapshot';
+let pickRetryAt = 0;
 const feedStale = () => feedConfigured && (!feedLastOk || Date.now() - Date.parse(feedLastOk) > Math.max(300000, INTERVAL_MS * 3));
 
 function validatePayload(body, {partial = false} = {}) {
@@ -61,6 +65,19 @@ function validatePayload(body, {partial = false} = {}) {
   const updatedAt = body.updatedAt ? new Date(body.updatedAt) : new Date();
   if (!Number.isFinite(updatedAt.getTime())) throw new Error('updatedAt 必须是有效 ISO 时间');
   return {matches: result, updatedAt: updatedAt.toISOString(), note: typeof body.note === 'string' ? body.note.slice(0,180) : ''};
+}
+
+async function refreshPickStats() {
+  if (Date.now() < pickRetryAt) return;
+  try {
+    pickStats = await readBrawlerPicks(pickStats);
+    pickStatsStatus = 'synced';
+    pickRetryAt = 0;
+  } catch (error) {
+    pickStatsStatus = 'cached';
+    pickRetryAt = Date.now() + (error.retryAfterMs ?? PICK_INTERVAL_MS);
+    console.error('[picks]',error.message);
+  }
 }
 
 async function refreshOfficialArchive() {
@@ -135,6 +152,10 @@ if (feedConfigured) {
   const timer = setInterval(refreshFeed, INTERVAL_MS);
   timer.unref();
 }
+if (FEED_PROVIDER === 'supercell') {
+  void refreshPickStats();
+  setInterval(refreshPickStats,PICK_INTERVAL_MS).unref();
+}
 
 function json(res, status, obj) {
   res.writeHead(status, {'content-type':'application/json; charset=utf-8', 'cache-control':'no-store', 'x-content-type-options':'nosniff'});
@@ -170,6 +191,7 @@ const server = http.createServer(async (req,res) => {
         feedChangedAt,
         archiveSavedAt:officialArchive?.updatedAt ?? null,
         archivedFinals:officialArchive ? Object.keys(officialArchive.matches).length : 0,
+        pickStats: {...pickStats,status:pickStatsStatus},
         sourceUpdatedAt:FEED_PROVIDER === 'supercell' ? null : state.updatedAt,
         sourceUrl:FEED_PROVIDER === 'supercell' ? 'https://event.supercell.com/brawlstars/en/live' : null,
         feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null,

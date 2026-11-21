@@ -9,6 +9,7 @@ let bracketCalls=0;
 globalThis.setInterval=(fn,ms,...args)=>nativeInterval(fn,ms===120000?60:ms,...args);
 globalThis.fetch=async(url,options)=>{
  const scenario=process.env.TEST_OFFICIAL_SCENARIO;
+ if(String(url).startsWith('https://liquipedia.net/'))return new Response('',{status:503});
  if(String(url).startsWith('https://raw.githubusercontent.com/')){
   if(scenario.endsWith('-with-archive'))return Response.json(archive);
   if(scenario==='failure-with-invalid-archive')return Response.json({...archive,eventId:'another-event'});

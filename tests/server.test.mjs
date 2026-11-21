@@ -64,6 +64,8 @@ test('a cold start during an outage serves the bundled official results checkpoi
   assert.deepEqual(data.matches.L1A,{status:'final',score1:3,score2:1});
   assert.deepEqual(data.matches.US2,{status:'final',score1:1,score2:3});
   assert.equal(Object.values(data.matches).filter(m=>m.status==='final').length,8);
+  assert.ok(data.pickStats.sets>=67);
+  assert.ok(['snapshot','cached'].includes(data.pickStats.status));
  }finally{await stop(ctx)}
 });
 
