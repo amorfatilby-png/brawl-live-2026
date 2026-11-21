@@ -26,7 +26,10 @@ async function stop(ctx){ctx.child.kill();await fs.rm(ctx.dir,{recursive:true,fo
 test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  const ctx=await start();
  try{
- const doc=await fetch(ctx.base);assert.equal(doc.status,200);assert.match(await doc.text(),/WORLD FINALS/);
+ const doc=await fetch(ctx.base);assert.equal(doc.status,200);
+ const markup=await doc.text();
+ assert.match(markup,/<h1[^>]*><span>荒野乱斗<\/span><span>全球总决赛<\/span><\/h1>/);
+ assert.match(markup,/BRAWL STARS CHAMPIONSHIP 2026/);
  const data=await(await fetch(ctx.base+'/api/state')).json();
  assert.equal(data.mode,'snapshot');assert.deepEqual(data.matches.UQ1,{status:'final',score1:2,score2:3});assert.deepEqual(data.matches.UQ2,{status:'final',score1:0,score2:3});
  const health=await (await fetch(ctx.base+'/health')).json(); assert.equal(health.ok,true);
