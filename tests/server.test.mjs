@@ -46,6 +46,12 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  const logoHead=await fetch(logoUrl,{method:'HEAD'});
  assert.equal(logoHead.status,200);assert.equal(logoHead.headers.get('content-type'),'image/webp');
  assert.equal((await fetch(ctx.base+'/assets/teams/unknown.webp')).status,404);
+ const profiles=await (await fetch(ctx.base+'/api/player-profiles')).json();
+ assert.equal(Object.keys(profiles).length,36);
+ assert.equal(profiles.Angelboy.age,21);
+ assert.equal(profiles.Sitetampo.age,null);
+ assert.ok(profiles.Tensai.results.some(result=>result[1]==='冠军'));
+ assert.equal(data.pickStats.mvps.memen,4);
  assert.equal(data.pickStats.modes.length,6);
  assert.equal(data.pickStats.modes.reduce((count,mode)=>count+mode.sets,0),data.pickStats.sets);
  const votes=await fetch(ctx.base+'/api/votes');

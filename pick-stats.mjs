@@ -51,11 +51,15 @@ export function countBrawlerPicks(wikitext) {
   const matches = tournament.matchAll(/^[ \t]*\|R\d+M\d+\s*=\s*\{\{Match\b([\s\S]*?)^\}\}[ \t]*$/gm);
   const overall = newBucket();
   const byMode = new Map();
+  const mvps = new Map();
   for (const [,match] of matches) {
     const countedSeries = new Set();
+    const setWins = [0,0];
     for (const [,map] of match.matchAll(/\|\s*map[1-7]\s*=\s*\{\{Map\b([^{}]*)\}\}/g)) {
       const fields = Object.fromEntries([...map.matchAll(/\|\s*(\w+)\s*=\s*([^|\n]*)/g)].map(([,key,value])=>[key,value.trim()]));
       if (!scoredSet(fields)) continue;
+      const winningSide = fields.score1 === '2' ? 0 : 1;
+      setWins[winningSide]++;
       const mode = fields.maptype;
       if (mode && !byMode.has(mode)) byMode.set(mode,newBucket());
       const bucket = byMode.get(mode);
@@ -66,7 +70,6 @@ export function countBrawlerPicks(wikitext) {
       const ids = picks.map(brawlerId);
       const teams = [new Set(ids.slice(0,3)),new Set(ids.slice(3))];
       if (teams.some(team=>team.size!==3)) continue;
-      const winningSide = fields.score1 === '2' ? 0 : 1;
       addLineup(overall,ids,teams,winningSide);
       countedSeries.add(overall);
       if (bucket) {
@@ -74,12 +77,20 @@ export function countBrawlerPicks(wikitext) {
         countedSeries.add(bucket);
       }
     }
+    const mvp = match.match(/\|\s*mvp\s*=\s*([a-z0-9][a-z0-9?_. -]{0,31})(?=[|\r\n])/i)?.[1].trim().toLowerCase();
+    const bestOf = Number(match.match(/(?:^|\n)[ \t]*\|bestof=(\d+)\b/)?.[1] ?? 5);
+    const clincher = Math.floor(bestOf/2)+1;
+    const seriesScores = [...match.matchAll(/\|\s*opponent[12]\s*=\s*\{\{TeamOpponent\|[^{}\n]+?\|score=(\d+)\b/gi)].map(([,score])=>Number(score));
+    const scores = seriesScores.length===2 ? seriesScores : setWins;
+    if (mvp && Math.max(...scores) === clincher && Math.min(...scores) < clincher) {
+      mvps.set(mvp,(mvps.get(mvp)??0)+1);
+    }
     for (const bucket of countedSeries) bucket.recordedSeries++;
   }
   if (!overall.sets) throw new Error('暂无完整的已完赛英雄阵容');
   const modeNames = new Set([...MODES.keys(),...byMode.keys()]);
   const modes = [...modeNames].map(mode=>({mode,label:MODES.get(mode)??mode,...summarizeBucket(byMode.get(mode)??newBucket())}));
-  return {...summarizeBucket(overall),modes};
+  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps)};
 }
 
 export async function readBrawlerPicks(previous, fetchImpl = fetch) {
@@ -102,7 +113,7 @@ export async function readBrawlerPicks(previous, fetchImpl = fetch) {
   if (previous && revision.revid < previous.revision) throw new Error('出场资料返回较早的版本');
   const checkedAt = new Date().toISOString();
   const hasWinStats = previous?.heroes.every(hero=>Number.isInteger(hero.teamPicks)&&Number.isInteger(hero.wins));
-  if (hasWinStats && previous.modes?.length && revision.revid === previous.revision) return {...previous,checkedAt};
+  if (hasWinStats && previous.modes?.length && previous.mvps && revision.revid === previous.revision) return {...previous,checkedAt};
   const stats = countBrawlerPicks(revision.slots.main.content);
   if (hasWinStats && stats.sets < previous.sets) throw new Error('出场资料的完整阵容数量回退');
   return {...stats,revision:revision.revid,checkedAt,source:PICK_SOURCE,license:'https://creativecommons.org/licenses/by-sa/3.0/'};
