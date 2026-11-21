@@ -45,7 +45,7 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 「选手表现」按本届已收录的系列赛 MVP 次数排序，可筛选战队。MVP 和英雄阵容共用一次 Liquipedia 核查，完赛比分提供战队系列赛胜负。公开阵容按战队记录选用英雄，个人常用英雄通过 [Brawlytics 赛季资料](https://brawlytics.pro/worlds#teams) 查看。
 
-「逐局明细」使用 [Leafstats 的公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 打开本届指定比赛，按 Set（地图）与 Game（小局）查看个人英雄、击杀、死亡、伤害与治疗。来源未收录的数据以其页面显示为准。
+点击淘汰赛卡片的比分、空白处或「明细」可以打开该场比赛。逐局明细按赛段分组，地图与小局选择使用中文，已记录盘次来自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，简体地图名对照 [Brawlify](https://brawlify.com/zh-cn/maps)。个人英雄、击杀、死亡、伤害与治疗通过 [Leafstats 的公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 呈现。面板提供英文统计词汇的中文对照。
 
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 

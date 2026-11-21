@@ -128,7 +128,7 @@
   .round-title { color: var(--muted); font-size: 13px; font-weight: 750; }
   .round-stack { display: flex; flex: 1; flex-direction: column; gap: 8px; justify-content: space-around; }
   .arrow { flex: 0 0 13px; display: grid; place-items: center; color: #7b879a; font-size: 24px; }
-  .vs-card { display: block; min-height: 88px; padding: 8px 9px; background: var(--card); border: 1px solid var(--line); border-radius: 9px; }
+  .vs-card { display: block; min-height: 88px; padding: 8px 9px; background: var(--card); border: 1px solid var(--line); border-radius: 9px; cursor: pointer; }
   .vs-card:hover { border-color: #8793a6; }
   .vs-card.is-live { border-color: #56ae90; background: #152822; }
   .vs-top { display: flex; justify-content: space-between; align-items: center; gap: 4px; min-height: 20px; margin-bottom: 4px; }
@@ -145,7 +145,7 @@
   .team-logo { display: block; flex: none; width: 23px; height: 23px; object-fit: contain; border-radius: 5px; background: #282a43; padding: 2px; }
   .team-logo-placeholder { display: block; flex: none; width: 23px; height: 23px; border: 1px dashed #515b70; border-radius: 5px; }
   .vs-meta { display: flex; align-items: center; gap: 6px; }
-  .vs-details { padding-block: 2px; color: var(--violet); font-size: 11px; white-space: nowrap; }
+  .vs-details { padding: 2px; border: 0; background: transparent; color: var(--violet); font-size: 11px; white-space: nowrap; }
   .vs-details:hover { color: var(--ink); text-decoration: underline; }
   .vs-score { font-size: 16px; font-weight: 900; font-variant-numeric: tabular-nums; }
 
@@ -284,10 +284,13 @@
   .player-list tbody tr:nth-child(even) { background: #171c29; }
   .player-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
   #game-stats { width: min(1120px,calc(100% - 20px)); max-width: none; }
-  .game-stats-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; margin-block: 10px; }
+  .game-stats-tools { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1.25fr) minmax(0,.65fr); align-items: end; gap: 8px 14px; margin-block: 10px; }
   .game-stats-tools label { display: flex; flex-direction: column; gap: 4px; min-width: 0; font-size: 13px; }
   .game-stats-tools select { min-width: 0; max-width: 100%; text-overflow: ellipsis; }
-  .game-stats-tools a { color: var(--violet); font-size: 13px; padding-block: 6px; }
+  .game-stats-notes { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 16px; margin: 10px 0; font-size: 13px; color: var(--muted); }
+  .game-stats-notes a { color: var(--violet); padding-block: 4px; }
+  .game-stats-notes summary { cursor: pointer; }
+  .game-stats-notes details p { margin: 5px 0; }
   #game-stats-frame { display: block; width: 100%; height: min(680px,65dvh); border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
   .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 66px; margin-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 
@@ -359,7 +362,10 @@
     .player-list a { display: inline-block; padding-block: 4px; }
     #game-stats .info-panel { padding: 10px; }
     #game-stats .info-panel p { margin-block: 6px; }
-    #game-stats-frame { height: max(220px,calc(100dvh - 220px)); }
+    .game-stats-tools { grid-template-columns: minmax(0,1.55fr) minmax(0,1fr); gap: 6px 8px; }
+    .game-stats-tools label:first-child { grid-column: 1 / -1; }
+    .game-stats-tools select { padding-inline: 7px; }
+    #game-stats-frame { height: max(220px,calc(100dvh - 280px)); }
     .vote-teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .vote-team { gap: 5px; padding: 6px; }
     .vote-team .vote-mark { width: 30px; height: 28px; font-size: 9px; }
@@ -533,7 +539,7 @@
     <div class="info-head"><h2 id="info-bracket-title">淘汰赛赛制</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
     <p>八强赛采用双败淘汰制。胜者组落败后进入败者组，败者组落败后出局。黄色队名表示该场胜队。淘汰总数包含小组赛出局队伍。</p>
     <p>普通场次先赢 3 盘获胜，冠军争夺战先赢 4 盘获胜，胜者组冠军预先领先 1 盘。</p>
-    <p>对阵图可以左右滚动。点击队徽或队名查看阵容，点击「赛况」查看比赛详情。</p>
+    <p>对阵图可以左右滚动。点击队徽或队名查看阵容，点击比赛卡片的比分或空白处打开逐局明细。</p>
     <div class="info-links"><a href="https://supercell.com/brawlstars/en/blog/esports/brawl-stars-world-finals-format/" target="_blank" rel="noopener noreferrer">官方赛制 ↗</a></div>
   </div>
 </dialog>
@@ -564,12 +570,17 @@
 <dialog class="info-dialog" id="game-stats" aria-labelledby="game-stats-title">
   <div class="info-panel">
     <div class="info-head"><h2 id="game-stats-title">本届逐局明细</h2><form method="dialog"><button class="close-btn" aria-label="关闭逐局明细" autofocus>×</button></form></div>
-    <p>选中比赛后，点 Set 选择地图，再点 Game 选择小局。向下滑可查看来源已收录的英雄、击杀、死亡、伤害和治疗。</p>
     <div class="game-stats-tools">
       <label><span>比赛</span><select class="select" id="game-stats-match"></select></label>
-      <a id="game-stats-source" target="_blank" rel="noopener noreferrer">在 Leafstats 打开 ↗</a>
+      <label id="game-stats-set-field"><span>盘次 / 地图</span><select class="select" id="game-stats-set"></select></label>
+      <label id="game-stats-game-field"><span>小局</span><select class="select" id="game-stats-game"></select></label>
     </div>
-    <iframe id="game-stats-frame" title="Leafstats 选手逐局数据" referrerpolicy="no-referrer"></iframe>
+    <div class="game-stats-notes" id="game-stats-notes">
+      <a id="game-stats-source" target="_blank" rel="noopener noreferrer">原始数据 ↗</a>
+      <details><summary>英文表格对照</summary><p>盘次 Set · 小局 Game · 英雄 Brawler · 击杀 Kills · 死亡 Deaths · 伤害 Damage · 治疗 Healing</p></details>
+    </div>
+    <p class="empty" id="game-stats-empty" hidden></p>
+    <iframe id="game-stats-frame" title="Leafstats 选手逐局数据" referrerpolicy="no-referrer" hidden></iframe>
   </div>
 </dialog>
 <dialog class="info-dialog" id="info-votes" aria-labelledby="info-votes-title">
@@ -660,6 +671,13 @@ const gameStatsMatches = {
  L1A:'397231450874',L1B:'35717445612',LQ1:'102386589905',LQ2:'458802151836',
  LS:'510172655074',LF:'326708361287',
 };
+const gameMapNames = {
+ 'Beach Ball':'沙滩足球',"Belle's Rock":'摇滚贝尔','Crystal Arcade':'水晶街机厅','Deathcap Trap':'戈壁陷阱',
+ 'Dry Season':'酷热地带','Dueling Beetles':'甲虫决斗','Goldarm Gulch':'金臂峡谷','Hard Rock Mine':'硬石矿井',
+ Hideout:'草丛迷踪','Hot Potato':'烫手山芋','Kaboom Canyon':'轰隆峡谷','Layer Cake':'夹心蛋糕',
+ 'Open Business':'开门营业','Out in the Open':'空旷荒野','Pinhole Punt':'精准射门',
+ 'Ring of Fire':'灼热火圈','Safe Zone':'安全区域','Triple Dribble':'三重威胁',
+};
 let data = seed;
 let day = 'all';
 let filter = 'all';
@@ -720,7 +738,7 @@ function matchCard(m){
     :`<span class="vs-team-name">${teamLogo()}${label}</span>`;
    return `<div class="vs-team ${dim}">${team}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></div>`;
  };
- return `<article class="vs-card is-${m.status}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" target="_blank" rel="noopener noreferrer" href="https://brawlytics.pro/worlds/match/${encodeURIComponent(m.id)}" aria-label="${esc(m.stage)} ${m.id} 赛况">赛况 ↗</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
+ return `<article class="vs-card is-${m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><button type="button" class="vs-details" aria-haspopup="dialog" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ↗</button></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
 }
 async function loadPlayerProfiles(){
  if(playerProfiles||profilesLoading)return;
@@ -813,15 +831,15 @@ function renderGroups(){
 }
 function renderPlayerStats(){
  const teamFilter=$('#player-team').value;
- const matches=allMatches().filter(match=>match.status==='final'&&match.t1&&match.t2);
- $('#open-game-stats').disabled=!matches.some(match=>!teamFilter||match.t1===teamFilter||match.t2===teamFilter);
+ const matches=allMatches();
+ $('#open-game-stats').disabled=!matches.some(match=>match.status!=='scheduled'&&(!teamFilter||match.t1===teamFilter||match.t2===teamFilter));
  const mvp=data.pickStats?.mvps;
  const awards=mvp?Object.values(mvp).reduce((sum,count)=>sum+count,0):0;
  const syncLabel=data.mode==='offline'?'缓存数据':{synced:'已同步',cached:'缓存数据',snapshot:'赛事快照'}[data.pickStats?.status];
  const summary=mvp?`${syncLabel||'赛事数据'} · 已收录 ${awards} 场系列赛 MVP`:data.mode==='offline'?'系列赛 MVP 暂不可用':'正在读取系列赛 MVP';
  if($('#player-coverage').textContent!==summary)$('#player-coverage').textContent=summary;
  const rows=Object.entries(teamProfiles).filter(([name])=>!teamFilter||name===teamFilter).flatMap(([name,team])=>{
-  const played=matches.filter(match=>match.t1===name||match.t2===name);
+  const played=matches.filter(match=>match.status==='final'&&match.t1&&match.t2&&(match.t1===name||match.t2===name));
   const wins=played.filter(match=>(match.score1>match.score2?match.t1:match.t2)===name).length;
   const seasonUrl=`https://brawlytics.pro/worlds/team/${encodeURIComponent(seasonTeams[name])}`;
   return team.players.map(([handle])=>{
@@ -836,30 +854,74 @@ function renderPlayerStats(){
  if(list.innerHTML!==markup)list.innerHTML=markup;
 }
 function loadGameStats(){
- const match=$('#game-stats-match').value;
- const event=groupGames.some(group=>group[0]===match)?match[0]:'playoffs';
+ const id=$('#game-stats-match').value;
+ const match=allMatches().find(match=>match.id===id);
+ const frame=$('#game-stats-frame');
+ const waiting=match.status==='scheduled';
+ $('#game-stats-empty').hidden=!waiting;
+ $('#game-stats-notes').hidden=waiting;
+ frame.hidden=waiting;
+ if(waiting){
+  frame.removeAttribute('src');
+  $('#game-stats-empty').textContent=`${label(match.status)} · ${fmt(match.date)}（北京）`;
+  return;
+ }
+ const event=groupGames.some(group=>group[0]===id)?id[0]:'playoffs';
  const url=new URL('https://www.leafstats.net/officials/');
  url.searchParams.set('t',gameStatsEvents[event]);
- const matchId=gameStatsMatches[match];
- if(matchId){
-  url.searchParams.set('match',matchId);
-  url.searchParams.set('set','1');
-  url.searchParams.set('game','1');
- }
+ url.searchParams.set('match',gameStatsMatches[id]);
+ url.searchParams.set('set',$('#game-stats-set').value||'1');
+ const game=$('#game-stats-game').value;
+ if(game)url.searchParams.set('game',game);
  $('#game-stats-source').href=url.href;
  url.searchParams.set('embed','1');
- $('#game-stats-frame').src=url.href;
+ if(frame.src!==url.href)frame.src=url.href;
 }
-function openGameStats(){
- const team=$('#player-team').value;
- const matches=allMatches().filter(match=>match.status==='final'&&match.t1&&match.t2&&(!team||match.t1===team||match.t2===team));
+function chooseGameStatsSet(){
+ const id=$('#game-stats-match').value;
+ const number=Number($('#game-stats-set').value);
+ const set=data.pickStats?.setsByMatch?.[id]?.find(set=>set.number===number);
+ const games=$('#game-stats-game');
+ const count=set?.games??0;
+ games.replaceChildren(new Option('整盘汇总',''),...Array.from({length:count},(_,i)=>new Option(`第 ${i+1} 小局`,i+1)));
+ $('#game-stats-game-field').hidden=!count;
+ if(count)games.value='1';
+ loadGameStats();
+}
+function chooseGameStatsMatch(){
+ const id=$('#game-stats-match').value;
+ const match=allMatches().find(match=>match.id===id);
+ const picker=$('#game-stats-set');
+ const sets=match.status==='scheduled'?[]:(data.pickStats?.setsByMatch?.[id]??[]);
+ const names=new Map((data.pickStats?.modes??[]).map(({mode,label})=>[mode,mode==='Knockout'?'乱斗淘汰赛':label]));
+ picker.replaceChildren(...sets.map(set=>{
+  const label=[`第 ${set.number} 盘`,gameMapNames[set.map]||set.map,names.get(set.mode)].filter(Boolean).join(' · ');
+  return new Option(label,set.number);
+ }));
+ $('#game-stats-set-field').hidden=!sets.length;
+ chooseGameStatsSet();
+}
+function openGameStats(matchId=''){
+ const team=matchId?'':$('#player-team').value;
+ const matches=allMatches().filter(match=>match.id===matchId||
+  (match.status!=='scheduled'&&(!team||match.t1===team||match.t2===team))).reverse();
  if(!matches.length)return;
  const select=$('#game-stats-match');
- const selected=matches.some(match=>match.id===select.value)?select.value:matches.at(-1).id;
- select.replaceChildren(...matches.reverse().map(match=>new Option(`${match.t1} ${match.score1}–${match.score2} ${match.t2} · ${match.stage}`,match.id)));
+ const selected=matchId||(matches.some(match=>match.id===select.value)?select.value:matches[0].id);
+ const groups=[['淘汰赛',matches.filter(match=>!match.id.startsWith('A')&&!match.id.startsWith('B'))],
+  ['A 组',matches.filter(match=>match.id.startsWith('A'))],['B 组',matches.filter(match=>match.id.startsWith('B'))]];
+ select.replaceChildren(...groups.filter(([,items])=>items.length).map(([label,items])=>{
+  const group=document.createElement('optgroup');
+  group.label=label;
+  for(const match of items){
+   const score=match.status==='scheduled'?'对':`${match.score1}–${match.score2}`;
+   group.append(new Option(`${match.t1||'待定'} ${score} ${match.t2||'待定'} · ${match.stage}`,match.id));
+  }
+  return group;
+ }));
  select.value=selected;
  $('#game-stats').showModal();
- loadGameStats();
+ chooseGameStatsMatch();
 }
 function renderPickStats(){
  const picks=data.pickStats;
@@ -1054,8 +1116,16 @@ $('#pick-more').addEventListener('click',()=>{picksExpanded=!picksExpanded;rende
 const playerTeamFilter=$('#player-team');
 Object.entries(teamProfiles).forEach(([name,team])=>playerTeamFilter.add(new Option(team.title,name)));
 playerTeamFilter.addEventListener('change',renderPlayerStats);
-$('#open-game-stats').addEventListener('click',openGameStats);
-$('#game-stats-match').addEventListener('change',loadGameStats);
+$('#bracket').addEventListener('click',event=>{
+ const card=event.target.closest('.vs-card');
+ if(!card||event.target.closest('a'))return;
+ card.querySelector('.vs-details').focus({preventScroll:true});
+ openGameStats(card.dataset.matchId);
+});
+$('#open-game-stats').addEventListener('click',()=>openGameStats());
+$('#game-stats-match').addEventListener('change',chooseGameStatsMatch);
+$('#game-stats-set').addEventListener('change',chooseGameStatsSet);
+$('#game-stats-game').addEventListener('change',loadGameStats);
 $('#game-stats').addEventListener('close',()=>$('#game-stats-frame').removeAttribute('src'));
 $('#vote-submit').addEventListener('click',()=>void saveVote('POST'));
 $('#vote-remove').addEventListener('click',()=>void saveVote('DELETE'));
