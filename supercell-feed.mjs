@@ -1,6 +1,6 @@
 export const WORLD_FINALS_EVENT_ID = '6Yk1HZc0AIJdknCBGQZEI4';
 const BASE = 'https://event.supercell.com/brawlstars/v1';
-const IDS = ['UQ1','UQ2','UQ3','UQ4','L1A','L1B','US1','US2','LQ1','LQ2','UF','LS','LF','GF'];
+export const OFFICIAL_MATCH_IDS = ['UQ1','UQ2','UQ3','UQ4','L1A','L1B','US1','US2','LQ1','LQ2','UF','LS','LF','GF'];
 // Slots follow public/index.html. Official contestant order can differ from its dependency order.
 const SLOTS = [
   [15,5], [47,4], [8,2], [10,16],
@@ -28,8 +28,8 @@ export function normalizeSupercell(brackets, globalState) {
     }
   }
   const matches = {}, resolved = new Map();
-  for (let i = 0; i < IDS.length; i++) {
-    const n = i + 11, id = IDS[i], m = source.get(n), max = id === 'GF' ? 4 : 3;
+  for (let i = 0; i < OFFICIAL_MATCH_IDS.length; i++) {
+    const n = i + 11, id = OFFICIAL_MATCH_IDS[i], m = source.get(n), max = id === 'GF' ? 4 : 3;
     if (!m || typeof m.completed !== 'boolean' || !Array.isArray(m.contestant) || m.contestant.length !== 2 || m.isSkipped || m.isForfeit) throw new Error(`${id}: 官方场次不完整或赛制异常`);
     const dependencies = m.populateFromMatches;
     const expectedTeams = SLOTS[i].map(slot => {

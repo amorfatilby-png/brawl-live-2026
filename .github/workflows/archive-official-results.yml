@@ -1,0 +1,36 @@
+name: Archive official World Finals results
+
+on:
+  schedule:
+    - cron: '3-58/5 * 21-23 11 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: official-results-archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          path: app
+          persist-credentials: false
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: official-results
+          path: archive
+      - name: Save confirmed scores
+        run: |
+          node app/scripts/archive-official-results.mjs archive/data/official-results.json
+          git -C archive add data/official-results.json
+          if ! git -C archive diff --cached --quiet; then
+            git -C archive -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Archive confirmed World Finals scores'
+            git -C archive push origin HEAD:refs/heads/official-results
+          fi

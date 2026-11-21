@@ -2,7 +2,8 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readSupercellFeed } from './supercell-feed.mjs';
+import { readOfficialArchive } from './official-archive.mjs';
+import { OFFICIAL_MATCH_IDS, readSupercellFeed } from './supercell-feed.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const INDEX = path.join(ROOT, 'public', 'index.html');
@@ -19,7 +20,7 @@ const ADMIN_KEY = process.env.ADMIN_KEY || '';
 const requestedInterval = Number(process.env.FEED_INTERVAL_MS || (FEED_PROVIDER === 'supercell' ? 120000 : 45000));
 if (!Number.isFinite(requestedInterval) || requestedInterval > 2147483647) throw new Error('FEED_INTERVAL_MS 必须是有效的毫秒数');
 const INTERVAL_MS = Math.max(FEED_PROVIDER === 'supercell' ? 120000 : 15000, requestedInterval);
-const MATCH_IDS = new Set(['UQ1','UQ2','UQ3','UQ4','US1','US2','UF','GF','L1A','L1B','LQ1','LQ2','LS','LF']);
+const MATCH_IDS = new Set(OFFICIAL_MATCH_IDS);
 const STATES = new Set(['scheduled','live','final']);
 const feedConfigured = FEED_PROVIDER !== 'snapshot';
 if (FEED_URL && !/^https:\/\//i.test(FEED_URL) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(FEED_URL)) {
@@ -35,6 +36,7 @@ let feedChangedAt = null;
 let feedRetryAt = 0;
 let officialResponseDates = null;
 let officialAccepted = false;
+let officialArchive = null;
 const feedStale = () => feedConfigured && (!feedLastOk || Date.now() - Date.parse(feedLastOk) > Math.max(300000, INTERVAL_MS * 3));
 
 function validatePayload(body, {partial = false} = {}) {
@@ -61,11 +63,31 @@ function validatePayload(body, {partial = false} = {}) {
   return {matches: result, updatedAt: updatedAt.toISOString(), note: typeof body.note === 'string' ? body.note.slice(0,180) : ''};
 }
 
+async function refreshOfficialArchive() {
+  try {
+    const archive = await readOfficialArchive();
+    if (!archive || (officialArchive && Date.parse(archive.updatedAt) <= Date.parse(officialArchive.updatedAt))) return;
+    if (officialArchive && Object.keys(officialArchive.matches).some(id => !archive.matches[id])) throw new Error('完赛归档缺少已保存的结果');
+    officialArchive = archive;
+    const replaceCheckpoint = !officialAccepted && Date.parse(archive.updatedAt) >= Date.parse(state.updatedAt);
+    for (const [id, match] of Object.entries(archive.matches)) {
+      if (replaceCheckpoint || state.matches[id]?.status !== 'final') state.matches[id] = match;
+    }
+    if (replaceCheckpoint) {
+      state.updatedAt = archive.updatedAt;
+      state.note = 'Supercell 官方完赛归档';
+    }
+  } catch (error) {
+    console.error('[archive]', error.message);
+  }
+}
+
 async function refreshFeed() {
   if (!feedConfigured) return;
-  if (Date.now() < feedRetryAt) return;
   if (feedInFlight) return feedInFlight;
   feedInFlight = (async () => {
+    if (FEED_PROVIDER === 'supercell') await refreshOfficialArchive();
+    if (Date.now() < feedRetryAt) return;
     const abort = new AbortController();
     const timeout = setTimeout(() => abort.abort(), 12000);
     try {
@@ -146,6 +168,8 @@ const server = http.createServer(async (req,res) => {
         feedProvider:FEED_PROVIDER,
         feedStale:feedStale(),
         feedChangedAt,
+        archiveSavedAt:officialArchive?.updatedAt ?? null,
+        archivedFinals:officialArchive ? Object.keys(officialArchive.matches).length : 0,
         sourceUpdatedAt:FEED_PROVIDER === 'supercell' ? null : state.updatedAt,
         sourceUrl:FEED_PROVIDER === 'supercell' ? 'https://event.supercell.com/brawlstars/en/live' : null,
         feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null,

@@ -29,7 +29,7 @@ npm start
 
 上线验收：检查 `/health` 的 `feedProvider` 为 `supercell`、`feedLastOk` 非空、`feedError` 为 `null`、`feedStale` 为 `false`；再检查 `/api/state` 有 14 场比赛、队伍比分方向正确，页面显示官方来源和最近核查。`/health` 的 `ok=true` 只代表服务器能响应。
 
-Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍按本届赛事 ID 读取对阵和已确认赛果。服务重启且上游暂时不可用时，显示随版本保存的 `data/supercell-checkpoint.json` 并提示缓存状态。该文件只包含核对过的完赛比分，后续自动读取的新结果尚未持续写入持久存储。免费服务和源站缓存均可能影响延迟，不能承诺全天持续运行。
+Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍按本届赛事 ID 读取对阵和已确认赛果。GitHub Actions 在本届淘汰赛及赛后一天每约 5 分钟检查官方结果，比分有变化才写入 `official-results` 分支，也可从 Actions 手动运行。该分支保留完赛比赛，服务启动及后续刷新时会读取它。官方接口不可用时，页面显示已保存的赛果并标明状态；仓库归档暂不可用时仍可读取随版本内置的 `data/supercell-checkpoint.json`。归档和实时核查各有更新时间，归档可能因 GitHub 排程或源站缓存而延迟。
 
 ## 一、立即查看网页
 
