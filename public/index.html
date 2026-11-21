@@ -126,11 +126,14 @@ function renderSchedule(){const ms=allMatches().filter(m=>(day==='all'||new Date
 function renderGroups(){const eliminated=new Set(getEliminated());const line=name=>`<div class="group-team ${eliminated.has(name)?'elim':''}"><span>${esc(name)}</span><span>${eliminated.has(name)?'已淘汰':'已出线'}</span></div>`;$('#groups-grid').innerHTML=`<article class="group"><h3>GROUP A <span style="color:var(--yellow)">/ A 组</span></h3><p>前两名 HMBLE、Totem Esports 晋级八强</p>${['HMBLE','Totem Esports','Team Heretics','RED Canids'].map(line).join('')}</article><article class="group"><h3>GROUP B <span style="color:var(--yellow)">/ B 组</span></h3><p>前两名 Team Elektros、NAVI 晋级八强</p>${['Team Elektros','NAVI','NOVO Esports','Crazy Raccoon'].map(line).join('')}</article>`;}
 function statusMessage(){const el=$('#fetch-status'),sync=$('#sync-time');let msg='当前为历史快照 · 尚未连接实时数据源',good=false;
  if(data.mode==='offline'){msg='网络不可用 · 当前显示缓存比分（可能过时）';}
- else if(data.feedConfigured){if(data.feedError){msg='数据源同步异常 · 保留上次有效比分（可能过时）';}else if(data.feedLastOk&&data.feedStale){msg='数据核查已超时 · 显示缓存比分（可能过时）';}else if(data.feedLastOk){msg=data.feedProvider==='supercell'?'来源：Supercell 官方赛事网页 · 自动同步，可能延迟数分钟':'数据源已连接 · 自动同步中';good=true;}else{msg='正在连接比赛数据源 · 当前显示历史快照';}}
+ else if(data.feedConfigured){if(!data.feedLastOk&&data.archiveSavedAt){msg='官方数据暂不可用 · 当前显示已归档完赛比分';}else if(data.feedError){msg='数据源同步异常 · 保留上次有效比分（可能过时）';}else if(data.feedLastOk&&data.feedStale){msg='数据核查已超时 · 显示缓存比分（可能过时）';}else if(data.feedLastOk){msg=data.feedProvider==='supercell'?'来源：Supercell 官方赛事网页 · 自动同步，可能延迟数分钟':'数据源已连接 · 自动同步中';good=true;}else{msg='正在连接比赛数据源 · 当前显示历史快照';}}
  else if(data.mode==='manual'){msg='管理员更新模式 · 自动刷新已开启';good=true;}
 
  el.className='fetch-status'+(good?' good':'');el.innerHTML='<span class="statusdot"></span><span>'+esc(msg)+'</span>';
- sync.textContent=data.feedProvider==='supercell'?'最近核查：'+(data.feedLastOk?fmt(data.feedLastOk)+'（北京）':'尚未成功')+' · 比分更新时间：上游未提供':'比分更新：'+(data.updatedAt?fmt(data.updatedAt):'未知')+'（北京）';
+ const archived=data.archivedFinals?' · 已归档 '+data.archivedFinals+' 场':'';
+ sync.textContent=data.feedProvider==='supercell'
+  ? (data.feedLastOk?'最近核查：'+fmt(data.feedLastOk)+'（北京）':data.archiveSavedAt?'归档核查：'+fmt(data.archiveSavedAt)+'（北京）':'最近核查：尚未成功')+archived
+  : '比分更新：'+(data.updatedAt?fmt(data.updatedAt):'未知')+'（北京）';
  if(data.feedProvider==='supercell'){$$('#admin-form input,#admin-form select,#admin-form button').forEach(el=>el.disabled=true);$('#admin-msg').textContent='官方同步已启用，无法人工修改比分';}
 }
 function render(){renderSpot();renderStats();bracket('#upper-grid',[['八强赛',['UQ1','UQ2','UQ3','UQ4']],['半决赛',['US1','US2']],['胜者组决赛',['UF']],['冠军争夺',['GF']]]);bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);renderSchedule();renderGroups();statusMessage();}

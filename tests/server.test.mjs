@@ -64,6 +64,27 @@ test('a cold start during an outage serves the bundled official results checkpoi
  }finally{await stop(ctx)}
 });
 
+for(const scenario of ['failure-with-archive','rollback-with-archive'])test(`a cold start with ${scenario} preserves finals newer than the bundled checkpoint`,async()=>{
+ const ctx=await start({officialScenario:scenario,useOfficialCheckpoint:true});
+ try{
+  const data=await(await fetch(ctx.base+'/api/state')).json();
+  assert.equal(data.feedLastOk,null);assert.equal(data.feedStale,true);assert.equal(data.sourceUpdatedAt,null);
+  assert.match(data.feedError,scenario.startsWith('failure')?/429/:/回退/);
+  assert.equal(data.archiveSavedAt,'2026-11-22T04:00:00Z');assert.equal(data.archivedFinals,9);
+  assert.deepEqual(data.matches.LQ1,{status:'final',score1:3,score2:0});
+ }finally{await stop(ctx)}
+});
+
+test('a wrong event archive leaves the bundled checkpoint available',async()=>{
+ const ctx=await start({officialScenario:'failure-with-invalid-archive',useOfficialCheckpoint:true});
+ try{
+  const data=await(await fetch(ctx.base+'/api/state')).json();
+  assert.equal(data.archiveSavedAt,null);assert.equal(data.archivedFinals,0);
+  assert.equal(data.matches.LQ1,undefined);
+  assert.equal(Object.values(data.matches).filter(m=>m.status==='final').length,8);
+ }finally{await stop(ctx)}
+});
+
 for(const scenario of ['rate-limit-after-success','rollback'])test(`official ${scenario} preserves last valid scores`,async()=>{
  const ctx=await start({officialScenario:scenario});
  try{
