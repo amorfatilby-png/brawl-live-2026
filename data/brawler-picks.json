@@ -1570,5 +1570,445 @@
     "gero": 1,
     "guesti": 1,
     "sitetampo": 1
+  },
+  "setsByMatch": {
+    "A1": [
+      {
+        "number": 1,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Goldarm Gulch",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "A2": [
+      {
+        "number": 1,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Crystal Arcade",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Beach Ball",
+        "mode": "Brawl Ball",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 2
+      }
+    ],
+    "AW": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Goldarm Gulch",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Dueling Beetles",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Beach Ball",
+        "mode": "Brawl Ball",
+        "games": 3
+      }
+    ],
+    "AE": [
+      {
+        "number": 1,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Belle's Rock",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      }
+    ],
+    "AD": [
+      {
+        "number": 1,
+        "map": "Crystal Arcade",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Triple Dribble",
+        "mode": "Brawl Ball",
+        "games": 3
+      }
+    ],
+    "B1": [
+      {
+        "number": 1,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Safe Zone",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Deathcap Trap",
+        "mode": "Gem Grab",
+        "games": 2
+      }
+    ],
+    "B2": [
+      {
+        "number": 1,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Goldarm Gulch",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "BW": [
+      {
+        "number": 1,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Crystal Arcade",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 3
+      }
+    ],
+    "BE": [
+      {
+        "number": 1,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      }
+    ],
+    "BD": [
+      {
+        "number": 1,
+        "map": "Belle's Rock",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Hot Potato",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      }
+    ],
+    "UQ1": [
+      {
+        "number": 1,
+        "map": "Beach Ball",
+        "mode": "Brawl Ball",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Hot Potato",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Belle's Rock",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 5,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "UQ2": [
+      {
+        "number": 1,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Safe Zone",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "UQ3": [
+      {
+        "number": 1,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 5,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "UQ4": [
+      {
+        "number": 1,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Dry Season",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Safe Zone",
+        "mode": "Heist",
+        "games": 2
+      }
+    ],
+    "US1": [
+      {
+        "number": 1,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Beach Ball",
+        "mode": "Brawl Ball",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Deathcap Trap",
+        "mode": "Gem Grab",
+        "games": 2
+      }
+    ],
+    "US2": [
+      {
+        "number": 1,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Triple Dribble",
+        "mode": "Brawl Ball",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Layer Cake",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 3
+      }
+    ],
+    "L1A": [
+      {
+        "number": 1,
+        "map": "Hideout",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Hot Potato",
+        "mode": "Heist",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
+    "L1B": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      }
+    ]
   }
 }

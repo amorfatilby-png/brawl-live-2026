@@ -4,12 +4,14 @@ import { countBrawlerPicks, readBrawlerPicks } from '../pick-stats.mjs';
 
 const article = [
   '==={{Stage|Group Stage}}===',
+  '====Group A====',
   '|R1M1={{Match',
   ' |map1={{Map|maptype=Brawl Ball|score1=2|score2=1|t1c1=8-bit|t1c2=ll|t1c3=lou|t2c1=chester|t2c2=ruffs|t2c3=surge|t1b1=colt}}',
   ' |map2={{Map|maptype=Brawl Ball|score1=2|score2=0|t1c1=gus}}',
   ' |map3={{Map|score1=1|score2=0|t1c1=gus|t1c2=8bit|t1c3=surge|t2c1=chuck|t2c2=hank|t2c3=piper}}',
   ' |map4={{Map|score1=2|score2=0|t1c1=gus|t1c2=gus|t1c3=ruffs|t2c1=otis|t2c2=chester|t2c3=surge}}',
   '}}',
+  '====Group B====',
   '==={{Stage|Playoffs}}===',
   '|R1M1={{Match',
   ' |map1={{Map|maptype=Heist|score1=0|score2=2|t1c1=8bit|t1c2=larry & lawrie|t1c3=otis|t2c1=chester|t2c2=hank|t2c3=8-bit}}',
@@ -22,6 +24,8 @@ test('counts heroes once per complete played set across both tournament stages',
   assert.equal(result.sets,2);
   assert.equal(result.recordedSets,4);
   assert.equal(result.recordedSeries,2);
+  assert.deepEqual(result.setsByMatch.A1.map(set=>[set.number,set.mode,set.games]),[[1,'Brawl Ball',3],[2,'Brawl Ball',2],[4,'',2]]);
+  assert.deepEqual(result.setsByMatch.UQ1.map(set=>[set.number,set.mode,set.games]),[[1,'Heist',2]]);
   assert.deepEqual(result.heroes.slice(0,3),[
     {id:'8bit',picks:2,teamPicks:3,wins:2},
     {id:'chester',picks:2,teamPicks:2,wins:1},
@@ -52,6 +56,8 @@ test('checks API identity, handles revisions and respects Retry-After',async()=>
   assert.deepEqual(upgraded.heroes,prior.heroes);
   const ungrouped = {...prior,modes:undefined};
   assert.deepEqual((await readBrawlerPicks(ungrouped,revisionResponse(20))).modes,prior.modes);
+  const withoutMaps = {...prior,setsByMatch:undefined};
+  assert.deepEqual((await readBrawlerPicks(withoutMaps,revisionResponse(20))).setsByMatch,prior.setsByMatch);
   await assert.rejects(readBrawlerPicks(prior,revisionResponse(19)),/较早/);
   const partial = article.replace('t2c3=surge','t2c3=');
   await assert.rejects(readBrawlerPicks(prior,revisionResponse(21,partial)),/数量回退/);

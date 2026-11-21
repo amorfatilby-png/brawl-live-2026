@@ -6,6 +6,11 @@ const MODES = new Map([
   ['Gem Grab','宝石争霸'],['Brawl Ball','乱斗足球'],['Heist','金库攻防'],
   ['Bounty','赏金猎人'],['Hot Zone','热区争夺'],['Knockout','极限淘汰'],
 ]);
+const GROUP_MATCHES = {R1M1:'1',R1M2:'2',R2M1:'W',R1M3:'E',R2M2:'D'};
+const PLAYOFF_MATCHES = {
+  R1M1:'UQ1',R1M2:'UQ2',R1M3:'UQ3',R1M4:'UQ4',R1M5:'L1A',R1M6:'L1B',
+  R2M1:'US1',R2M2:'US2',R2M3:'LQ1',R2M4:'LQ2',R3M1:'LS',R4M1:'UF',R4M2:'LF',R5M1:'GF',
+};
 
 function scoredSet(fields) {
   return fields.winner !== 'skip' && ['0','1','2'].includes(fields.score1) &&
@@ -48,16 +53,24 @@ export function countBrawlerPicks(wikitext) {
   if (start < 0 || playoffs < start) throw new Error('无法识别小组赛与淘汰赛');
   const end = text.indexOf('\n==References==',playoffs);
   const tournament = text.slice(start,end < 0 ? undefined : end);
-  const matches = tournament.matchAll(/^[ \t]*\|R\d+M\d+\s*=\s*\{\{Match\b([\s\S]*?)^\}\}[ \t]*$/gm);
+  const groupB = tournament.indexOf('====Group B====');
+  const matches = tournament.matchAll(/^[ \t]*\|(R\d+M\d+)\s*=\s*\{\{Match\b([\s\S]*?)^\}\}[ \t]*$/gm);
   const overall = newBucket();
   const byMode = new Map();
   const mvps = new Map();
-  for (const [,match] of matches) {
+  const setsByMatch = {};
+  for (const entry of matches) {
+    const [,slot,match] = entry;
+    const groupSlot = GROUP_MATCHES[slot];
+    const matchId = entry.index>=playoffs-start ? PLAYOFF_MATCHES[slot] :
+      groupB>=0 && groupSlot ? (entry.index<groupB?'A':'B')+groupSlot : null;
+    const playedSets = [];
     const countedSeries = new Set();
     const setWins = [0,0];
-    for (const [,map] of match.matchAll(/\|\s*map[1-7]\s*=\s*\{\{Map\b([^{}]*)\}\}/g)) {
+    for (const [,number,map] of match.matchAll(/\|\s*map([1-7])\s*=\s*\{\{Map\b([^{}]*)\}\}/g)) {
       const fields = Object.fromEntries([...map.matchAll(/\|\s*(\w+)\s*=\s*([^|\n]*)/g)].map(([,key,value])=>[key,value.trim()]));
       if (!scoredSet(fields)) continue;
+      playedSets.push({number:Number(number),map:fields.map||'',mode:fields.maptype||'',games:Number(fields.score1)+Number(fields.score2)});
       const winningSide = fields.score1 === '2' ? 0 : 1;
       setWins[winningSide]++;
       const mode = fields.maptype;
@@ -77,6 +90,7 @@ export function countBrawlerPicks(wikitext) {
         countedSeries.add(bucket);
       }
     }
+    if (matchId && playedSets.length) setsByMatch[matchId]=playedSets;
     const mvp = match.match(/\|\s*mvp\s*=\s*([a-z0-9][a-z0-9?_. -]{0,31})(?=[|\r\n])/i)?.[1].trim().toLowerCase();
     const bestOf = Number(match.match(/(?:^|\n)[ \t]*\|bestof=(\d+)\b/)?.[1] ?? 5);
     const clincher = Math.floor(bestOf/2)+1;
@@ -90,7 +104,7 @@ export function countBrawlerPicks(wikitext) {
   if (!overall.sets) throw new Error('暂无完整的已完赛英雄阵容');
   const modeNames = new Set([...MODES.keys(),...byMode.keys()]);
   const modes = [...modeNames].map(mode=>({mode,label:MODES.get(mode)??mode,...summarizeBucket(byMode.get(mode)??newBucket())}));
-  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps)};
+  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps),setsByMatch};
 }
 
 export async function readBrawlerPicks(previous, fetchImpl = fetch) {
@@ -113,7 +127,7 @@ export async function readBrawlerPicks(previous, fetchImpl = fetch) {
   if (previous && revision.revid < previous.revision) throw new Error('出场资料返回较早的版本');
   const checkedAt = new Date().toISOString();
   const hasWinStats = previous?.heroes.every(hero=>Number.isInteger(hero.teamPicks)&&Number.isInteger(hero.wins));
-  if (hasWinStats && previous.modes?.length && previous.mvps && revision.revid === previous.revision) return {...previous,checkedAt};
+  if (hasWinStats && previous.modes?.length && previous.mvps && previous.setsByMatch && revision.revid === previous.revision) return {...previous,checkedAt};
   const stats = countBrawlerPicks(revision.slots.main.content);
   if (hasWinStats && stats.sets < previous.sets) throw new Error('出场资料的完整阵容数量回退');
   return {...stats,revision:revision.revid,checkedAt,source:PICK_SOURCE,license:'https://creativecommons.org/licenses/by-sa/3.0/'};
