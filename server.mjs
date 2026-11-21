@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { readOfficialArchive } from './official-archive.mjs';
 import { PICK_INTERVAL_MS, readBrawlerPicks } from './pick-stats.mjs';
 import { OFFICIAL_MATCH_IDS, readSupercellFeed } from './supercell-feed.mjs';
+import { teamVoteRoute } from './votes.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const INDEX = path.join(ROOT, 'public', 'index.html');
@@ -174,9 +175,11 @@ function readBody(req) {
   });
 }
 
+const voteRoute = teamVoteRoute({databaseUrl:process.env.VOTE_DATABASE_URL,siteUrl:process.env.RENDER_EXTERNAL_URL,json,readBody});
 const server = http.createServer(async (req,res) => {
   try {
     const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+    if (url.pathname === '/api/votes') return await voteRoute(req,res);
     if (req.method === 'GET' && url.pathname === '/health') {
       return json(res,200,{ok:true,feedConfigured,feedProvider:FEED_PROVIDER,feedLastOk,feedError,feedStale:feedStale(),feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null});
     }
