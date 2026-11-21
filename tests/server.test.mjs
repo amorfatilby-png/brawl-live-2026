@@ -39,6 +39,13 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  assert.equal(portrait.status,200);assert.equal(portrait.headers.get('content-type'),'image/png');
  assert.equal(Buffer.from(await portrait.arrayBuffer()).subarray(0,8).toString('hex'),'89504e470d0a1a0a');
  assert.equal((await fetch(ctx.base+'/assets/brawlers/16000999.png')).status,404);
+ const logoUrl=ctx.base+'/assets/teams/navi.webp';
+ const logo=await fetch(logoUrl);
+ assert.equal(logo.status,200);assert.equal(logo.headers.get('content-type'),'image/webp');
+ assert.equal(Buffer.from(await logo.arrayBuffer()).subarray(8,12).toString(),'WEBP');
+ const logoHead=await fetch(logoUrl,{method:'HEAD'});
+ assert.equal(logoHead.status,200);assert.equal(logoHead.headers.get('content-type'),'image/webp');
+ assert.equal((await fetch(ctx.base+'/assets/teams/unknown.webp')).status,404);
  assert.equal(data.pickStats.modes.length,6);
  assert.equal(data.pickStats.modes.reduce((count,mode)=>count+mode.sets,0),data.pickStats.sets);
  const votes=await fetch(ctx.base+'/api/votes');

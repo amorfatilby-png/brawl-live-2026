@@ -39,6 +39,8 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 英雄英文名与编号来自 [BrawlAPI](https://brawlapi.com/)，简体中文名对照 [Brawlify 英雄列表](https://brawlify.com/zh-cn/brawlers)。头像素材由 [Brawlify CDN](https://github.com/Brawlify/CDN) 提供，版权归 Supercell，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
 
+「战队」收录本届全球总决赛 12 支战队的参赛选手、教练和分析师。参赛名单对照 [Supercell 赛事公告](https://supercell.com/brawlstars/en/blog/esports/your-guide-to-the-biggest-brawl-stars-world-finals-ever-/)，人员资料改编自 [Liquipedia 赛事阵容](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026#Participants)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。队徽素材来自 [DraftMeta 总决赛参与队伍](https://draftmeta.com/games/brawl-stars/pros/world-finals-2026/event)，队徽权利归各自战队。
+
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 
 ### 启动具有更新能力的服务器
