@@ -265,6 +265,23 @@
   .team-links a { padding-block: 5px; color: var(--violet); }
   .team-links a:hover { text-decoration: underline; }
   .team-profile .team-links:first-child { margin: 0 0 12px; }
+  .team-people .player-careers { grid-template-columns: 1fr; }
+  .team-people .player-careers > li { padding: 0; }
+  .player-career summary { padding: 12px; cursor: pointer; }
+  .player-career summary strong, .player-career summary small { display: inline; }
+  .player-career summary small { margin-left: 8px; }
+  .career-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 12px 12px; }
+  .career-body h4 { margin: 5px 0 7px; }
+  .career-row { padding: 5px 0; border-bottom: 1px solid #494464; font-size: 13px; }
+  .career-row a, .career-source, .player-list a { color: var(--violet); }
+  .career-row a:hover, .career-source:hover, .player-list a:hover { text-decoration: underline; }
+  .career-source { display: inline-block; margin-top: 9px; font-size: 13px; }
+  .player-list { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .player-list th, .player-list td { padding: 9px clamp(6px,1.4vw,18px); text-align: left; border-bottom: 1px solid var(--line); }
+  .player-list thead th { background: #21213c; color: #d8cafa; font-size: 13px; }
+  .player-list td:nth-child(2), .player-list td:nth-child(3) { font-variant-numeric: tabular-nums; }
+  .player-list tbody th small { display: block; color: var(--muted); font-weight: 500; }
+  .player-list tbody tr:nth-child(even) { background: #171c29; }
   .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 66px; margin-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 
   .info-dialog { width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 0; color: var(--ink); background: var(--panel); border: 1px solid #525c6b; border-radius: 16px; }
@@ -330,6 +347,9 @@
     .team-entry .team-logo { width: 36px; height: 36px; }
     .team-people li { padding: 8px; font-size: 13px; }
     .team-profile-head .team-logo { width: 58px; height: 58px; }
+    .career-body { grid-template-columns: 1fr; }
+    .player-list { font-size: 13px; }
+    .player-list a { display: inline-block; padding-block: 4px; }
     .vote-teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .vote-team { gap: 5px; padding: 6px; }
     .vote-team .vote-mark { width: 30px; height: 28px; font-size: 9px; }
@@ -349,7 +369,7 @@
   <div class="wrap head">
     <a class="brand" href="#bracket" data-nav="bracket" aria-label="BRAWL LIVE 首页">BRAWL <b>LIVE</b></a>
     <nav class="headlinks" aria-label="页面导航">
-      <a href="#bracket" data-nav="bracket" aria-current="page">对阵图</a><a href="#picks" data-nav="picks">英雄数据</a><a href="#schedule" data-nav="schedule">赛程</a><a href="#groups" data-nav="groups">小组赛</a><a href="#teams" data-nav="teams">战队</a>
+      <a href="#bracket" data-nav="bracket" aria-current="page">对阵图</a><a href="#picks" data-nav="picks">英雄数据</a><a href="#players" data-nav="players">选手表现</a><a href="#schedule" data-nav="schedule">赛程</a><a href="#groups" data-nav="groups">小组赛</a><a href="#teams" data-nav="teams">战队</a>
     </nav>
     <a class="official-link" href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">官方赛事 ↗</a>
   </div>
@@ -460,6 +480,17 @@
       </div>
       <div id="team-directory"></div>
     </section>
+    <section class="section" id="players" data-view="players" aria-labelledby="players-title" hidden>
+      <div class="section-head">
+        <div class="section-title"><h2 id="players-title">选手表现</h2><button class="info-btn" type="button" data-info="info-players" aria-haspopup="dialog" aria-label="选手统计说明"><span aria-hidden="true">i</span></button></div>
+        <label class="mode-control"><span>战队</span><select class="select" id="player-team"><option value="">全部战队</option></select></label>
+      </div>
+      <p class="pick-summary" id="player-coverage" role="status">正在读取赛事统计</p>
+      <table class="player-list" aria-label="2026 全球总决赛选手表现">
+        <thead><tr><th scope="col">选手</th><th scope="col">系列赛 MVP</th><th scope="col">战队胜负</th><th scope="col">常用英雄</th></tr></thead>
+        <tbody id="player-list"></tbody>
+      </table>
+    </section>
     <section class="admin hide" id="admin" data-view="bracket">
       <h3>管理员录入比分</h3>
       <form id="admin-form" autocomplete="off">
@@ -509,6 +540,14 @@
     <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 赛事资料 ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a></div>
   </div>
 </dialog>
+<dialog class="info-dialog" id="info-players" aria-labelledby="info-players-title">
+  <div class="info-panel">
+    <div class="info-head"><h2 id="info-players-title">选手统计口径</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
+    <p>MVP 按 Liquipedia 已收录的本届完赛系列赛统计，随英雄数据一起核查。战队胜负按本届已完赛的系列赛计算。</p>
+    <p>现有逐盘阵容缺少选手与英雄的对应关系。常用英雄链接跳到 Brawlytics 赛季数据的战队页面，在 Players 下可查看个人数据。</p>
+    <div class="info-links"><a href="https://www.leafstats.net/officials/?t=294550838753" target="_blank" rel="noopener noreferrer">逐盘选手数据 ↗</a><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 赛事资料 ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">数据改编许可 ↗</a></div>
+  </div>
+</dialog>
 <dialog class="info-dialog" id="info-votes" aria-labelledby="info-votes-title">
   <div class="info-panel">
     <div class="info-head"><h2 id="info-votes-title">战队投票</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
@@ -556,6 +595,13 @@ const teamProfiles = {
  'Team Heretics':{slug:'team-heretics',title:'Team Heretics',region:'EMEA',qualifier:'最后机会资格赛第 2 · A 组',
   players:[['Marco','意大利'],['Subeme','意大利'],['iKaoss','西班牙']],staff:[['xCasta','教练','西班牙'],['Peri','分析师','西班牙']]}
 };
+const seasonTeams = {
+ 'FUT Esports':'FUT',NAVI:'NAVI','Bounty Hunters':'BOUNTY HUNTERS',HMBLE:'HMBLE',
+ 'ZETA DIVISION':'ZETA','Totem Esports':'TOTEM',Tribe:'TRIBE','Team Elektros':'TE',
+ 'Crazy Raccoon':'CR','NOVO Esports':'NOVO','RED Canids':'RED Canids','Team Heretics':'TH',
+};
+let playerProfiles;
+let profilesLoading = false;
 const defs = [
  ['UQ1','胜者组 · 八强','2026-11-21T03:00:00Z',['FUT Esports','NAVI']],
  ['UQ2','胜者组 · 八强','2026-11-21T04:00:00Z',['Bounty Hunters','HMBLE']],
@@ -643,6 +689,34 @@ function matchCard(m){
  };
  return `<article class="vs-card is-${m.status}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" target="_blank" rel="noopener noreferrer" href="https://brawlytics.pro/worlds/match/${encodeURIComponent(m.id)}" aria-label="${esc(m.stage)} ${m.id} 赛况">赛况 ↗</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
 }
+async function loadPlayerProfiles(){
+ if(playerProfiles||profilesLoading)return;
+ profilesLoading=true;
+ try{
+  const response=await fetch('/api/player-profiles',{signal:AbortSignal.timeout(8000)});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  playerProfiles=await response.json();
+ }catch{playerProfiles=null;}
+ finally{profilesLoading=false;}
+ if(activePanel==='teams'){
+  const selected=Object.values(teamProfiles).find(team=>location.hash===`#team-${team.slug}`);
+  if(selected){
+   const hadFocus=$('#team-directory').contains(document.activeElement);
+   renderTeamDirectory(selected);
+   if(hadFocus)$('#team-profile-title').focus({preventScroll:true});
+  }
+ }
+}
+function playerCareer(name,country){
+ const bio=playerProfiles?.[name];
+ const heading=`<strong>${esc(name)}</strong><small>${esc(country)}${bio?` · ${bio.age===null?'年龄未公开':bio.age+' 岁（开赛时）'}`:''}</small>`;
+ if(!bio)return `<li><strong>${esc(name)}</strong><small>${esc(country)} · ${playerProfiles===undefined?'履历加载中':'履历暂不可用'}</small></li>`;
+ const history=bio.history.slice().reverse().map(([team,start,end])=>`<div class="career-row"><b>${esc(team)}</b><small>${esc(start)} ～ ${end?esc(end):'至今'}</small></div>`).join('');
+ const results=bio.results.map(([date,rank,event,team,href])=>`<div class="career-row"><a href="https://liquipedia.net${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(event)}</a><small>${esc(date)} · ${esc(rank)} · ${esc(team)}</small></div>`).join('');
+ return `<li><details class="player-career"><summary>${heading}</summary><div class="career-body">
+  <div><h4>主要赛事成绩</h4>${results}<a class="career-source" href="https://liquipedia.net/brawlstars/${bio.wiki}" target="_blank" rel="noopener noreferrer">Liquipedia 选手档案 ↗</a></div><div><h4>战队履历</h4>${history}</div>
+ </div></details></li>`;
+}
 function renderTeamDirectory(profile){
  const directory=$('#team-directory');
  const sources='<a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026#Participants" target="_blank" rel="noopener noreferrer">阵容来源 ↗</a><a href="https://draftmeta.com/games/brawl-stars/pros/world-finals-2026/event" target="_blank" rel="noopener noreferrer">队徽来源 ↗</a>';
@@ -654,9 +728,9 @@ function renderTeamDirectory(profile){
  }
  const person=(name,detail)=>`<li><strong>${esc(name)}</strong><small>${esc(detail)}</small></li>`;
  directory.innerHTML=`<article class="team-profile">
-  <div class="team-links"><a href="#teams" data-nav="teams">‹ 全部战队</a><a href="#bracket" data-nav="bracket">对阵图</a></div>
+  <div class="team-links"><a href="#teams" data-nav="teams">‹ 全部战队</a><a href="#bracket" data-nav="bracket">对阵图</a><a href="#players" data-nav="players">选手表现</a></div>
   <header class="team-profile-head">${teamLogo(profile)}<div><h2 id="team-profile-title" tabindex="-1">${esc(profile.title)}</h2><p>${esc(profile.region)} · ${esc(profile.qualifier)}</p></div></header>
-  <section class="team-people"><h3>参赛选手</h3><ul>${profile.players.map(([name,country])=>person(name,country)).join('')}</ul></section>
+  <section class="team-people"><h3>参赛选手</h3><ul class="player-careers">${profile.players.map(([name,country])=>playerCareer(name,country)).join('')}</ul></section>
   <section class="team-people"><h3>教练与分析师</h3><ul>${profile.staff.map(([name,role,country])=>person(name,`${role} · ${country}`)).join('')}</ul></section>
   <div class="team-links">${sources}</div>
  </article>`;
@@ -703,6 +777,29 @@ function renderGroups(){
   return `<div class="group-team${eliminated?' elim':''}"><span>${esc(name)}</span><span>${eliminated?'小组出局':'已出线'}</span></div>`;
  };
  $('#groups-grid').innerHTML=`<article class="group"><h3>A 组</h3>${['HMBLE','Totem Esports','Team Heretics','RED Canids'].map(line).join('')}</article><article class="group"><h3>B 组</h3>${['Team Elektros','NAVI','NOVO Esports','Crazy Raccoon'].map(line).join('')}</article>`;
+}
+function renderPlayerStats(){
+ const teamFilter=$('#player-team').value;
+ const matches=allMatches().filter(match=>match.status==='final'&&match.t1&&match.t2);
+ const mvp=data.pickStats?.mvps;
+ const awards=mvp?Object.values(mvp).reduce((sum,count)=>sum+count,0):0;
+ const syncLabel=data.mode==='offline'?'缓存数据':{synced:'已同步',cached:'缓存数据',snapshot:'赛事快照'}[data.pickStats?.status];
+ const summary=mvp?`${syncLabel||'赛事数据'} · 已收录 ${awards} 场系列赛 MVP`:data.mode==='offline'?'系列赛 MVP 暂不可用':'正在读取系列赛 MVP';
+ if($('#player-coverage').textContent!==summary)$('#player-coverage').textContent=summary;
+ const rows=Object.entries(teamProfiles).filter(([name])=>!teamFilter||name===teamFilter).flatMap(([name,team])=>{
+  const played=matches.filter(match=>match.t1===name||match.t2===name);
+  const wins=played.filter(match=>(match.score1>match.score2?match.t1:match.t2)===name).length;
+  const seasonUrl=`https://brawlytics.pro/worlds/team/${encodeURIComponent(seasonTeams[name])}`;
+  return team.players.map(([handle])=>{
+   const alias={Batman:'battoman',Jus:'jusorange'}[handle];
+   const awards=(mvp?.[handle.toLowerCase()]??0)+(mvp?.[alias]??0);
+   return {handle,team,wins,losses:played.length-wins,mvp:awards,seasonUrl};
+  });
+ });
+ rows.sort((a,b)=>b.mvp-a.mvp||a.handle.localeCompare(b.handle));
+ const markup=rows.map(row=>`<tr><th scope="row"><a href="#team-${row.team.slug}" data-team-link>${esc(row.handle)}</a><small>${esc(row.team.title)}</small></th><td>${mvp?row.mvp:'—'}</td><td>${row.wins} 胜 ${row.losses} 负</td><td><a href="${row.seasonUrl}" target="_blank" rel="noopener noreferrer" aria-label="${esc(row.handle)} 的赛季常用英雄">赛季参考 ↗</a></td></tr>`).join('');
+ const list=$('#player-list');
+ if(list.innerHTML!==markup)list.innerHTML=markup;
 }
 function renderPickStats(){
  const picks=data.pickStats;
@@ -844,6 +941,7 @@ function render(){
  }else if(activePanel==='picks')renderPickStats();
  else if(activePanel==='schedule')renderSchedule();
  else if(activePanel==='groups')renderGroups();
+ else if(activePanel==='players')renderPlayerStats();
  statusMessage();
 }
 async function refresh(){
@@ -861,13 +959,14 @@ async function refresh(){
 function showPanel(){
  const target=location.hash.slice(1);
  const profile=target.startsWith('team-')?Object.values(teamProfiles).find(team=>target===`team-${team.slug}`):null;
- activePanel=target.startsWith('team-')?'teams':['picks','schedule','groups','teams'].includes(target)?target:'bracket';
+ activePanel=target.startsWith('team-')?'teams':['picks','players','schedule','groups','teams'].includes(target)?target:'bracket';
  $$('[data-view]').forEach(panel=>{panel.hidden=panel.dataset.view!==activePanel;});
  $$('.headlinks [data-nav]').forEach(link=>{
   if(link.dataset.nav===activePanel)link.setAttribute('aria-current','page');
   else link.removeAttribute('aria-current');
  });
  if(activePanel==='teams')renderTeamDirectory(profile);
+ if(profile)void loadPlayerProfiles();
  render();
  if(activePanel==='bracket')void refreshVotes();
  if(target==='votes')$('#votes').scrollIntoView();
@@ -892,6 +991,9 @@ $('#match-filter').addEventListener('change',event=>{filter=event.target.value;r
 $('#refresh').addEventListener('click',refresh);
 $('#pick-mode').addEventListener('change',event=>{pickMode=event.target.value;picksExpanded=false;renderPickStats();});
 $('#pick-more').addEventListener('click',()=>{picksExpanded=!picksExpanded;renderPickStats();});
+const playerTeamFilter=$('#player-team');
+Object.entries(teamProfiles).forEach(([name,team])=>playerTeamFilter.add(new Option(team.title,name)));
+playerTeamFilter.addEventListener('change',renderPlayerStats);
 $('#vote-submit').addEventListener('click',()=>void saveVote('POST'));
 $('#vote-remove').addEventListener('click',()=>void saveVote('DELETE'));
 const bracketButtons=$$('[data-bracket]');

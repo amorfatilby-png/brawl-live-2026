@@ -41,6 +41,10 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 「战队」收录本届全球总决赛 12 支战队的参赛选手、教练和分析师。参赛名单对照 [Supercell 赛事公告](https://supercell.com/brawlstars/en/blog/esports/your-guide-to-the-biggest-brawl-stars-world-finals-ever-/)，人员资料改编自 [Liquipedia 赛事阵容](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026#Participants)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。队徽素材来自 [DraftMeta 总决赛参与队伍](https://draftmeta.com/games/brawl-stars/pros/world-finals-2026/event)，队徽权利归各自战队。
 
+点击战队内的选手可展开履历和代表性成绩。年龄按 2026 年 11 月 20 日开赛当天计算，缺失的年龄显示「年龄未公开」。[选手资料](data/player-profiles.json) 改编自 [Liquipedia 总决赛参赛资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026/Additional_Data_and_Statistics) 和各选手档案，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。
+
+「选手表现」按本届已收录的系列赛 MVP 次数排序，可筛选战队。MVP 和英雄阵容共用一次 Liquipedia 核查，完赛比分提供战队系列赛胜负。公开阵容按战队记录选用英雄，个人常用英雄通过 [Brawlytics 赛季资料](https://brawlytics.pro/worlds#teams) 查看。
+
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 
 ### 启动具有更新能力的服务器

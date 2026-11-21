@@ -40,6 +40,7 @@ let officialResponseDates = null;
 let officialAccepted = false;
 let officialArchive = null;
 const brawlerCatalog = new Map(Object.entries(JSON.parse(await fs.readFile(path.join(ROOT,'data','brawler-catalog.json'),'utf8'))));
+const playerProfiles = JSON.parse(await fs.readFile(path.join(ROOT,'data','player-profiles.json'),'utf8'));
 let pickStats = JSON.parse(await fs.readFile(path.join(ROOT,'data','brawler-picks.json'),'utf8'));
 let pickStatsStatus = 'snapshot';
 let pickRetryAt = 0;
@@ -182,6 +183,9 @@ const server = http.createServer(async (req,res) => {
     if (url.pathname === '/api/votes') return await voteRoute(req,res);
     if (req.method === 'GET' && url.pathname === '/health') {
       return json(res,200,{ok:true,feedConfigured,feedProvider:FEED_PROVIDER,feedLastOk,feedError,feedStale:feedStale(),feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null});
+    }
+    if (req.method === 'GET' && url.pathname === '/api/player-profiles') {
+      return json(res,200,playerProfiles);
     }
     if (req.method === 'GET' && url.pathname === '/api/state') {
       return json(res,200,{

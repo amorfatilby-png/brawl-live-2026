@@ -58,3 +58,16 @@ test('checks API identity, handles revisions and respects Retry-After',async()=>
   await assert.rejects(readBrawlerPicks(prior,async()=>new Response('',{status:429,headers:{'retry-after':'600'}})),
     error=>error.retryAfterMs===600000);
 });
+
+test('counts recorded series MVPs only after a verified final score',()=>{
+  const withAwards=article
+    .replace('|R1M1={{Match','|R1M1={{Match\n |caster1=Kenny|mvp=Guesti')
+    .replace(' |map1={{Map|maptype=Heist',' |mvp=Nowy297\n |map1={{Map|maptype=Heist');
+  assert.deepEqual(countBrawlerPicks(withAwards).mvps,{guesti:1});
+  const grandFinal=[
+    '|R5M1={{Match',' |bestof=7',
+    ' |opponent1={{TeamOpponent|NAVI|score=4}}',' |opponent2={{TeamOpponent|HMBLE|score=2}}',
+    ' |mvp=GeRo','}}',
+  ].join('\n');
+  assert.deepEqual(countBrawlerPicks(withAwards+'\n'+grandFinal).mvps,{guesti:1,gero:1});
+});
