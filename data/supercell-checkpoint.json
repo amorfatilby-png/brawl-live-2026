@@ -1,0 +1,46 @@
+{
+  "updatedAt": "2026-11-21T11:54:33.346Z",
+  "note": "已核对的 Supercell 官方完赛结果备份，非实时数据。",
+  "matches": {
+    "UQ1": {
+      "status": "final",
+      "score1": 2,
+      "score2": 3
+    },
+    "UQ2": {
+      "status": "final",
+      "score1": 0,
+      "score2": 3
+    },
+    "UQ3": {
+      "status": "final",
+      "score1": 2,
+      "score2": 3
+    },
+    "UQ4": {
+      "status": "final",
+      "score1": 0,
+      "score2": 3
+    },
+    "L1A": {
+      "status": "final",
+      "score1": 3,
+      "score2": 1
+    },
+    "L1B": {
+      "status": "final",
+      "score1": 3,
+      "score2": 1
+    },
+    "US1": {
+      "status": "final",
+      "score1": 3,
+      "score2": 1
+    },
+    "US2": {
+      "status": "final",
+      "score1": 1,
+      "score2": 3
+    }
+  }
+}
