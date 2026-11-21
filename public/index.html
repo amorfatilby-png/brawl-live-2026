@@ -88,7 +88,8 @@
   .spotlight-head h2 { margin: 0; font-size: 15px; }
   .spot-match { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 9px; min-height: 88px; padding-block: 12px; }
   .spot-team { min-width: 0; text-align: center; }
-  .team-circle { display: grid; place-items: center; margin: 0 auto 5px; min-width: 40px; width: fit-content; height: 34px; padding-inline: 5px; border-radius: 7px; color: #141923; font-size: 12px; font-weight: 950; }
+  .spot-team .team-logo, .spot-team .team-logo-placeholder { margin: 0 auto 5px; width: 40px; height: 34px; border-radius: 7px; }
+  .spot-team a:hover .spot-name { text-decoration: underline; text-underline-offset: 3px; }
   .spot-name { font-size: 13px; font-weight: 750; overflow-wrap: anywhere; }
   .spot-score { font-size: clamp(30px, 3.5vw, 46px); font-weight: 950; font-variant-numeric: tabular-nums; letter-spacing: -.045em; white-space: nowrap; }
   .spot-score .colon { padding-inline: 5px; color: var(--muted); font-size: .62em; }
@@ -140,7 +141,12 @@
   .vs-team.winner { color: var(--yellow); }
   .vs-team-name { display: flex; align-items: center; gap: 6px; min-width: 0; }
   .vs-team-name .ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .team-dot { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 5px; color: #131722; font-size: 8px; font-weight: 900; }
+  .vs-team-name[href]:hover .ellipsis { text-decoration: underline; text-underline-offset: 3px; }
+  .team-logo { display: block; flex: none; width: 23px; height: 23px; object-fit: contain; border-radius: 5px; background: #282a43; padding: 2px; }
+  .team-logo-placeholder { display: block; flex: none; width: 23px; height: 23px; border: 1px dashed #515b70; border-radius: 5px; }
+  .vs-meta { display: flex; align-items: center; gap: 6px; }
+  .vs-details { padding-block: 2px; color: var(--violet); font-size: 11px; white-space: nowrap; }
+  .vs-details:hover { color: var(--ink); text-decoration: underline; }
   .vs-score { font-size: 16px; font-weight: 900; font-variant-numeric: tabular-nums; }
 
   .filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
@@ -233,6 +239,32 @@
   .group-team + .group-team { border-top: 1px solid var(--line); }
   .group-team span:last-child { font-size: 12px; color: var(--green); white-space: nowrap; }
   .group-team.elim span:last-child { color: var(--muted); }
+  .team-index { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+  .team-entry, .team-profile {
+    border: 1px solid #51486d;
+    border-radius: 14px;
+    background: linear-gradient(110deg,#22243e,#1b1a2d 78%);
+  }
+  .team-entry { display: flex; align-items: center; gap: 14px; padding: 14px; min-width: 0; }
+  .team-entry:hover { border-color: var(--violet); }
+  .team-entry strong, .team-entry small { display: block; }
+  .team-entry small, .team-profile p { color: var(--muted); }
+  .team-entry .team-logo { width: 50px; height: 50px; padding: 5px; border-radius: 10px; }
+  .team-profile { padding: clamp(14px,3vw,28px); }
+  .team-profile-head { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+  .team-profile-head .team-logo { width: 78px; height: 78px; padding: 7px; border-radius: 14px; }
+  .team-profile-head h2 { margin: 0; font-size: clamp(23px,4vw,38px); line-height: 1.15; }
+  .team-profile-head p { margin: 4px 0 0; font-size: 13px; }
+  .team-people { margin-top: 18px; }
+  .team-people h3 { margin: 0 0 9px; font-size: 16px; }
+  .team-people ul { list-style: none; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 0; margin: 0; }
+  .team-people li { padding: 11px 12px; border: 1px solid #494464; border-radius: 9px; background: #191a2b; overflow-wrap: anywhere; }
+  .team-people strong, .team-people small { display: block; }
+  .team-people small { margin-top: 3px; color: var(--muted); }
+  .team-links { display: flex; flex-wrap: wrap; gap: 9px 18px; margin: 13px 0 0; font-size: 13px; }
+  .team-links a { padding-block: 5px; color: var(--violet); }
+  .team-links a:hover { text-decoration: underline; }
+  .team-profile .team-links:first-child { margin: 0 0 12px; }
   .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 66px; margin-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 
   .info-dialog { width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 0; color: var(--ink); background: var(--panel); border: 1px solid #525c6b; border-radius: 16px; }
@@ -293,6 +325,11 @@
     .pick-rate { gap: 5px; }
     .pick-rate strong { min-width: 44px; }
     .group-grid { grid-template-columns: 1fr; }
+    .team-index { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+    .team-entry { gap: 7px; padding: 8px; font-size: 13px; overflow-wrap: anywhere; }
+    .team-entry .team-logo { width: 36px; height: 36px; }
+    .team-people li { padding: 8px; font-size: 13px; }
+    .team-profile-head .team-logo { width: 58px; height: 58px; }
     .vote-teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .vote-team { gap: 5px; padding: 6px; }
     .vote-team .vote-mark { width: 30px; height: 28px; font-size: 9px; }
@@ -312,7 +349,7 @@
   <div class="wrap head">
     <a class="brand" href="#bracket" data-nav="bracket" aria-label="BRAWL LIVE 首页">BRAWL <b>LIVE</b></a>
     <nav class="headlinks" aria-label="页面导航">
-      <a href="#bracket" data-nav="bracket" aria-current="page">对阵图</a><a href="#picks" data-nav="picks">英雄数据</a><a href="#schedule" data-nav="schedule">赛程</a><a href="#groups" data-nav="groups">小组赛</a>
+      <a href="#bracket" data-nav="bracket" aria-current="page">对阵图</a><a href="#picks" data-nav="picks">英雄数据</a><a href="#schedule" data-nav="schedule">赛程</a><a href="#groups" data-nav="groups">小组赛</a><a href="#teams" data-nav="teams">战队</a>
     </nav>
     <a class="official-link" href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">官方赛事 ↗</a>
   </div>
@@ -333,9 +370,9 @@
       <aside class="spotlight" aria-labelledby="spot-title">
         <div class="spotlight-head"><h2 id="spot-title">焦点赛况</h2><span class="badge scheduled" id="spot-badge">待核查</span></div>
         <div class="spot-match">
-          <div class="spot-team"><div class="team-circle" id="spot-logo1" aria-hidden="true">—</div><div class="spot-name" id="spot-name1">待定</div></div>
+          <div class="spot-team" id="spot-team1"></div>
           <div class="spot-score" id="spot-score">—<span class="colon">:</span>—</div>
-          <div class="spot-team"><div class="team-circle" id="spot-logo2" aria-hidden="true">—</div><div class="spot-name" id="spot-name2">待定</div></div>
+          <div class="spot-team" id="spot-team2"></div>
         </div>
         <div class="spot-sub"><span id="spot-round">—</span><a id="spot-link" class="text-link" href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">比赛详情 ↗</a></div>
       </aside>
@@ -417,6 +454,12 @@
       </div>
       <div class="group-grid" id="groups-grid"></div>
     </section>
+    <section class="section" id="teams" data-view="teams" aria-labelledby="teams-title" hidden>
+      <div class="section-head" id="teams-heading">
+        <div class="section-title"><h2 id="teams-title" tabindex="-1">参赛战队</h2></div>
+      </div>
+      <div id="team-directory"></div>
+    </section>
     <section class="admin hide" id="admin" data-view="bracket">
       <h3>管理员录入比分</h3>
       <form id="admin-form" autocomplete="off">
@@ -446,7 +489,7 @@
     <div class="info-head"><h2 id="info-bracket-title">淘汰赛赛制</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
     <p>八强赛采用双败淘汰制。胜者组落败后进入败者组，败者组落败后出局。黄色队名表示该场胜队。淘汰总数包含小组赛出局队伍。</p>
     <p>普通场次先赢 3 盘获胜，冠军争夺战先赢 4 盘获胜，胜者组冠军预先领先 1 盘。</p>
-    <p>对阵图可以左右滚动，点按一场比赛可查看详情。</p>
+    <p>对阵图可以左右滚动。点击队徽或队名查看阵容，点击「赛况」查看比赛详情。</p>
     <div class="info-links"><a href="https://supercell.com/brawlstars/en/blog/esports/brawl-stars-world-finals-format/" target="_blank" rel="noopener noreferrer">官方赛制 ↗</a></div>
   </div>
 </dialog>
@@ -486,6 +529,32 @@ const teams = {
  'FUT Esports':['FUT','#f2c741'],'NAVI':['NAVI','#f8b840'],'Bounty Hunters':['BH','#efaa73'],'HMBLE':['HMB','#ae9ce8'],
  'ZETA DIVISION':['ZETA','#bcc4e2'],'Totem Esports':['TTM','#8dc879'],'Tribe':['TRB','#f5a6a0'],'Team Elektros':['TE','#a4d7ff'],
  'Crazy Raccoon':['CR','#db99ba'],'NOVO Esports':['NOVO','#8fd1c4'],'RED Canids':['RED','#e79599'],'Team Heretics':['TH','#bdc8da']
+};
+const teamProfiles = {
+ 'FUT Esports':{slug:'fut-esports',title:'FUT Esports',region:'EMEA',qualifier:'赛区第 1 · 直通八强',
+  players:[['Angelboy','乌克兰'],['Guesti','乌克兰'],['Nob?','亚美尼亚']],staff:[['Ricky','分析师','巴西']]},
+ 'NAVI':{slug:'navi',title:'NAVI',region:'EMEA',qualifier:'最后机会资格赛第 1 · B 组',
+  players:[['Nowy297','波兰'],['GeRo','波兰'],['Enraged','英国']],staff:[['chloun','教练','乌克兰']]},
+ 'Bounty Hunters':{slug:'bounty-hunters',title:'Bounty Hunters',region:'南美',qualifier:'赛区第 1 · 直通八强',
+  players:[['Prozy','秘鲁'],['Portox','阿根廷'],['Wesley','巴西']],staff:[['Killer','教练','危地马拉'],['Paolo','分析师','秘鲁']]},
+ 'HMBLE':{slug:'hmble',title:'HMBLE',region:'EMEA',qualifier:'赛区第 2 · A 组',
+  players:[['Symantec','德国'],['Lukii','德国'],['BosS','西班牙']],staff:[['Canaan','教练','英国'],['Vid','分析师','西班牙']]},
+ 'ZETA DIVISION':{slug:'zeta-division',title:'ZETA DIVISION',region:'东亚',qualifier:'赛区第 1 · 直通八强',
+  players:[['Sitetampo','日本'],['Sizuku','日本'],['Batman','日本']],staff:[['Mameshi','教练','日本'],['Leightox','分析师','波兰']]},
+ 'Totem Esports':{slug:'totem-esports',title:'Reply Totem',region:'EMEA',qualifier:'赛区第 3 · A 组',
+  players:[['Joker','德国'],['Maru','意大利'],['Maury','意大利']],staff:[['DaaNTz','教练','西班牙']]},
+ 'Tribe':{slug:'tribe-gaming',title:'Tribe Gaming',region:'北美',qualifier:'赛区第 1 · 直通八强',
+  players:[['Lxffy','波多黎各'],['Diegogamer','墨西哥'],['RBM','墨西哥']],staff:[['Roledu','教练','墨西哥'],['Sugus','分析师','西班牙']]},
+ 'Team Elektros':{slug:'team-elektros',title:'Team Elektros',region:'北美',qualifier:'赛区第 2 · B 组',
+  players:[['Snoiy','加拿大'],['Doin','加拿大'],['Memen','墨西哥']],staff:[['Kapi','教练','波兰']]},
+ 'Crazy Raccoon':{slug:'crazy-raccoon',title:'Crazy Raccoon',region:'东亚',qualifier:'赛区第 2 · B 组',
+  players:[['Milkreo','日本'],['Moya','日本'],['Tensai','日本']],staff:[['Relyh','教练','日本']]},
+ 'NOVO Esports':{slug:'novo-esports',title:'NOVO Esports',region:'EMEA',qualifier:'赛区第 4 · B 组',
+  players:[['MeOw','波兰'],['Jus','法国'],['Filippo','意大利']],staff:[['Dorian','教练','意大利'],['Bashira','分析师','法国'],['Kiwii','分析师','西班牙']]},
+ 'RED Canids':{slug:'red-canids',title:'RED Canids',region:'南美',qualifier:'赛区第 2 · A 组',
+  players:[['CaueBR','巴西'],['Mohtep','巴西'],['Jubileu','巴西']],staff:[['AlchemicalX','教练','智利'],['Peri','分析师','西班牙']]},
+ 'Team Heretics':{slug:'team-heretics',title:'Team Heretics',region:'EMEA',qualifier:'最后机会资格赛第 2 · A 组',
+  players:[['Marco','意大利'],['Subeme','意大利'],['iKaoss','西班牙']],staff:[['xCasta','教练','西班牙'],['Peri','分析师','西班牙']]}
 };
 const defs = [
  ['UQ1','胜者组 · 八强','2026-11-21T03:00:00Z',['FUT Esports','NAVI']],
@@ -554,14 +623,43 @@ function item(id){return resolved(id)}
 function cached(){return data.mode==='offline'||Boolean(data.feedConfigured&&(data.feedError||data.feedStale));}
 function label(s){return s==='final'?'已完赛':s==='live'?(cached()?'上次进行中':'进行中'):cached()||data.mode==='snapshot'?'待确认':'待开赛'}
 function badge(s){return `<span class="badge ${s}">${label(s)}</span>`}
+function teamLogo(profile){
+ return profile
+  ?`<img class="team-logo" src="./assets/teams/${profile.slug}.webp" alt="" width="23" height="23" decoding="async">`
+  :'<span class="team-logo-placeholder" aria-hidden="true"></span>';
+}
 function matchCard(m){
  if(!m)return '';
  const winner=m.status==='final'?(m.score1>m.score2?1:2):0;
  const line=(name,side,score)=>{
-   const [abbr,color]=teamInfo(name); const dim=winner&&winner!==side?'loser':winner===side?'winner':'';
-   return `<div class="vs-team ${dim}"><span class="vs-team-name"><span class="team-dot" style="background:${color}">${esc(abbr.slice(0,2))}</span><span class="ellipsis" title="${esc(name||'等待上轮结果')}">${esc(name||'等待上轮结果')}</span></span><span class="vs-score">${Number.isInteger(score)?score:'—'}</span></div>`;
+   const dim=winner&&winner!==side?'loser':winner===side?'winner':'';
+   const profile=teamProfiles[name];
+   const display=esc(name||'等待上轮结果');
+   const label=`<span class="ellipsis" title="${display}">${display}</span>`;
+   const team=profile
+    ?`<a class="vs-team-name" href="#team-${profile.slug}" data-team-link>${teamLogo(profile)}${label}</a>`
+    :`<span class="vs-team-name">${teamLogo()}${label}</span>`;
+   return `<div class="vs-team ${dim}">${team}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></div>`;
  };
- return `<a class="vs-card is-${m.status}" target="_blank" rel="noopener noreferrer" href="https://brawlytics.pro/worlds/match/${encodeURIComponent(m.id)}"><div class="vs-top">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</a>`;
+ return `<article class="vs-card is-${m.status}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" target="_blank" rel="noopener noreferrer" href="https://brawlytics.pro/worlds/match/${encodeURIComponent(m.id)}" aria-label="${esc(m.stage)} ${m.id} 赛况">赛况 ↗</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
+}
+function renderTeamDirectory(profile){
+ const directory=$('#team-directory');
+ const sources='<a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026#Participants" target="_blank" rel="noopener noreferrer">阵容来源 ↗</a><a href="https://draftmeta.com/games/brawl-stars/pros/world-finals-2026/event" target="_blank" rel="noopener noreferrer">队徽来源 ↗</a>';
+ $('#teams-heading').hidden=Boolean(profile);
+ $('#teams').setAttribute('aria-labelledby',profile?'team-profile-title':'teams-title');
+ if(!profile){
+  directory.innerHTML=`<div class="team-index">${Object.values(teamProfiles).map(team=>`<a class="team-entry" href="#team-${team.slug}" data-team-link>${teamLogo(team)}<span><strong>${esc(team.title)}</strong><small>${esc(team.region)}</small></span></a>`).join('')}</div><div class="team-links">${sources}</div>`;
+  return;
+ }
+ const person=(name,detail)=>`<li><strong>${esc(name)}</strong><small>${esc(detail)}</small></li>`;
+ directory.innerHTML=`<article class="team-profile">
+  <div class="team-links"><a href="#teams" data-nav="teams">‹ 全部战队</a><a href="#bracket" data-nav="bracket">对阵图</a></div>
+  <header class="team-profile-head">${teamLogo(profile)}<div><h2 id="team-profile-title" tabindex="-1">${esc(profile.title)}</h2><p>${esc(profile.region)} · ${esc(profile.qualifier)}</p></div></header>
+  <section class="team-people"><h3>参赛选手</h3><ul>${profile.players.map(([name,country])=>person(name,country)).join('')}</ul></section>
+  <section class="team-people"><h3>教练与分析师</h3><ul>${profile.staff.map(([name,role,country])=>person(name,`${role} · ${country}`)).join('')}</ul></section>
+  <div class="team-links">${sources}</div>
+ </article>`;
 }
 function bracket(id, columns){
  const grid=$(id);
@@ -570,9 +668,11 @@ function bracket(id, columns){
 function allMatches(){const groups=groupGames.map(g=>({id:g[0],stage:g[1],date:g[2],t1:g[3],t2:g[4],score1:g[5],score2:g[6],status:'final'}));return [...groups,...defs.map(d=>resolved(d[0]))].sort((a,b)=>new Date(a.date)-new Date(b.date));}
 function getEliminated(){const result=[...groupEliminated];['L1A','L1B','LQ1','LQ2','LS','LF','GF'].forEach(id=>{const m=item(id);if(m.status==='final'&&m.t1&&m.t2){const losing=m.score1>m.score2?m.t2:m.t1;if(!result.includes(losing))result.push(losing)}});return result;}
 function renderSpot(){const played=defs.map(d=>item(d[0]));const live=played.filter(m=>m.status==='live');const next=played.filter(m=>m.status==='scheduled'&&m.t1&&m.t2&&new Date(m.date)>new Date());const finals=played.filter(m=>m.status==='final');const match=live[0]||(['snapshot','offline'].includes(data.mode)?finals[finals.length-1]:null)||next[0]||finals[finals.length-1]||played[0];if(!match)return;
- const [abbr1,c1]=teamInfo(match.t1),[abbr2,c2]=teamInfo(match.t2);
- $('#spot-logo1').textContent=abbr1;$('#spot-logo1').style.background=c1;$('#spot-logo2').textContent=abbr2;$('#spot-logo2').style.background=c2;
- $('#spot-name1').textContent=match.t1||'等待上轮结果';$('#spot-name2').textContent=match.t2||'等待上轮结果';
+ [match.t1,match.t2].forEach((name,i)=>{
+  const profile=teamProfiles[name];
+  const content=`${teamLogo(profile)}<div class="spot-name">${esc(name||'等待上轮结果')}</div>`;
+  $(`#spot-team${i+1}`).innerHTML=profile?`<a href="#team-${profile.slug}" data-team-link>${content}</a>`:content;
+ });
  $('#spot-score').innerHTML=`${Number.isInteger(match.score1)?match.score1:'—'}<span class="colon">:</span>${Number.isInteger(match.score2)?match.score2:'—'}`;
  $('#spot-badge').className='badge '+match.status;$('#spot-badge').textContent=label(match.status);$('#spot-round').textContent=`${match.stage} · ${fmt(match.date)}`;
  $('#spot-link').href=`https://brawlytics.pro/worlds/match/${encodeURIComponent(match.id)}`;
@@ -743,7 +843,7 @@ function render(){
   bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);
  }else if(activePanel==='picks')renderPickStats();
  else if(activePanel==='schedule')renderSchedule();
- else renderGroups();
+ else if(activePanel==='groups')renderGroups();
  statusMessage();
 }
 async function refresh(){
@@ -760,23 +860,27 @@ async function refresh(){
 }
 function showPanel(){
  const target=location.hash.slice(1);
- activePanel=['picks','schedule','groups'].includes(target)?target:'bracket';
+ const profile=target.startsWith('team-')?Object.values(teamProfiles).find(team=>target===`team-${team.slug}`):null;
+ activePanel=target.startsWith('team-')?'teams':['picks','schedule','groups','teams'].includes(target)?target:'bracket';
  $$('[data-view]').forEach(panel=>{panel.hidden=panel.dataset.view!==activePanel;});
  $$('.headlinks [data-nav]').forEach(link=>{
   if(link.dataset.nav===activePanel)link.setAttribute('aria-current','page');
   else link.removeAttribute('aria-current');
  });
+ if(activePanel==='teams')renderTeamDirectory(profile);
  render();
  if(activePanel==='bracket')void refreshVotes();
  if(target==='votes')$('#votes').scrollIntoView();
  else window.scrollTo({top:0,behavior:'instant'});
 }
-$$('[data-nav]').forEach(link=>link.addEventListener('click',event=>{
- if(event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
+document.addEventListener('click',event=>{
+ const link=event.target.closest('a[data-nav],a[data-team-link]');
+ if(!link||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
  event.preventDefault();
  if(location.hash!==link.hash)history.pushState(null,'',link.hash);
  showPanel();
-}));
+ if(link.hasAttribute('data-team-link'))$('#team-profile-title')?.focus({preventScroll:true});
+});
 window.addEventListener('hashchange',showPanel);
 const dayButtons=$$('[data-day]');
 dayButtons.forEach(button=>button.addEventListener('click',()=>{

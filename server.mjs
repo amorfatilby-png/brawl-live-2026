@@ -216,13 +216,14 @@ const server = http.createServer(async (req,res) => {
       await fs.writeFile(FILE, JSON.stringify({updatedAt:state.updatedAt,matches:state.matches,note:'管理员手动更新'},null,2)+'\n','utf8');
       return json(res,200,{ok:true,updatedAt:state.updatedAt});
     }
-    const portrait = /^\/assets\/brawlers\/(16000\d{3}\.png)$/.exec(url.pathname);
-    if (portrait && (req.method==='GET'||req.method==='HEAD')) {
-      const filename = path.join(ROOT,'public','assets','brawlers',portrait[1]);
+    const asset = /^\/assets\/(brawlers\/16000\d{3}\.png|teams\/[a-z-]+\.webp)$/.exec(url.pathname);
+    if (asset && (req.method==='GET'||req.method==='HEAD')) {
+      const filename = path.join(ROOT,'public','assets',asset[1]);
       let image;
       try { image = await fs.readFile(filename); }
       catch (error) { if (error.code==='ENOENT') return json(res,404,{error:'Not found'}); throw error; }
-      res.writeHead(200,{'content-type':'image/png','content-length':image.length,'cache-control':'public, max-age=604800','x-content-type-options':'nosniff'});
+      const type=asset[1].endsWith('.webp')?'image/webp':'image/png';
+      res.writeHead(200,{'content-type':type,'content-length':image.length,'cache-control':'public, max-age=604800','x-content-type-options':'nosniff'});
       res.end(req.method==='GET'?image:undefined);
       return;
     }
