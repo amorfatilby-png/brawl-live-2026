@@ -13,7 +13,7 @@ async function randomPort(){return new Promise((resolve,reject)=>{const sock=net
 async function start({feedUrl='',officialScenario='',useOfficialCheckpoint=false}={}){
  const port=await randomPort();const dir=await fs.mkdtemp(path.join(os.tmpdir(),'brawl-test-'));
  const stateFile=path.join(dir,'state.json');await fs.copyFile(path.join(ROOT,'data','state.json'),stateFile);
- const env={...process.env,PORT:String(port),ADMIN_KEY:'test-admin-token',STATE_FILE:useOfficialCheckpoint?'':stateFile,FEED_URL:feedUrl,FEED_PROVIDER:officialScenario?'supercell':feedUrl?'json':'snapshot',FEED_INTERVAL_MS:'15000',TEST_OFFICIAL_SCENARIO:officialScenario};
+ const env={...process.env,PORT:String(port),ADMIN_KEY:'test-admin-token',VOTE_DATABASE_URL:'',STATE_FILE:useOfficialCheckpoint?'':stateFile,FEED_URL:feedUrl,FEED_PROVIDER:officialScenario?'supercell':feedUrl?'json':'snapshot',FEED_INTERVAL_MS:'15000',TEST_OFFICIAL_SCENARIO:officialScenario};
  const args=officialScenario?['--import',pathToFileURL(path.join(ROOT,'tests','supercell-mock.mjs')).href,'server.mjs']:['server.mjs'];
  const child=spawn(process.execPath,args,{cwd:ROOT,env,stdio:['ignore','pipe','pipe']});
  let errors='';child.stderr.on('data',chunk=>{errors+=chunk});
@@ -39,6 +39,11 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  assert.equal(portrait.status,200);assert.equal(portrait.headers.get('content-type'),'image/png');
  assert.equal(Buffer.from(await portrait.arrayBuffer()).subarray(0,8).toString('hex'),'89504e470d0a1a0a');
  assert.equal((await fetch(ctx.base+'/assets/brawlers/16000999.png')).status,404);
+ assert.equal(data.pickStats.modes.length,6);
+ assert.equal(data.pickStats.modes.reduce((count,mode)=>count+mode.sets,0),data.pickStats.sets);
+ const votes=await fetch(ctx.base+'/api/votes');
+ assert.equal(votes.status,503);
+ assert.equal((await votes.json()).error,'投票尚未开放');
  const health=await (await fetch(ctx.base+'/health')).json(); assert.equal(health.ok,true);
  }finally{await stop(ctx)}
 });

@@ -1,9 +1,17 @@
 {
-  "name":"brawl-world-finals-2026-live",
-  "version":"1.0.0",
-  "private":true,
-  "type":"module",
-  "description":"2026 荒野乱斗全球总决赛双败淘汰赛可自动更新网站",
-  "scripts":{"start":"node server.mjs","test":"node --test tests/*.mjs"},
-  "engines":{"node":">=20"}
+  "name": "brawl-world-finals-2026-live",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "2026 荒野乱斗全球总决赛双败淘汰赛可自动更新网站",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "postgres": "4.1.1"
+  }
 }

@@ -29,13 +29,15 @@
   button:disabled { cursor: wait; opacity: .6; }
   :focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
   .wrap { width: min(1320px, 100%); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
-  .topbar { background: #10141c; border-bottom: 1px solid var(--line); }
+  .topbar { position: sticky; top: 0; z-index: 5; background: #141522; border-bottom: 1px solid #373557; }
   .head { min-height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
   .brand { width: fit-content; font-size: 17px; font-weight: 950; letter-spacing: .055em; white-space: nowrap; }
   .brand b { color: var(--yellow); }
-  .headlinks { display: flex; align-items: center; gap: clamp(14px, 3vw, 32px); }
+  .headlinks { display: flex; align-items: center; gap: 5px; border-radius: 12px; background: #0e101a; padding: 4px; }
   .headlinks a, .official-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 14px; font-weight: 700; white-space: nowrap; }
   .headlinks a:hover, .official-link:hover { color: var(--yellow); }
+  .headlinks a { min-height: 38px; border-radius: 8px; padding-inline: clamp(9px,1.4vw,16px); }
+  .headlinks a[aria-current="page"] { color: #21162a; background: var(--yellow); }
   .official-link { justify-self: end; }
   .hero {
     background:
@@ -104,7 +106,7 @@
   .info-btn { display: inline-grid; place-items: center; padding: 0; }
   .info-btn span { display: grid; place-items: center; border: 1px solid currentColor; height: 19px; width: 19px; border-radius: 50%; font: 700 13px/1 system-ui, sans-serif; }
   .link-btn:hover, .info-btn:hover { color: var(--yellow); }
-  .section { margin-block: clamp(27px, 4vw, 52px); scroll-margin-top: 16px; }
+  .section { margin-block: clamp(27px, 4vw, 52px); scroll-margin-top: 102px; }
   .section-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 13px; }
   .section-title { gap: 0; }
   .section-title h2 { margin: 0; font-size: clamp(22px, 2.7vw, 32px); line-height: 1.15; font-weight: 900; letter-spacing: -.035em; }
@@ -158,6 +160,20 @@
   .empty { margin: 0; padding: 26px 15px; color: var(--muted); text-align: center; font-size: 14px; }
   .pick-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
   .pick-summary { color: var(--muted); font-size: 13px; }
+  .pick-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 8px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #4b4267;
+    border-radius: 12px;
+    background: linear-gradient(104deg,#21263f,#221a36);
+  }
+  .mode-control { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; }
+  .mode-control .select { min-height: 40px; }
   .pick-panel { border-color: #484463; }
   .pick-table { width: 100%; border-collapse: collapse; font-size: 14px; }
   .pick-table th, .pick-table td { padding: 8px clamp(10px, 2vw, 20px); }
@@ -179,6 +195,37 @@
   .pick-rate meter::-moz-meter-bar { background: var(--yellow); }
   .pick-rate strong { text-align: right; min-width: 55px; color: var(--yellow); font-variant-numeric: tabular-nums; }
   .pick-win { color: var(--violet); font-weight: 850; font-variant-numeric: tabular-nums; }
+  .vote-panel {
+    padding: clamp(13px, 2.5vw, 24px);
+    border: 1px solid #514270;
+    border-radius: 16px;
+    background:
+      radial-gradient(ellipse at 100% 0%,#47316b 0,transparent 52%),
+      linear-gradient(135deg,#1d2745,#171a2b 54%,#231934);
+  }
+  .vote-summary { color: var(--muted); font-size: 13px; }
+  .vote-teams { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+  .vote-team {
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+    align-items: center;
+    gap: 8px;
+    min-height: 51px;
+    padding: 8px;
+    text-align: left;
+    color: var(--ink);
+    background: #181b30;
+    border: 1px solid #474363;
+    border-radius: 9px;
+  }
+  .vote-team:disabled { cursor: default; opacity: .8; }
+  .vote-team:hover:not(:disabled) { border-color: var(--violet); }
+  .vote-team[aria-pressed="true"] { background: #3a3059; border-color: var(--yellow); }
+  .vote-team .vote-mark { display: grid; place-items: center; width: 34px; height: 30px; border-radius: 6px; color: #171522; font-size: 10px; font-weight: 950; }
+  .vote-team .vote-name { font-size: 13px; font-weight: 750; overflow-wrap: anywhere; }
+  .vote-team .vote-count { color: var(--violet); font-weight: 800; font-variant-numeric: tabular-nums; }
+  .vote-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 12px; margin-top: 13px; }
+  .vote-actions .link-btn { padding-inline: 9px; }
   .group-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .group { padding: 14px 16px; }
   .group h3 { margin: 0 0 4px; font-size: 17px; }
@@ -213,11 +260,13 @@
     .hero-content { grid-template-columns: minmax(0,1fr) minmax(110px,.52fr); gap: 14px; }
     .hero-art { width: min(100%,210px); justify-self: end; }
     .spotlight { grid-column: 1 / -1; }
+    .vote-teams { grid-template-columns: repeat(3,minmax(0,1fr)); }
     .match-line { grid-template-columns: 88px 95px minmax(0,1fr) 58px 63px; gap: 8px; padding-inline: 12px; }
   }
   @media (max-width: 640px) {
     .head { grid-template-columns: 1fr 1fr; gap: 0 10px; padding-block: 4px; }
-    .headlinks { grid-row: 2; grid-column: 1 / -1; gap: 25px; border-top: 1px solid var(--line); }
+    .headlinks { grid-row: 2; grid-column: 1 / -1; gap: 3px; margin-bottom: 4px; }
+    .headlinks a { flex: 1; justify-content: center; padding-inline: 4px; }
     .official-link { grid-row: 1; grid-column: 2; }
     .hero-content { grid-template-columns: minmax(0,1fr) minmax(84px,31%); gap: 15px 10px; padding-block: 25px; }
     .hero h1 { font-size: clamp(31px, 8.8vw, 51px); }
@@ -244,6 +293,10 @@
     .pick-rate { gap: 5px; }
     .pick-rate strong { min-width: 44px; }
     .group-grid { grid-template-columns: 1fr; }
+    .vote-teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .vote-team { gap: 5px; padding: 6px; }
+    .vote-team .vote-mark { width: 30px; height: 28px; font-size: 9px; }
+    .vote-team .vote-name { font-size: 12px; }
     .admin-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 420px) {
@@ -257,15 +310,15 @@
 <body>
 <header class="topbar">
   <div class="wrap head">
-    <a class="brand" href="#top" aria-label="BRAWL LIVE 首页">BRAWL <b>LIVE</b></a>
+    <a class="brand" href="#bracket" data-nav="bracket" aria-label="BRAWL LIVE 首页">BRAWL <b>LIVE</b></a>
     <nav class="headlinks" aria-label="页面导航">
-      <a href="#bracket">对阵图</a><a href="#picks">出场率</a><a href="#schedule">赛程</a><a href="#groups">小组赛</a>
+      <a href="#bracket" data-nav="bracket" aria-current="page">对阵图</a><a href="#picks" data-nav="picks">英雄数据</a><a href="#schedule" data-nav="schedule">赛程</a><a href="#groups" data-nav="groups">小组赛</a>
     </nav>
     <a class="official-link" href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">官方赛事 ↗</a>
   </div>
 </header>
 <main id="top">
-  <section class="hero" aria-labelledby="event-title">
+  <section class="hero" data-view="bracket" aria-labelledby="event-title">
     <div class="wrap hero-content">
       <div>
         <h1 id="event-title"><span>荒野乱斗</span><span>全球总决赛</span></h1>
@@ -296,7 +349,7 @@
         <button class="info-btn" type="button" data-info="info-data" aria-haspopup="dialog" aria-label="数据来源与同步详情"><span aria-hidden="true">i</span></button>
       </div>
     </div>
-    <section class="section" id="bracket" aria-labelledby="bracket-title">
+    <section class="section" id="bracket" data-view="bracket" aria-labelledby="bracket-title">
       <div class="section-head">
         <div class="section-title"><h2 id="bracket-title">淘汰赛对阵</h2><button class="info-btn" type="button" data-info="info-bracket" aria-haspopup="dialog" aria-label="淘汰赛赛制说明"><span aria-hidden="true">i</span></button></div>
         <dl class="stats">
@@ -316,13 +369,27 @@
         <div class="bracket-scroll" id="lower-bracket" role="region" aria-label="败者组对阵，可左右滚动" tabindex="0" hidden><div class="bracket-row" id="lower-grid"></div></div>
       </div>
     </section>
-    <section class="section" id="picks" aria-labelledby="picks-title">
+    <section class="section" id="votes" data-view="bracket" aria-labelledby="vote-title">
       <div class="section-head">
-        <div class="section-title"><h2 id="picks-title">英雄出场率</h2><button class="info-btn" type="button" data-info="info-picks" aria-haspopup="dialog" aria-label="英雄出场率统计说明"><span aria-hidden="true">i</span></button></div>
-        <div class="pick-controls">
-          <span id="pick-summary" class="pick-summary" role="status">正在读取统计</span>
-          <button id="pick-more" class="link-btn" type="button" aria-expanded="false" aria-controls="pick-list" hidden>全部英雄</button>
+        <div class="section-title"><h2 id="vote-title">支持战队</h2><button class="info-btn" type="button" data-info="info-votes" aria-haspopup="dialog" aria-label="战队投票说明"><span aria-hidden="true">i</span></button></div>
+        <span class="vote-summary" id="vote-total"></span>
+      </div>
+      <div class="vote-panel">
+        <div class="vote-teams" id="vote-teams" role="group" aria-label="选择支持的战队"></div>
+        <div class="vote-actions">
+          <button class="btn" id="vote-submit" type="button" disabled>确认支持</button>
+          <button class="link-btn" id="vote-remove" type="button" hidden>取消支持</button>
+          <span class="vote-summary" id="vote-status" role="status">正在读取票数</span>
         </div>
+      </div>
+    </section>
+    <section class="section" id="picks" data-view="picks" aria-labelledby="picks-title" hidden>
+      <div class="section-head">
+        <div class="section-title"><h2 id="picks-title">英雄出场率与胜率</h2><button class="info-btn" type="button" data-info="info-picks" aria-haspopup="dialog" aria-label="英雄出场率统计说明"><span aria-hidden="true">i</span></button></div>
+      </div>
+      <div class="pick-toolbar">
+        <label class="mode-control"><span>模式</span><select id="pick-mode" class="select"><option value="">全部模式</option></select></label>
+        <div class="pick-controls"><span id="pick-summary" class="pick-summary" role="status">正在读取统计</span><button id="pick-more" class="link-btn" type="button" aria-expanded="false" aria-controls="pick-list" hidden>全部英雄</button></div>
       </div>
       <div class="match-table pick-panel">
         <p class="empty" id="pick-placeholder">正在读取英雄出场记录</p>
@@ -332,7 +399,7 @@
         </table>
       </div>
     </section>
-    <section class="section" id="schedule" aria-labelledby="schedule-title">
+    <section class="section" id="schedule" data-view="schedule" aria-labelledby="schedule-title" hidden>
       <div class="section-head">
         <div class="section-title"><h2 id="schedule-title">赛程与比分</h2><button class="info-btn" type="button" data-info="info-schedule" aria-haspopup="dialog" aria-label="赛程时间说明"><span aria-hidden="true">i</span></button></div>
         <div class="filters">
@@ -344,13 +411,13 @@
       </div>
       <div id="match-table" class="match-table"></div>
     </section>
-    <section class="section" id="groups" aria-labelledby="groups-title">
+    <section class="section" id="groups" data-view="groups" aria-labelledby="groups-title" hidden>
       <div class="section-head">
         <div class="section-title"><h2 id="groups-title">小组赛出线</h2><button class="info-btn" type="button" data-info="info-groups" aria-haspopup="dialog" aria-label="小组赛出线规则"><span aria-hidden="true">i</span></button></div>
       </div>
       <div class="group-grid" id="groups-grid"></div>
     </section>
-    <section class="admin hide" id="admin">
+    <section class="admin hide" id="admin" data-view="bracket">
       <h3>管理员录入比分</h3>
       <form id="admin-form" autocomplete="off">
         <div class="admin-grid"><label>管理密钥<input id="admin-key" type="password" required placeholder="ADMIN_KEY" /></label><label>场次<select id="admin-match"></select></label><label>状态<select id="admin-status"><option value="scheduled">未开始 / 未确认</option><option value="live">比赛进行中</option><option value="final">比赛结束</option></select></label><label>左队得分<input id="admin-s1" type="number" min="0" max="4" value="0" required /></label><label>右队得分<input id="admin-s2" type="number" min="0" max="4" value="0" required /></label></div>
@@ -392,11 +459,17 @@
 <dialog class="info-dialog" id="info-picks" aria-labelledby="info-picks-title">
   <div class="info-panel">
     <div class="info-head"><h2 id="info-picks-title">英雄统计怎么算</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
-    <p>统计本届小组赛和淘汰赛阵容完整的已完赛盘。出场率按出现过该英雄的盘数计算；盘胜率按选择该英雄的队伍赢下的次数计算。双方都选同一英雄时，出场率计一盘，胜率计一胜一负。</p>
+    <p>每个模式单独统计阵容完整的已完赛盘。出场率用该英雄在所选模式的出场盘数除以该模式的收录盘数。盘胜率用选该英雄的队伍获胜次数除以选用次数。双方都选同一英雄时，出场率计一盘，胜率计一胜一负。</p>
     <p>阵容缺项或同队重复选人的盘次暂缓纳入，待资料修正后会补计。</p>
     <p>Liquipedia 由社区录入，比赛结束后可能稍晚才补齐。网站运行时每 2 分钟核查；接口不可用时保留上次取得的数据。</p>
     <dl><div><dt>收录范围</dt><dd id="pick-coverage">—</dd></div><div><dt>最近核查（北京）</dt><dd id="pick-checked">—</dd></div></dl>
     <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 赛事资料 ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a></div>
+  </div>
+</dialog>
+<dialog class="info-dialog" id="info-votes" aria-labelledby="info-votes-title">
+  <div class="info-panel">
+    <div class="info-head"><h2 id="info-votes-title">战队投票</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
+    <p>每个浏览器可支持一支战队。确认后计入全站票数，你可以改投或取消。这个投票表示观众支持度。</p>
   </div>
 </dialog>
 <dialog class="info-dialog" id="info-groups" aria-labelledby="info-groups-title">
@@ -445,6 +518,15 @@ let filter = 'all';
 let busy = false;
 let picksExpanded = false;
 let renderedPicks = '';
+let pickMode = '';
+let renderedModes = '';
+let activePanel = 'bracket';
+let voteData = null;
+let voteDraft = null;
+let voteError = '';
+let voteReading = false;
+let voteSubmitting = false;
+let voteEpoch = 0;
 const $ = s=>document.querySelector(s);
 const $$ = s=>Array.from(document.querySelectorAll(s));
 const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -524,27 +606,36 @@ function renderGroups(){
 }
 function renderPickStats(){
  const picks=data.pickStats;
- if(!picks?.sets){
-  $('#pick-summary').textContent='暂无可用数据';
-  $('#pick-placeholder').textContent='暂无完整的已完赛阵容';
-  return;
+ const modes=picks?.modes??[];
+ const modeList=modes.map(({mode,label})=>`${mode}:${label}`).join('|');
+ if(renderedModes!==modeList){
+  renderedModes=modeList;
+  const picker=$('#pick-mode');
+  picker.replaceChildren(new Option('全部模式',''),...modes.map(({mode,label})=>new Option(label,mode)));
+  picker.value=pickMode;
  }
- const summary=(data.mode==='offline'||picks.status==='cached'?'缓存统计 · ':picks.status==='snapshot'?'已核对快照 · ':'')+`已收录 ${picks.sets} 盘`;
+ const stats=modes.find(mode=>mode.mode===pickMode)??picks;
+ const status=picks?.status;
+ const summary=(data.mode==='offline'||status==='cached'?'缓存统计 · ':status==='snapshot'?'已核对快照 · ':'')+`已收录 ${stats?.sets??0} 盘`;
  if($('#pick-summary').textContent!==summary)$('#pick-summary').textContent=summary;
- $('#pick-coverage').textContent=`${picks.recordedSeries} 场 · ${picks.sets} / ${picks.recordedSets} 盘阵容完整`;
- $('#pick-checked').textContent=fmt(picks.checkedAt);
- $('#pick-placeholder').hidden=true;
- $('#pick-table').hidden=false;
+ $('#pick-coverage').textContent=stats?`${stats.recordedSeries} 场 · ${stats.sets} / ${stats.recordedSets} 盘阵容完整`:'—';
+ $('#pick-checked').textContent=fmt(picks?.checkedAt);
+ $('#pick-placeholder').hidden=Boolean(stats?.sets);
+ $('#pick-placeholder').textContent='暂无完整的已完赛阵容';
+ $('#pick-table').hidden=!stats?.sets;
  const button=$('#pick-more');
- button.hidden=picks.heroes.length<=8;
+ button.hidden=(stats?.heroes.length??0)<=8;
  button.textContent=picksExpanded?'收起':'全部英雄';
  button.setAttribute('aria-expanded',picksExpanded);
- const view=`${picks.revision}:${picksExpanded}`;
+ if(!stats?.sets)return;
+ const view=`${picks.revision}:${pickMode}:${picksExpanded}`;
  if(renderedPicks===view)return;
  renderedPicks=view;
- const visible=picksExpanded?picks.heroes:picks.heroes.slice(0,8);
- $('#pick-list').innerHTML=visible.map(hero=>{
-  const rate=(hero.picks*100/picks.sets).toFixed(1);
+ const profiles=new Map(picks.heroes.map(hero=>[hero.id,hero]));
+ const visible=picksExpanded?stats.heroes:stats.heroes.slice(0,8);
+ $('#pick-list').innerHTML=visible.map(entry=>{
+  const hero={...profiles.get(entry.id),...entry};
+  const rate=(hero.picks*100/stats.sets).toFixed(1);
   const winRate=hero.teamPicks?(hero.wins*100/hero.teamPicks).toFixed(1)+'%':'—';
   const portrait=hero.portrait
    ? `<img class="pick-avatar" src="${esc(hero.portrait)}" width="38" height="38" loading="lazy" decoding="async" alt="">`
@@ -555,6 +646,74 @@ function renderPickStats(){
    <td><div class="pick-rate"><meter aria-hidden="true" min="0" max="100" value="${rate}"></meter><strong>${rate}%</strong></div></td>
    <td class="pick-win" title="${hero.wins??0} 胜 / ${hero.teamPicks??0} 次队伍出场">${winRate}</td></tr>`;
  }).join('');
+}
+function makeVoteButtons(){
+ const list=$('#vote-teams');
+ list.innerHTML=Object.keys(teams).map(team=>{
+  const [abbr,color]=teamInfo(team);
+  return `<button class="vote-team" type="button" data-team="${esc(team)}" aria-pressed="false" disabled><span class="vote-mark" style="background:${color}" aria-hidden="true">${esc(abbr)}</span><span class="vote-name">${esc(team)}</span><span class="vote-count">—</span></button>`;
+ }).join('');
+ list.addEventListener('click',event=>{
+  const button=event.target.closest('[data-team]');
+  if(!button||button.disabled)return;
+  voteDraft=button.dataset.team;
+  voteError='';
+  renderVotes();
+ });
+}
+function renderVotes(){
+ const choice=voteData?.choice;
+ $$('[data-team]').forEach(button=>{
+  const team=button.dataset.team;
+  button.disabled=!voteData||voteSubmitting;
+  button.setAttribute('aria-pressed',voteDraft===team);
+  button.querySelector('.vote-count').textContent=voteData?.counts[team]??'—';
+ });
+ $('#vote-total').textContent=voteData?`共 ${voteData.total} 票`:'';
+ const submit=$('#vote-submit');
+ submit.disabled=!voteData||!voteDraft||voteDraft===choice||voteSubmitting;
+ submit.textContent=choice?'确认改投':'确认支持';
+ $('#vote-remove').hidden=!choice;
+ $('#vote-remove').disabled=voteSubmitting;
+ const status=voteSubmitting?'正在保存':voteError||(choice?`你已支持 ${choice}`:voteData?'请选择一支战队':'正在读取票数');
+ if($('#vote-status').textContent!==status)$('#vote-status').textContent=status;
+}
+async function voteRequest(method='GET'){
+ const options={method,cache:'no-store'};
+ if(method==='POST'){options.headers={'Content-Type':'application/json'};options.body=JSON.stringify({team:voteDraft});}
+ const response=await fetch('/api/votes',options);
+ const board=await response.json();
+ if(!response.ok)throw Error(board.error||'投票暂不可用');
+ return board;
+}
+async function refreshVotes(){
+ if(voteReading||voteSubmitting)return;
+ voteReading=true;
+ const epoch=voteEpoch;
+ try{
+  const board=await voteRequest();
+  if(epoch!==voteEpoch)return;
+  if(!voteDraft||voteDraft===voteData?.choice)voteDraft=board.choice;
+  voteData=board;
+  voteError='';
+ }catch(error){
+  if(epoch===voteEpoch)voteError=error.message;
+ }finally{
+  voteReading=false;
+  renderVotes();
+ }
+}
+async function saveVote(method){
+ if(voteSubmitting)return;
+ voteSubmitting=true;
+ voteEpoch++;
+ renderVotes();
+ try{
+  voteData=await voteRequest(method);
+  voteDraft=voteData.choice;
+  voteError='';
+ }catch(error){voteError=error.message;}
+ finally{voteSubmitting=false;renderVotes();}
 }
 function statusMessage(){
  const official=data.feedProvider==='supercell';
@@ -577,8 +736,48 @@ function statusMessage(){
  if(archived)$('#sync-archive').textContent=`${data.archivedFinals} 场 · ${fmt(data.archiveSavedAt)}（北京）`;
  if(data.feedProvider==='supercell'){$$('#admin-form input,#admin-form select,#admin-form button').forEach(el=>el.disabled=true);$('#admin-msg').textContent='官方同步已启用，无法人工修改比分';}
 }
-function render(){renderSpot();renderStats();bracket('#upper-grid',[['八强赛',['UQ1','UQ2','UQ3','UQ4']],['半决赛',['US1','US2']],['胜者组决赛',['UF']],['冠军争夺',['GF']]]);bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);renderPickStats();renderSchedule();renderGroups();statusMessage();}
-async function refresh(){if(busy)return;busy=true;$('#refresh').disabled=true;try{const res=await fetch('/api/state',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const fresh=await res.json();if(fresh&&fresh.matches&&typeof fresh.matches==='object'){data=fresh;render();}}catch(e){data.mode='offline';render();}finally{busy=false;$('#refresh').disabled=false}}
+function render(){
+ if(activePanel==='bracket'){
+  renderSpot();renderStats();
+  bracket('#upper-grid',[['八强赛',['UQ1','UQ2','UQ3','UQ4']],['半决赛',['US1','US2']],['胜者组决赛',['UF']],['冠军争夺',['GF']]]);
+  bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);
+ }else if(activePanel==='picks')renderPickStats();
+ else if(activePanel==='schedule')renderSchedule();
+ else renderGroups();
+ statusMessage();
+}
+async function refresh(){
+ if(busy)return;
+ if(activePanel==='bracket')void refreshVotes();
+ busy=true;$('#refresh').disabled=true;
+ try{
+  const response=await fetch('/api/state',{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const fresh=await response.json();
+  if(fresh?.matches){data=fresh;render();}
+ }catch(error){data.mode='offline';render();}
+ finally{busy=false;$('#refresh').disabled=false;}
+}
+function showPanel(){
+ const target=location.hash.slice(1);
+ activePanel=['picks','schedule','groups'].includes(target)?target:'bracket';
+ $$('[data-view]').forEach(panel=>{panel.hidden=panel.dataset.view!==activePanel;});
+ $$('.headlinks [data-nav]').forEach(link=>{
+  if(link.dataset.nav===activePanel)link.setAttribute('aria-current','page');
+  else link.removeAttribute('aria-current');
+ });
+ render();
+ if(activePanel==='bracket')void refreshVotes();
+ if(target==='votes')$('#votes').scrollIntoView();
+ else window.scrollTo({top:0,behavior:'instant'});
+}
+$$('[data-nav]').forEach(link=>link.addEventListener('click',event=>{
+ if(event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
+ event.preventDefault();
+ if(location.hash!==link.hash)history.pushState(null,'',link.hash);
+ showPanel();
+}));
+window.addEventListener('hashchange',showPanel);
 const dayButtons=$$('[data-day]');
 dayButtons.forEach(button=>button.addEventListener('click',()=>{
  day=button.dataset.day;
@@ -587,7 +786,10 @@ dayButtons.forEach(button=>button.addEventListener('click',()=>{
 }));
 $('#match-filter').addEventListener('change',event=>{filter=event.target.value;renderSchedule();});
 $('#refresh').addEventListener('click',refresh);
+$('#pick-mode').addEventListener('change',event=>{pickMode=event.target.value;picksExpanded=false;renderPickStats();});
 $('#pick-more').addEventListener('click',()=>{picksExpanded=!picksExpanded;renderPickStats();});
+$('#vote-submit').addEventListener('click',()=>void saveVote('POST'));
+$('#vote-remove').addEventListener('click',()=>void saveVote('DELETE'));
 const bracketButtons=$$('[data-bracket]');
 bracketButtons.forEach(button=>button.addEventListener('click',()=>{
  bracketButtons.forEach(item=>{
@@ -608,7 +810,7 @@ if(new URLSearchParams(location.search).has('admin')){
  $('#admin-form').addEventListener('submit',async e=>{e.preventDefault();const id=sel.value,status=$('#admin-status').value;const msg=$('#admin-msg');const key=$('#admin-key').value;const a=Number($('#admin-s1').value),b=Number($('#admin-s2').value);if(!key){msg.textContent='请输入管理员密钥';return;}if(status==='final'&&Math.max(a,b)!==(id==='GF'?4:3)){msg.textContent=`完赛比分需要一方达到 ${id==='GF'?4:3} 分`;return;}
  try{const res=await fetch('/api/update',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+key},body:JSON.stringify({matches:{[id]:{status,score1:a,score2:b}}})});const out=await res.json();if(!res.ok)throw Error(out.error||'提交失败');msg.textContent='✅ 已更新，访客端会在 15 秒内刷新';await refresh();}catch(err){msg.textContent='⚠ '+err.message;}});
 }
-render();refresh();setInterval(refresh,15000);
+makeVoteButtons();showPanel();refresh();setInterval(refresh,15000);
 })();
 </script>
 </body>

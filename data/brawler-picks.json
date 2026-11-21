@@ -454,8 +454,1108 @@
       "wins": 0
     }
   ],
+  "modes": [
+    {
+      "mode": "Gem Grab",
+      "label": "宝石争霸",
+      "sets": 10,
+      "recordedSets": 11,
+      "recordedSeries": 10,
+      "heroes": [
+        {
+          "id": "ruffs",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 2
+        },
+        {
+          "id": "janet",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 4
+        },
+        {
+          "id": "stu",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "chester",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 1
+        },
+        {
+          "id": "sirius",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 1
+        },
+        {
+          "id": "surge",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 3
+        },
+        {
+          "id": "8bit",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "colette",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "gus",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "nori",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "ash",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "elprimo",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "lumi",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "penny",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "rico",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "amber",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "bull",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "buzz",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "edgar",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "glowy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "max",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "moe",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "mortis",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "otis",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "squeak",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        }
+      ]
+    },
+    {
+      "mode": "Brawl Ball",
+      "label": "乱斗足球",
+      "sets": 10,
+      "recordedSets": 10,
+      "recordedSeries": 10,
+      "heroes": [
+        {
+          "id": "chester",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 2
+        },
+        {
+          "id": "larrylawrie",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "lumi",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 3
+        },
+        {
+          "id": "moe",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 3
+        },
+        {
+          "id": "stu",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "max",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "otis",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "willow",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "ash",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "colette",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "edgar",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "emz",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "gale",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "griff",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "hank",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "rico",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "ruffs",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "alli",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "amber",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "barley",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "elprimo",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "leon",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "lou",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "melodie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "nori",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "squeak",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "surge",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "ziggy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        }
+      ]
+    },
+    {
+      "mode": "Heist",
+      "label": "金库攻防",
+      "sets": 14,
+      "recordedSets": 14,
+      "recordedSeries": 14,
+      "heroes": [
+        {
+          "id": "colt",
+          "picks": 8,
+          "teamPicks": 8,
+          "wins": 6
+        },
+        {
+          "id": "angelo",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 3
+        },
+        {
+          "id": "kaze",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 2
+        },
+        {
+          "id": "brock",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "finx",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "otis",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 1
+        },
+        {
+          "id": "8bit",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "alli",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "amber",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 0
+        },
+        {
+          "id": "belle",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "lou",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "surge",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "carl",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "chuck",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "colette",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "glowy",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "griff",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "lola",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "lumi",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "ruffs",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "berry",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "bibi",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "bull",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "byron",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "chester",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "cordelius",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "emz",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "maisie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "mandy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "max",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "melodie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "najia",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "nita",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "nori",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "rico",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        }
+      ]
+    },
+    {
+      "mode": "Bounty",
+      "label": "赏金猎人",
+      "sets": 9,
+      "recordedSets": 9,
+      "recordedSeries": 9,
+      "heroes": [
+        {
+          "id": "belle",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 0
+        },
+        {
+          "id": "gus",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 2
+        },
+        {
+          "id": "brock",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "max",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "amber",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 0
+        },
+        {
+          "id": "angelo",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "byron",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "gene",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "piper",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "berry",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "edgar",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "kaze",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "mina",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "mrp",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "bolt",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "glowy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "gray",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "griff",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "lou",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "mandy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "melodie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "penny",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "shade",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "squeak",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "surge",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        }
+      ]
+    },
+    {
+      "mode": "Hot Zone",
+      "label": "热区争夺",
+      "sets": 12,
+      "recordedSets": 12,
+      "recordedSeries": 12,
+      "heroes": [
+        {
+          "id": "8bit",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 4
+        },
+        {
+          "id": "berry",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "chester",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 2
+        },
+        {
+          "id": "finx",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 1
+        },
+        {
+          "id": "gale",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "ruffs",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 1
+        },
+        {
+          "id": "emz",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 4
+        },
+        {
+          "id": "stu",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 0
+        },
+        {
+          "id": "griff",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "lumi",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 0
+        },
+        {
+          "id": "colette",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "cosmo",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "juju",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "mrp",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "nori",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "otis",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "sirius",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "surge",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "alli",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "barley",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "bull",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "chuck",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "colt",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "damian",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "draco",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "gray",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "hank",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "melodie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "pierce",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "squeak",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        }
+      ]
+    },
+    {
+      "mode": "Knockout",
+      "label": "极限淘汰",
+      "sets": 11,
+      "recordedSets": 11,
+      "recordedSeries": 11,
+      "heroes": [
+        {
+          "id": "gus",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "angelo",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 1
+        },
+        {
+          "id": "brock",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 3
+        },
+        {
+          "id": "gray",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "lou",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 0
+        },
+        {
+          "id": "rt",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 3
+        },
+        {
+          "id": "leon",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "mina",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "piper",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "squeak",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "8bit",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "amber",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "belle",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "darryl",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "eve",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "gene",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "najia",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "pearl",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "bolt",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "byron",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "charlie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "colt",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "edgar",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "jaeyong",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "mandy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "max",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "mrp",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "nani",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "ollie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "sprout",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "ziggy",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        }
+      ]
+    }
+  ],
   "revision": 278415,
-  "checkedAt": "2026-11-21T14:04:15.196Z",
+  "checkedAt": "2026-11-21T14:27:00.840Z",
   "source": "https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026",
   "license": "https://creativecommons.org/licenses/by-sa/3.0/"
 }
