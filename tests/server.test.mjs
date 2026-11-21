@@ -10,10 +10,10 @@ import http from 'node:http';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 async function randomPort(){return new Promise((resolve,reject)=>{const sock=net.createServer();sock.listen(0,'127.0.0.1',()=>{const p=sock.address().port;sock.close(()=>resolve(p))});sock.on('error',reject)});}
-async function start({feedUrl='',officialScenario=''}={}){
+async function start({feedUrl='',officialScenario='',useOfficialCheckpoint=false}={}){
  const port=await randomPort();const dir=await fs.mkdtemp(path.join(os.tmpdir(),'brawl-test-'));
  const stateFile=path.join(dir,'state.json');await fs.copyFile(path.join(ROOT,'data','state.json'),stateFile);
- const env={...process.env,PORT:String(port),ADMIN_KEY:'test-admin-token',STATE_FILE:stateFile,FEED_URL:feedUrl,FEED_PROVIDER:officialScenario?'supercell':feedUrl?'json':'snapshot',FEED_INTERVAL_MS:'15000',TEST_OFFICIAL_SCENARIO:officialScenario};
+ const env={...process.env,PORT:String(port),ADMIN_KEY:'test-admin-token',STATE_FILE:useOfficialCheckpoint?'':stateFile,FEED_URL:feedUrl,FEED_PROVIDER:officialScenario?'supercell':feedUrl?'json':'snapshot',FEED_INTERVAL_MS:'15000',TEST_OFFICIAL_SCENARIO:officialScenario};
  const args=officialScenario?['--import',pathToFileURL(path.join(ROOT,'tests','supercell-mock.mjs')).href,'server.mjs']:['server.mjs'];
  const child=spawn(process.execPath,args,{cwd:ROOT,env,stdio:['ignore','pipe','pipe']});
  let errors='';child.stderr.on('data',chunk=>{errors+=chunk});
@@ -50,6 +50,17 @@ test('initial official failure retains the snapshot with an error and retry dead
   const data=await(await fetch(ctx.base+'/api/state')).json();
   assert.equal(data.feedLastOk,null);assert.equal(data.feedStale,true);assert.match(data.feedError,/429/);assert.ok(Date.parse(data.feedRetryAt)>Date.now()+500000);
   assert.deepEqual(data.matches.UQ1,{status:'final',score1:2,score2:3});assert.equal(data.matches.L1A,undefined);
+ }finally{await stop(ctx)}
+});
+
+test('a cold start during an outage serves the bundled official results checkpoint',async()=>{
+ const ctx=await start({officialScenario:'failure',useOfficialCheckpoint:true});
+ try{
+  const data=await(await fetch(ctx.base+'/api/state')).json();
+  assert.equal(data.feedLastOk,null);assert.equal(data.feedStale,true);assert.equal(data.sourceUpdatedAt,null);
+  assert.deepEqual(data.matches.L1A,{status:'final',score1:3,score2:1});
+  assert.deepEqual(data.matches.US2,{status:'final',score1:1,score2:3});
+  assert.equal(Object.values(data.matches).filter(m=>m.status==='final').length,8);
  }finally{await stop(ctx)}
 });
 

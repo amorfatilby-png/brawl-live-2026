@@ -64,6 +64,24 @@ test('rejects wrong event, maintenance, incomplete bracket, team mismatch and co
  ]){const data=copy();mutate(data);assert.throws(()=>normalizeSupercell(data,state));}
 });
 
+test('between broadcasts the identified finals bracket still supplies verified results',()=>{
+ const data=copy();
+ const results={15:[[47,1],[15,3]],16:[[10,1],[8,3]],17:[[4,1],[5,3]],18:[[2,1],[16,3]]};
+ for(const [id,sides] of Object.entries(results)){
+  const m=match(data,Number(id));m.contestant=sides.map(([id,score])=>({id,score}));m.completed=true;m.winner=1;
+ }
+ match(data,19).contestant=[{id:2,score:0},{id:15,score:0}];
+ const standby={eventState:0,liveState:0};
+ const result=normalizeSupercell(data,standby);
+ assert.deepEqual(result.UQ4,{status:'final',score1:0,score2:3});
+ assert.deepEqual(result.L1A,{status:'final',score1:3,score2:1});
+ assert.deepEqual(result.US2,{status:'final',score1:1,score2:3});
+ assert.deepEqual(result.LQ1,{status:'scheduled',score1:null,score2:null});
+ assert.equal(Object.keys(result).length,14);
+ assert.throws(()=>normalizeSupercell(bracket,{...standby,maintenance:true}));
+ assert.throws(()=>normalizeSupercell([{...bracket[0],eventId:'other'}],standby),/未包含本届总决赛/);
+});
+
 test('HTTP reads keep source update time unknown and reject stale caches or bad JSON',async()=>{
  const now=Date.now();
  const fetchImpl=async url=>new Response(JSON.stringify(url.endsWith('/bracket')?bracket:state),{headers:{date:new Date(now).toUTCString(),age:'0'}});

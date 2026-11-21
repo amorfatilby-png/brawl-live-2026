@@ -5,12 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { readSupercellFeed } from './supercell-feed.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const FILE = process.env.STATE_FILE ? path.resolve(process.env.STATE_FILE) : path.join(ROOT, 'data', 'state.json');
 const INDEX = path.join(ROOT, 'public', 'index.html');
 const PORT = Number(process.env.PORT || 3000);
 const FEED_URL = process.env.FEED_URL || '';
 const FEED_TOKEN = process.env.FEED_TOKEN || '';
 const FEED_PROVIDER = process.env.FEED_PROVIDER || (FEED_URL ? 'json' : 'snapshot');
+const defaultStateFile = FEED_PROVIDER === 'supercell' ? 'supercell-checkpoint.json' : 'state.json';
+const FILE = process.env.STATE_FILE ? path.resolve(process.env.STATE_FILE) : path.join(ROOT, 'data', defaultStateFile);
 if (!['snapshot','json','supercell'].includes(FEED_PROVIDER)) throw new Error('FEED_PROVIDER 必须是 snapshot / json / supercell');
 if (FEED_PROVIDER === 'supercell' && FEED_URL) throw new Error('官方模式请移除 FEED_URL，避免数据源混淆');
 if (FEED_PROVIDER === 'json' && !FEED_URL) throw new Error('JSON 模式需要 FEED_URL');
