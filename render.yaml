@@ -10,5 +10,9 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      # 获得授权的赛事 JSON 地址后再在 Render 面板添加 FEED_URL / FEED_TOKEN
+      - key: FEED_PROVIDER
+        value: supercell
+      - key: FEED_INTERVAL_MS
+        value: "120000"
+      # 官方网页源无需 Token；不要同时配置 FEED_URL
       # 如使用管理员功能，在 Render 面板添加 ADMIN_KEY，切勿提交到 GitHub
