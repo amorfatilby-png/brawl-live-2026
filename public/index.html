@@ -282,6 +282,13 @@
   .player-list td:nth-child(2), .player-list td:nth-child(3) { font-variant-numeric: tabular-nums; }
   .player-list tbody th small { display: block; color: var(--muted); font-weight: 500; }
   .player-list tbody tr:nth-child(even) { background: #171c29; }
+  .player-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+  #game-stats { width: min(1120px,calc(100% - 20px)); max-width: none; }
+  .game-stats-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; margin-block: 10px; }
+  .game-stats-tools label { display: flex; flex-direction: column; gap: 4px; min-width: 0; font-size: 13px; }
+  .game-stats-tools select { min-width: 0; max-width: 100%; text-overflow: ellipsis; }
+  .game-stats-tools a { color: var(--violet); font-size: 13px; padding-block: 6px; }
+  #game-stats-frame { display: block; width: 100%; height: min(680px,65dvh); border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
   .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 66px; margin-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 
   .info-dialog { width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 0; color: var(--ink); background: var(--panel); border: 1px solid #525c6b; border-radius: 16px; }
@@ -350,6 +357,9 @@
     .career-body { grid-template-columns: 1fr; }
     .player-list { font-size: 13px; }
     .player-list a { display: inline-block; padding-block: 4px; }
+    #game-stats .info-panel { padding: 10px; }
+    #game-stats .info-panel p { margin-block: 6px; }
+    #game-stats-frame { height: max(220px,calc(100dvh - 220px)); }
     .vote-teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .vote-team { gap: 5px; padding: 6px; }
     .vote-team .vote-mark { width: 30px; height: 28px; font-size: 9px; }
@@ -483,7 +493,10 @@
     <section class="section" id="players" data-view="players" aria-labelledby="players-title" hidden>
       <div class="section-head">
         <div class="section-title"><h2 id="players-title">选手表现</h2><button class="info-btn" type="button" data-info="info-players" aria-haspopup="dialog" aria-label="选手统计说明"><span aria-hidden="true">i</span></button></div>
-        <label class="mode-control"><span>战队</span><select class="select" id="player-team"><option value="">全部战队</option></select></label>
+        <div class="player-actions">
+          <label class="mode-control"><span>战队</span><select class="select" id="player-team"><option value="">全部战队</option></select></label>
+          <button class="link-btn" type="button" id="open-game-stats" aria-haspopup="dialog">逐局明细</button>
+        </div>
       </div>
       <p class="pick-summary" id="player-coverage" role="status">正在读取赛事统计</p>
       <table class="player-list" aria-label="2026 全球总决赛选手表现">
@@ -546,6 +559,17 @@
     <p>MVP 按 Liquipedia 已收录的本届完赛系列赛统计，随英雄数据一起核查。战队胜负按本届已完赛的系列赛计算。</p>
     <p>现有逐盘阵容缺少选手与英雄的对应关系。常用英雄链接跳到 Brawlytics 赛季数据的战队页面，在 Players 下可查看个人数据。</p>
     <div class="info-links"><a href="https://www.leafstats.net/officials/?t=294550838753" target="_blank" rel="noopener noreferrer">逐盘选手数据 ↗</a><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 赛事资料 ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">数据改编许可 ↗</a></div>
+  </div>
+</dialog>
+<dialog class="info-dialog" id="game-stats" aria-labelledby="game-stats-title">
+  <div class="info-panel">
+    <div class="info-head"><h2 id="game-stats-title">本届逐局明细</h2><form method="dialog"><button class="close-btn" aria-label="关闭逐局明细" autofocus>×</button></form></div>
+    <p>选中比赛后，点 Set 选择地图，再点 Game 选择小局。向下滑可查看来源已收录的英雄、击杀、死亡、伤害和治疗。</p>
+    <div class="game-stats-tools">
+      <label><span>比赛</span><select class="select" id="game-stats-match"></select></label>
+      <a id="game-stats-source" target="_blank" rel="noopener noreferrer">在 Leafstats 打开 ↗</a>
+    </div>
+    <iframe id="game-stats-frame" title="Leafstats 选手逐局数据" referrerpolicy="no-referrer"></iframe>
   </div>
 </dialog>
 <dialog class="info-dialog" id="info-votes" aria-labelledby="info-votes-title">
@@ -627,6 +651,15 @@ const groupGames = [
  ['BD','B组 · 出线赛','2026-11-20','NAVI','NOVO Esports',3,0]
 ];
 const groupEliminated = ['RED Canids','Team Heretics','Crazy Raccoon','NOVO Esports'];
+const gameStatsEvents = {A:'355385723002',B:'10652003391',playoffs:'294550838753'};
+const gameStatsMatches = {
+ A1:'497642637949',A2:'239611559658',AW:'54519149959',AE:'816049254391',AD:'28885633418',
+ B1:'721332049031',B2:'179300246214',BW:'370814303569',BE:'325456192008',BD:'802841466517',
+ UQ1:'795695319090',UQ2:'889608547089',UQ3:'821821530210',UQ4:'382670052052',
+ US1:'573410333543',US2:'723348384295',UF:'83069504683',GF:'108965543655',
+ L1A:'397231450874',L1B:'35717445612',LQ1:'102386589905',LQ2:'458802151836',
+ LS:'510172655074',LF:'326708361287',
+};
 let data = seed;
 let day = 'all';
 let filter = 'all';
@@ -781,6 +814,7 @@ function renderGroups(){
 function renderPlayerStats(){
  const teamFilter=$('#player-team').value;
  const matches=allMatches().filter(match=>match.status==='final'&&match.t1&&match.t2);
+ $('#open-game-stats').disabled=!matches.some(match=>!teamFilter||match.t1===teamFilter||match.t2===teamFilter);
  const mvp=data.pickStats?.mvps;
  const awards=mvp?Object.values(mvp).reduce((sum,count)=>sum+count,0):0;
  const syncLabel=data.mode==='offline'?'缓存数据':{synced:'已同步',cached:'缓存数据',snapshot:'赛事快照'}[data.pickStats?.status];
@@ -800,6 +834,32 @@ function renderPlayerStats(){
  const markup=rows.map(row=>`<tr><th scope="row"><a href="#team-${row.team.slug}" data-team-link>${esc(row.handle)}</a><small>${esc(row.team.title)}</small></th><td>${mvp?row.mvp:'—'}</td><td>${row.wins} 胜 ${row.losses} 负</td><td><a href="${row.seasonUrl}" target="_blank" rel="noopener noreferrer" aria-label="${esc(row.handle)} 的赛季常用英雄">赛季参考 ↗</a></td></tr>`).join('');
  const list=$('#player-list');
  if(list.innerHTML!==markup)list.innerHTML=markup;
+}
+function loadGameStats(){
+ const match=$('#game-stats-match').value;
+ const event=groupGames.some(group=>group[0]===match)?match[0]:'playoffs';
+ const url=new URL('https://www.leafstats.net/officials/');
+ url.searchParams.set('t',gameStatsEvents[event]);
+ const matchId=gameStatsMatches[match];
+ if(matchId){
+  url.searchParams.set('match',matchId);
+  url.searchParams.set('set','1');
+  url.searchParams.set('game','1');
+ }
+ $('#game-stats-source').href=url.href;
+ url.searchParams.set('embed','1');
+ $('#game-stats-frame').src=url.href;
+}
+function openGameStats(){
+ const team=$('#player-team').value;
+ const matches=allMatches().filter(match=>match.status==='final'&&match.t1&&match.t2&&(!team||match.t1===team||match.t2===team));
+ if(!matches.length)return;
+ const select=$('#game-stats-match');
+ const selected=matches.some(match=>match.id===select.value)?select.value:matches.at(-1).id;
+ select.replaceChildren(...matches.reverse().map(match=>new Option(`${match.t1} ${match.score1}–${match.score2} ${match.t2} · ${match.stage}`,match.id)));
+ select.value=selected;
+ $('#game-stats').showModal();
+ loadGameStats();
 }
 function renderPickStats(){
  const picks=data.pickStats;
@@ -994,6 +1054,9 @@ $('#pick-more').addEventListener('click',()=>{picksExpanded=!picksExpanded;rende
 const playerTeamFilter=$('#player-team');
 Object.entries(teamProfiles).forEach(([name,team])=>playerTeamFilter.add(new Option(team.title,name)));
 playerTeamFilter.addEventListener('change',renderPlayerStats);
+$('#open-game-stats').addEventListener('click',openGameStats);
+$('#game-stats-match').addEventListener('change',loadGameStats);
+$('#game-stats').addEventListener('close',()=>$('#game-stats-frame').removeAttribute('src'));
 $('#vote-submit').addEventListener('click',()=>void saveVote('POST'));
 $('#vote-remove').addEventListener('click',()=>void saveVote('DELETE'));
 const bracketButtons=$$('[data-bracket]');
