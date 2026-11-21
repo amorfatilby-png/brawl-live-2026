@@ -1,0 +1,16 @@
+{
+  "updatedAt": "2026-11-21T05:00:00Z",
+  "note": "截至2026年11月21日已核对的两场淘汰赛结果。不是实时数据；请以官方赛事为准。",
+  "matches": {
+    "UQ1": {
+      "status": "final",
+      "score1": 2,
+      "score2": 3
+    },
+    "UQ2": {
+      "status": "final",
+      "score1": 0,
+      "score2": 3
+    }
+  }
+}
