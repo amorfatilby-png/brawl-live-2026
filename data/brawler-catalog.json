@@ -1,0 +1,542 @@
+{
+  "8bit": {
+    "name": "8比特",
+    "english": "8-Bit",
+    "portraitId": 16000027
+  },
+  "alli": {
+    "name": "鳄梨",
+    "english": "Alli",
+    "portraitId": 16000095
+  },
+  "amber": {
+    "name": "琥珀",
+    "english": "Amber",
+    "portraitId": 16000040
+  },
+  "angelo": {
+    "name": "安吉洛",
+    "english": "Angelo",
+    "portraitId": 16000079
+  },
+  "ash": {
+    "name": "阿拾",
+    "english": "Ash",
+    "portraitId": 16000051
+  },
+  "barley": {
+    "name": "巴利",
+    "english": "Barley",
+    "portraitId": 16000006
+  },
+  "bea": {
+    "name": "贝亚",
+    "english": "Bea",
+    "portraitId": 16000029
+  },
+  "belle": {
+    "name": "贝尔",
+    "english": "Belle",
+    "portraitId": 16000046
+  },
+  "berry": {
+    "name": "拜瑞",
+    "english": "Berry",
+    "portraitId": 16000082
+  },
+  "bibi": {
+    "name": "比比",
+    "english": "Bibi",
+    "portraitId": 16000026
+  },
+  "bo": {
+    "name": "阿渤",
+    "english": "Bo",
+    "portraitId": 16000014
+  },
+  "bolt": {
+    "name": "博尔特",
+    "english": "Bolt",
+    "portraitId": 16000106
+  },
+  "bonnie": {
+    "name": "邦妮",
+    "english": "Bonnie",
+    "portraitId": 16000058
+  },
+  "brock": {
+    "name": "布洛克",
+    "english": "Brock",
+    "portraitId": 16000003
+  },
+  "bull": {
+    "name": "公牛",
+    "english": "Bull",
+    "portraitId": 16000002
+  },
+  "buster": {
+    "name": "巴斯特",
+    "english": "Buster",
+    "portraitId": 16000062
+  },
+  "buzz": {
+    "name": "巴兹",
+    "english": "Buzz",
+    "portraitId": 16000049
+  },
+  "byron": {
+    "name": "拜伦",
+    "english": "Byron",
+    "portraitId": 16000042
+  },
+  "carl": {
+    "name": "卡尔",
+    "english": "Carl",
+    "portraitId": 16000025
+  },
+  "charlie": {
+    "name": "查莉",
+    "english": "Charlie",
+    "portraitId": 16000074
+  },
+  "chester": {
+    "name": "切斯特",
+    "english": "Chester",
+    "portraitId": 16000063
+  },
+  "chuck": {
+    "name": "查克",
+    "english": "Chuck",
+    "portraitId": 16000073
+  },
+  "clancy": {
+    "name": "克兰西",
+    "english": "Clancy",
+    "portraitId": 16000083
+  },
+  "colette": {
+    "name": "科莱特",
+    "english": "Colette",
+    "portraitId": 16000039
+  },
+  "colt": {
+    "name": "柯尔特",
+    "english": "Colt",
+    "portraitId": 16000001
+  },
+  "cordelius": {
+    "name": "科迪琉斯",
+    "english": "Cordelius",
+    "portraitId": 16000070
+  },
+  "cosmo": {
+    "name": "科斯莫",
+    "english": "Cosmo",
+    "portraitId": 16000109
+  },
+  "crow": {
+    "name": "黑鸦",
+    "english": "Crow",
+    "portraitId": 16000012
+  },
+  "damian": {
+    "name": "达米安",
+    "english": "Damian",
+    "portraitId": 16000104
+  },
+  "darryl": {
+    "name": "达里尔",
+    "english": "Darryl",
+    "portraitId": 16000018
+  },
+  "doug": {
+    "name": "道格",
+    "english": "Doug",
+    "portraitId": 16000071
+  },
+  "draco": {
+    "name": "德拉科",
+    "english": "Draco",
+    "portraitId": 16000080
+  },
+  "dynamike": {
+    "name": "爆破麦克",
+    "english": "Dynamike",
+    "portraitId": 16000009
+  },
+  "edgar": {
+    "name": "艾德加",
+    "english": "Edgar",
+    "portraitId": 16000043
+  },
+  "elprimo": {
+    "name": "艾尔·普里莫",
+    "english": "El Primo",
+    "portraitId": 16000010
+  },
+  "emz": {
+    "name": "艾魅",
+    "english": "Emz",
+    "portraitId": 16000030
+  },
+  "eve": {
+    "name": "伊芙",
+    "english": "Eve",
+    "portraitId": 16000056
+  },
+  "fang": {
+    "name": "阿方",
+    "english": "Fang",
+    "portraitId": 16000054
+  },
+  "finx": {
+    "name": "芬克斯",
+    "english": "Finx",
+    "portraitId": 16000092
+  },
+  "frank": {
+    "name": "弗兰肯",
+    "english": "Frank",
+    "portraitId": 16000020
+  },
+  "gale": {
+    "name": "格尔",
+    "english": "Gale",
+    "portraitId": 16000035
+  },
+  "gene": {
+    "name": "吉恩",
+    "english": "Gene",
+    "portraitId": 16000021
+  },
+  "gigi": {
+    "name": "琪琪",
+    "english": "Gigi",
+    "portraitId": 16000100
+  },
+  "glowy": {
+    "name": "格鲁伊",
+    "english": "Glowy",
+    "portraitId": 16000101
+  },
+  "gray": {
+    "name": "戈雷",
+    "english": "Gray",
+    "portraitId": 16000064
+  },
+  "griff": {
+    "name": "格里夫",
+    "english": "Griff",
+    "portraitId": 16000050
+  },
+  "grom": {
+    "name": "格罗姆",
+    "english": "Grom",
+    "portraitId": 16000048
+  },
+  "gus": {
+    "name": "格斯",
+    "english": "Gus",
+    "portraitId": 16000061
+  },
+  "hank": {
+    "name": "汉克",
+    "english": "Hank",
+    "portraitId": 16000069
+  },
+  "jacky": {
+    "name": "雅琪",
+    "english": "Jacky",
+    "portraitId": 16000034
+  },
+  "jaeyong": {
+    "name": "载勇",
+    "english": "Jae-Yong",
+    "portraitId": 16000093
+  },
+  "janet": {
+    "name": "珍妮特",
+    "english": "Janet",
+    "portraitId": 16000057
+  },
+  "jessie": {
+    "name": "杰西",
+    "english": "Jessie",
+    "portraitId": 16000007
+  },
+  "juju": {
+    "name": "珠珠",
+    "english": "Juju",
+    "portraitId": 16000087
+  },
+  "kaze": {
+    "name": "风姬",
+    "english": "Kaze",
+    "portraitId": 16000094
+  },
+  "kenji": {
+    "name": "健次",
+    "english": "Kenji",
+    "portraitId": 16000085
+  },
+  "kit": {
+    "name": "凯特",
+    "english": "Kit",
+    "portraitId": 16000076
+  },
+  "larrylawrie": {
+    "name": "拉里和劳里",
+    "english": "Larry & Lawrie",
+    "portraitId": 16000077
+  },
+  "leon": {
+    "name": "里昂",
+    "english": "Leon",
+    "portraitId": 16000023
+  },
+  "lily": {
+    "name": "莉莉",
+    "english": "Lily",
+    "portraitId": 16000081
+  },
+  "lola": {
+    "name": "萝拉",
+    "english": "Lola",
+    "portraitId": 16000053
+  },
+  "lou": {
+    "name": "小罗",
+    "english": "Lou",
+    "portraitId": 16000041
+  },
+  "lumi": {
+    "name": "露米",
+    "english": "Lumi",
+    "portraitId": 16000091
+  },
+  "maisie": {
+    "name": "麦茜",
+    "english": "Maisie",
+    "portraitId": 16000068
+  },
+  "mandy": {
+    "name": "曼迪",
+    "english": "Mandy",
+    "portraitId": 16000065
+  },
+  "max": {
+    "name": "麦克斯",
+    "english": "Max",
+    "portraitId": 16000032
+  },
+  "meeple": {
+    "name": "谜宝",
+    "english": "Meeple",
+    "portraitId": 16000089
+  },
+  "meg": {
+    "name": "梅格",
+    "english": "Meg",
+    "portraitId": 16000052
+  },
+  "melodie": {
+    "name": "麦乐迪",
+    "english": "Melodie",
+    "portraitId": 16000078
+  },
+  "mico": {
+    "name": "米科",
+    "english": "Mico",
+    "portraitId": 16000075
+  },
+  "mina": {
+    "name": "蜜娜",
+    "english": "Mina",
+    "portraitId": 16000097
+  },
+  "moe": {
+    "name": "阿萌",
+    "english": "Moe",
+    "portraitId": 16000084
+  },
+  "mortis": {
+    "name": "莫提斯",
+    "english": "Mortis",
+    "portraitId": 16000011
+  },
+  "mrp": {
+    "name": "P先生",
+    "english": "Mr. P",
+    "portraitId": 16000031
+  },
+  "najia": {
+    "name": "娜吉亚",
+    "english": "Najia",
+    "portraitId": 16000103
+  },
+  "nani": {
+    "name": "纳妮",
+    "english": "Nani",
+    "portraitId": 16000036
+  },
+  "nita": {
+    "name": "妮塔",
+    "english": "Nita",
+    "portraitId": 16000008
+  },
+  "nori": {
+    "name": "阿宪",
+    "english": "Nori",
+    "portraitId": 16000107
+  },
+  "ollie": {
+    "name": "奥利",
+    "english": "Ollie",
+    "portraitId": 16000090
+  },
+  "otis": {
+    "name": "奥蒂斯",
+    "english": "Otis",
+    "portraitId": 16000059
+  },
+  "pam": {
+    "name": "帕姆",
+    "english": "Pam",
+    "portraitId": 16000016
+  },
+  "pearl": {
+    "name": "珀尔",
+    "english": "Pearl",
+    "portraitId": 16000072
+  },
+  "penny": {
+    "name": "潘妮",
+    "english": "Penny",
+    "portraitId": 16000019
+  },
+  "pierce": {
+    "name": "皮尔斯",
+    "english": "Pierce",
+    "portraitId": 16000099
+  },
+  "piper": {
+    "name": "佩佩",
+    "english": "Piper",
+    "portraitId": 16000015
+  },
+  "poco": {
+    "name": "波克",
+    "english": "Poco",
+    "portraitId": 16000013
+  },
+  "rt": {
+    "name": "阿尔缇",
+    "english": "R-T",
+    "portraitId": 16000066
+  },
+  "rico": {
+    "name": "瑞科",
+    "english": "Rico",
+    "portraitId": 16000004
+  },
+  "rosa": {
+    "name": "罗莎",
+    "english": "Rosa",
+    "portraitId": 16000024
+  },
+  "ruffs": {
+    "name": "拉夫",
+    "english": "Ruffs",
+    "portraitId": 16000044
+  },
+  "sam": {
+    "name": "山姆",
+    "english": "Sam",
+    "portraitId": 16000060
+  },
+  "sandy": {
+    "name": "沙迪",
+    "english": "Sandy",
+    "portraitId": 16000028
+  },
+  "shade": {
+    "name": "谢德",
+    "english": "Shade",
+    "portraitId": 16000086
+  },
+  "shelly": {
+    "name": "雪莉",
+    "english": "Shelly",
+    "portraitId": 16000000
+  },
+  "sirius": {
+    "name": "西里乌斯",
+    "english": "Sirius",
+    "portraitId": 16000102
+  },
+  "spike": {
+    "name": "斯派克",
+    "english": "Spike",
+    "portraitId": 16000005
+  },
+  "sprout": {
+    "name": "芽芽",
+    "english": "Sprout",
+    "portraitId": 16000037
+  },
+  "squeak": {
+    "name": "史魁克",
+    "english": "Squeak",
+    "portraitId": 16000047
+  },
+  "starrnova": {
+    "name": "丝塔诺娃",
+    "english": "Starr Nova",
+    "portraitId": 16000105
+  },
+  "stu": {
+    "name": "斯图",
+    "english": "Stu",
+    "portraitId": 16000045
+  },
+  "surge": {
+    "name": "瑟奇",
+    "english": "Surge",
+    "portraitId": 16000038
+  },
+  "tara": {
+    "name": "塔拉",
+    "english": "Tara",
+    "portraitId": 16000017
+  },
+  "tick": {
+    "name": "迪克",
+    "english": "Tick",
+    "portraitId": 16000022
+  },
+  "trunk": {
+    "name": "桩",
+    "english": "Trunk",
+    "portraitId": 16000096
+  },
+  "vince": {
+    "name": "文斯",
+    "english": "Vince",
+    "portraitId": 16000110
+  },
+  "wendy": {
+    "name": "温蒂",
+    "english": "Wendy",
+    "portraitId": 16000108
+  },
+  "willow": {
+    "name": "薇洛",
+    "english": "Willow",
+    "portraitId": 16000067
+  },
+  "ziggy": {
+    "name": "兹奇",
+    "english": "Ziggy",
+    "portraitId": 16000098
+  }
+}

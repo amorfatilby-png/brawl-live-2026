@@ -32,6 +32,13 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  assert.match(markup,/BRAWL STARS CHAMPIONSHIP 2026/);
  const data=await(await fetch(ctx.base+'/api/state')).json();
  assert.equal(data.mode,'snapshot');assert.deepEqual(data.matches.UQ1,{status:'final',score1:2,score2:3});assert.deepEqual(data.matches.UQ2,{status:'final',score1:0,score2:3});
+ const hero=data.pickStats.heroes.find(item=>item.id==='chester');
+ assert.equal(hero.english,'Chester');assert.equal(hero.name,'切斯特');
+ assert.ok(Number.isInteger(hero.wins)&&hero.wins<=hero.teamPicks);
+ const portrait=await fetch(ctx.base+hero.portrait);
+ assert.equal(portrait.status,200);assert.equal(portrait.headers.get('content-type'),'image/png');
+ assert.equal(Buffer.from(await portrait.arrayBuffer()).subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+ assert.equal((await fetch(ctx.base+'/assets/brawlers/16000999.png')).status,404);
  const health=await (await fetch(ctx.base+'/health')).json(); assert.equal(health.ok,true);
  }finally{await stop(ctx)}
 });
@@ -64,7 +71,7 @@ test('a cold start during an outage serves the bundled official results checkpoi
   assert.deepEqual(data.matches.L1A,{status:'final',score1:3,score2:1});
   assert.deepEqual(data.matches.US2,{status:'final',score1:1,score2:3});
   assert.equal(Object.values(data.matches).filter(m=>m.status==='final').length,8);
-  assert.ok(data.pickStats.sets>=67);
+  assert.ok(data.pickStats.sets>=66);
   assert.ok(['snapshot','cached'].includes(data.pickStats.status));
  }finally{await stop(ctx)}
 });

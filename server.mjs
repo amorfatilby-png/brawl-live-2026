@@ -38,6 +38,7 @@ let feedRetryAt = 0;
 let officialResponseDates = null;
 let officialAccepted = false;
 let officialArchive = null;
+const brawlerCatalog = new Map(Object.entries(JSON.parse(await fs.readFile(path.join(ROOT,'data','brawler-catalog.json'),'utf8'))));
 let pickStats = JSON.parse(await fs.readFile(path.join(ROOT,'data','brawler-picks.json'),'utf8'));
 let pickStatsStatus = 'snapshot';
 let pickRetryAt = 0;
@@ -191,7 +192,10 @@ const server = http.createServer(async (req,res) => {
         feedChangedAt,
         archiveSavedAt:officialArchive?.updatedAt ?? null,
         archivedFinals:officialArchive ? Object.keys(officialArchive.matches).length : 0,
-        pickStats: {...pickStats,status:pickStatsStatus},
+        pickStats: {...pickStats,status:pickStatsStatus,heroes:pickStats.heroes.map(hero=>{
+          const profile = brawlerCatalog.get(hero.id);
+          return profile ? {...hero,name:profile.name,english:profile.english,portrait:'/assets/brawlers/'+profile.portraitId+'.png'} : hero;
+        })},
         sourceUpdatedAt:FEED_PROVIDER === 'supercell' ? null : state.updatedAt,
         sourceUrl:FEED_PROVIDER === 'supercell' ? 'https://event.supercell.com/brawlstars/en/live' : null,
         feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null,
@@ -208,6 +212,16 @@ const server = http.createServer(async (req,res) => {
       manualUpdated = true;
       await fs.writeFile(FILE, JSON.stringify({updatedAt:state.updatedAt,matches:state.matches,note:'管理员手动更新'},null,2)+'\n','utf8');
       return json(res,200,{ok:true,updatedAt:state.updatedAt});
+    }
+    const portrait = /^\/assets\/brawlers\/(16000\d{3}\.png)$/.exec(url.pathname);
+    if (portrait && (req.method==='GET'||req.method==='HEAD')) {
+      const filename = path.join(ROOT,'public','assets','brawlers',portrait[1]);
+      let image;
+      try { image = await fs.readFile(filename); }
+      catch (error) { if (error.code==='ENOENT') return json(res,404,{error:'Not found'}); throw error; }
+      res.writeHead(200,{'content-type':'image/png','content-length':image.length,'cache-control':'public, max-age=604800','x-content-type-options':'nosniff'});
+      res.end(req.method==='GET'?image:undefined);
+      return;
     }
     if (req.method === 'GET' && (url.pathname === '/' || url.pathname === '/index.html')) {
       res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-cache','x-content-type-options':'nosniff'});
