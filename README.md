@@ -33,7 +33,9 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 ## 一、立即查看网页
 
-「英雄出场率」按本届小组赛与淘汰赛已完赛且阵容完整的盘数计算，同一英雄每盘最多计一次。官方模式下，网站每 2 分钟通过 [Liquipedia MediaWiki API](https://liquipedia.net/api-terms-of-use) 检查资料页更新。同步失败时保留当前统计，服务启动还可显示随版本发布的已核对快照。[统计数据](data/brawler-picks.json) 改编自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。
+「英雄出场率」统计本届小组赛与淘汰赛阵容完整的已完赛盘。出场率按出现盘数计算，盘胜率按选用该英雄的队伍胜次数除以选用次数计算。双方都选同一英雄时，出场率计一盘，胜率计一胜一负。同队重复选人或阵容缺项的记录待修正后纳入。官方模式下，网站每 2 分钟通过 [Liquipedia MediaWiki API](https://liquipedia.net/api-terms-of-use) 核查。同步失败时保留最近可用统计，启动时可显示随版本发布的已核对快照。[统计数据](data/brawler-picks.json) 改编自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。
+
+英雄英文名与编号来自 [BrawlAPI](https://brawlapi.com/)，简体中文名对照 [Brawlify 英雄列表](https://brawlify.com/zh-cn/brawlers)。头像素材由 [Brawlify CDN](https://github.com/Brawlify/CDN) 提供，版权归 Supercell，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
 
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 
