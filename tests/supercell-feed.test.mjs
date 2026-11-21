@@ -36,6 +36,21 @@ test('a preassigned grand-final advantage does not imply live play',()=>{
  assert.deepEqual(normalizeSupercell(data,state).GF,{status:'scheduled',score1:null,score2:null});
 });
 
+test('accepts a completed result while the official bracket still leaves future teams blank',()=>{
+ const data=copy();
+ const finished=match(data,15);
+ finished.completed=true;
+ finished.winner=1;
+ finished.contestant[0].score=1;
+ finished.contestant[1].score=3;
+ const sourceState={...state,matchId:16,liveState:2};
+ const result=normalizeSupercell(data,sourceState);
+ assert.deepEqual(result.L1A,{status:'final',score1:3,score2:1});
+ assert.deepEqual(result.LQ1,{status:'scheduled',score1:null,score2:null});
+ match(data,19).contestant[0].id=47;
+ assert.throws(()=>normalizeSupercell(data,sourceState),/LQ1: 官方双方队伍/);
+});
+
 test('rejects wrong event, maintenance, incomplete bracket, team mismatch and contradictory winner',()=>{
  assert.throws(()=>normalizeSupercell(bracket,{...state,currentEventId:'another-event'}));
  assert.throws(()=>normalizeSupercell(bracket,{...state,maintenance:true}));

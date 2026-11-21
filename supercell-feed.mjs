@@ -39,8 +39,7 @@ export function normalizeSupercell(brackets, globalState) {
       if (!previous?.completed) return 0;
       return previous.teams[result === 'winner' ? previous.winner : 1 - previous.winner];
     });
-    if (sides.some((s,j) => s?.id !== expectedTeams[j])) throw new Error(`${id}: 官方双方队伍与网站对阵不符`);
-    const scores = sides.map(s => s.score);
+    const scores = sides.map(s => s?.score);
     if (!scores.every(s => Number.isInteger(s) && s >= 0 && s <= max)) throw new Error(`${id}: 官方比分无效`);
     const winner = scores[0] > scores[1] ? 0 : 1;
     if (m.completed && (Math.max(...scores) !== max || scores[0] === scores[1] || m.winner !== (n > 14 ? 1 - winner : winner) || expectedTeams.includes(0))) throw new Error(`${id}: 官方完赛结果矛盾`);
@@ -48,6 +47,9 @@ export function normalizeSupercell(brackets, globalState) {
     if (current && expectedTeams.includes(0)) throw new Error(`${id}: 当前比赛队伍尚未确认`);
     // A scheduled grand final can carry a one-set advantage before play starts.
     const started = current || (id !== 'GF' && !expectedTeams.includes(0) && scores.some(s => s > 0));
+    // The official bracket can leave future slots empty after a feeder match finishes.
+    const awaitingTeams = !m.completed && !started;
+    if (sides.some((s,j) => s?.id !== expectedTeams[j] && !(awaitingTeams && s?.id === 0))) throw new Error(`${id}: 官方双方队伍与网站对阵不符`);
     matches[id] = {status:m.completed ? 'final' : started ? 'live' : 'scheduled', score1:m.completed || started ? scores[0] : null, score2:m.completed || started ? scores[1] : null};
     resolved.set(n, {teams:expectedTeams, completed:m.completed, winner});
   }
