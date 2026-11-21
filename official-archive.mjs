@@ -1,6 +1,6 @@
 import { OFFICIAL_MATCH_IDS, WORLD_FINALS_EVENT_ID } from './supercell-feed.mjs';
 
-const ARCHIVE_URL = 'https://raw.githubusercontent.com/amorfatilby-png/brawl-live-2026/official-results/data/official-results.json';
+const ARCHIVE_URL = 'https://raw.githubusercontent.com/amorfatilby-png/brawl-live-2026/refs/heads/official-results/data/official-results.json';
 
 export function validateOfficialArchive(archive) {
   if (archive?.eventId !== WORLD_FINALS_EVENT_ID || typeof archive.updatedAt !== 'string' ||
