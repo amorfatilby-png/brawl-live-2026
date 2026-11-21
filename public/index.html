@@ -118,6 +118,21 @@
   .result.live { color: var(--green); }
   .match-status { text-align: right; }
   .empty { margin: 0; padding: 26px 15px; color: var(--muted); text-align: center; font-size: 14px; }
+  .pick-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
+  .pick-summary { color: var(--muted); font-size: 13px; }
+  .pick-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .pick-table th, .pick-table td { padding: 10px clamp(10px, 2vw, 20px); }
+  .pick-table thead th { background: #10151e; color: var(--muted); font-size: 13px; font-weight: 750; }
+  .pick-table tbody tr { border-top: 1px solid var(--line); }
+  .pick-table th { text-align: left; }
+  .pick-table th:nth-child(2), .pick-table td:nth-child(2) { width: 100px; text-align: right; white-space: nowrap; }
+  .pick-table th:last-child, .pick-table td:last-child { width: 45%; }
+  .pick-rate { display: flex; align-items: center; gap: 10px; }
+  .pick-rate meter { flex: 1; width: 0; min-width: 0; height: 8px; appearance: none; }
+  .pick-rate meter::-webkit-meter-bar { background: var(--line); border: 0; }
+  .pick-rate meter::-webkit-meter-optimum-value { background: var(--yellow); }
+  .pick-rate meter::-moz-meter-bar { background: var(--yellow); }
+  .pick-rate strong { text-align: right; min-width: 55px; color: var(--yellow); font-variant-numeric: tabular-nums; }
   .group-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .group { padding: 14px 16px; }
   .group h3 { margin: 0 0 4px; font-size: 17px; }
@@ -170,6 +185,8 @@
     .match-line .match-name { grid-column: 2; grid-row: 1 / span 2; font-size: 13px; }
     .match-line .result { grid-column: 3; grid-row: 1; text-align: right; }
     .match-line .match-status { grid-column: 3; grid-row: 2; }
+    .pick-table th:nth-child(2), .pick-table td:nth-child(2) { width: 77px; }
+    .pick-table th:last-child, .pick-table td:last-child { width: 41%; }
     .group-grid { grid-template-columns: 1fr; }
     .admin-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -181,7 +198,7 @@
   <div class="wrap head">
     <a class="brand" href="#top" aria-label="BRAWL LIVE 首页">BRAWL <b>LIVE</b></a>
     <nav class="headlinks" aria-label="页面导航">
-      <a href="#bracket">对阵图</a><a href="#schedule">赛程</a><a href="#groups">小组赛</a>
+      <a href="#bracket">对阵图</a><a href="#picks">出场率</a><a href="#schedule">赛程</a><a href="#groups">小组赛</a>
     </nav>
     <a class="official-link" href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">官方赛事 ↗</a>
   </div>
@@ -231,6 +248,22 @@
         </div>
         <div class="bracket-scroll" id="upper-bracket" role="region" aria-label="胜者组对阵，可左右滚动" tabindex="0"><div class="bracket-row" id="upper-grid"></div></div>
         <div class="bracket-scroll" id="lower-bracket" role="region" aria-label="败者组对阵，可左右滚动" tabindex="0" hidden><div class="bracket-row" id="lower-grid"></div></div>
+      </div>
+    </section>
+    <section class="section" id="picks" aria-labelledby="picks-title">
+      <div class="section-head">
+        <div class="section-title"><h2 id="picks-title">英雄出场率</h2><button class="info-btn" type="button" data-info="info-picks" aria-haspopup="dialog" aria-label="英雄出场率统计说明"><span aria-hidden="true">i</span></button></div>
+        <div class="pick-controls">
+          <span id="pick-summary" class="pick-summary" role="status">正在读取统计</span>
+          <button id="pick-more" class="link-btn" type="button" aria-expanded="false" aria-controls="pick-list" hidden>全部英雄</button>
+        </div>
+      </div>
+      <div class="match-table">
+        <p class="empty" id="pick-placeholder">正在读取英雄出场记录</p>
+        <table class="pick-table" id="pick-table" aria-label="英雄出场率排行榜" hidden>
+          <thead><tr><th scope="col">英雄</th><th scope="col">出场盘数</th><th scope="col">出场率</th></tr></thead>
+          <tbody id="pick-list"></tbody>
+        </table>
       </div>
     </section>
     <section class="section" id="schedule" aria-labelledby="schedule-title">
@@ -289,6 +322,15 @@
     <p>赛程按北京时间显示。仅列日期的场次没有核对到具体开赛时间。实际开赛时间可能调整。</p>
   </div>
 </dialog>
+<dialog class="info-dialog" id="info-picks" aria-labelledby="info-picks-title">
+  <div class="info-panel">
+    <div class="info-head"><h2 id="info-picks-title">出场率怎么算</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
+    <p>统计本届小组赛和淘汰赛。出场率等于该英雄出场的盘数除以有完整阵容的已完赛盘数。同一盘最多计一次，禁用与未开赛阵容不计。</p>
+    <p>Liquipedia 由社区录入，比赛结束后可能稍晚才补齐。网站运行时每 2 分钟核查；接口不可用时保留上次取得的数据。</p>
+    <dl><div><dt>收录范围</dt><dd id="pick-coverage">—</dd></div><div><dt>最近核查（北京）</dt><dd id="pick-checked">—</dd></div></dl>
+    <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 赛事资料 ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a></div>
+  </div>
+</dialog>
 <dialog class="info-dialog" id="info-groups" aria-labelledby="info-groups-title">
   <div class="info-panel">
     <div class="info-head"><h2 id="info-groups-title">小组赛规则</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
@@ -333,6 +375,21 @@ let data = seed;
 let day = 'all';
 let filter = 'all';
 let busy = false;
+let picksExpanded = false;
+const heroNames = {
+  '8bit':'8比特',alli:'鳄梨',amber:'琥珀',angelo:'安吉洛',ash:'阿拾',barley:'巴利',bea:'贝亚',belle:'贝尔',berry:'拜瑞',bibi:'比比',bo:'阿渤',
+  bolt:'博尔特',bonnie:'邦妮',brock:'布洛克',bull:'公牛',buster:'巴斯特',buzz:'巴兹',byron:'拜伦',carl:'卡尔',charlie:'查莉',
+  chester:'切斯特',chuck:'查克',clancy:'克兰西',colette:'科莱特',colt:'柯尔特',cordelius:'科迪琉斯',cosmo:'科斯莫',crow:'黑鸦',
+  damian:'达米安',darryl:'达里尔',doug:'道格',draco:'德拉科',dynamike:'爆破麦克',edgar:'艾德加',elprimo:'艾尔·普里莫',emz:'艾魅',
+  eve:'伊芙',fang:'阿方',finx:'芬克斯',frank:'弗兰肯',gale:'格尔',gene:'吉恩',gigi:'琪琪',glowy:'格鲁伊',gray:'戈雷',
+  griff:'格里夫',grom:'格罗姆',gus:'格斯',hank:'汉克',jacky:'雅琪',jaeyong:'载勇',janet:'珍妮特',jessie:'杰西',juju:'珠珠',
+  kaze:'风姬',kenji:'健次',kit:'凯特',larrylawrie:'拉里和劳里',leon:'里昂',lily:'莉莉',lola:'萝拉',lou:'小罗',lumi:'露米',
+  maisie:'麦茜',mandy:'曼迪',max:'麦克斯',meeple:'谜宝',meg:'梅格',melodie:'麦乐迪',mico:'米科',mina:'蜜娜',moe:'阿萌',
+  mortis:'莫提斯',mrp:'P先生',najia:'娜吉亚',nani:'纳妮',nita:'妮塔',nori:'阿宪',ollie:'奥利',otis:'奥蒂斯',pam:'帕姆',
+  pearl:'珀尔',penny:'潘妮',pierce:'皮尔斯',piper:'佩佩',poco:'波克',rey:'雷伊',rico:'瑞科',rosa:'罗莎',rt:'阿尔缇',ruby:'露比',
+  ruffs:'拉夫',sam:'山姆',sandy:'沙迪',shade:'谢德',shelly:'雪莉',sirius:'西里乌斯',spike:'斯派克',sprout:'芽芽',squeak:'史魁克',
+  starrnova:'丝塔诺娃',stu:'斯图',surge:'瑟奇',tara:'塔拉',thunderfrogs:'雷电蛙',tick:'迪克',trunk:'桩',vince:'文斯',wendy:'温蒂',willow:'薇洛',ziggy:'兹奇'
+};
 const $ = s=>document.querySelector(s);
 const $$ = s=>Array.from(document.querySelectorAll(s));
 const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -410,6 +467,29 @@ function renderGroups(){
  };
  $('#groups-grid').innerHTML=`<article class="group"><h3>A 组</h3>${['HMBLE','Totem Esports','Team Heretics','RED Canids'].map(line).join('')}</article><article class="group"><h3>B 组</h3>${['Team Elektros','NAVI','NOVO Esports','Crazy Raccoon'].map(line).join('')}</article>`;
 }
+function renderPickStats(){
+ const picks=data.pickStats;
+ if(!picks?.sets){
+  $('#pick-summary').textContent='暂无可用数据';
+  $('#pick-placeholder').textContent='暂无完整的已完赛阵容';
+  return;
+ }
+ const summary=(data.mode==='offline'||picks.status==='cached'?'缓存统计 · ':picks.status==='snapshot'?'已核对快照 · ':'')+`已收录 ${picks.sets} 盘`;
+ if($('#pick-summary').textContent!==summary)$('#pick-summary').textContent=summary;
+ $('#pick-coverage').textContent=`${picks.recordedSeries} 场 · ${picks.sets} / ${picks.recordedSets} 盘阵容完整`;
+ $('#pick-checked').textContent=fmt(picks.checkedAt);
+ $('#pick-placeholder').hidden=true;
+ $('#pick-table').hidden=false;
+ const button=$('#pick-more');
+ button.hidden=picks.heroes.length<=8;
+ button.textContent=picksExpanded?'收起':'全部英雄';
+ button.setAttribute('aria-expanded',picksExpanded);
+ const visible=picksExpanded?picks.heroes:picks.heroes.slice(0,8);
+ $('#pick-list').innerHTML=visible.map(hero=>{
+  const rate=(hero.picks*100/picks.sets).toFixed(1);
+  return `<tr><th scope="row">${esc(heroNames[hero.id]||hero.id)}</th><td>${hero.picks}</td><td><div class="pick-rate"><meter aria-hidden="true" min="0" max="100" value="${rate}"></meter><strong>${rate}%</strong></div></td></tr>`;
+ }).join('');
+}
 function statusMessage(){
  const official=data.feedProvider==='supercell';
  const archived=official&&data.archiveSavedAt;
@@ -431,7 +511,7 @@ function statusMessage(){
  if(archived)$('#sync-archive').textContent=`${data.archivedFinals} 场 · ${fmt(data.archiveSavedAt)}（北京）`;
  if(data.feedProvider==='supercell'){$$('#admin-form input,#admin-form select,#admin-form button').forEach(el=>el.disabled=true);$('#admin-msg').textContent='官方同步已启用，无法人工修改比分';}
 }
-function render(){renderSpot();renderStats();bracket('#upper-grid',[['八强赛',['UQ1','UQ2','UQ3','UQ4']],['半决赛',['US1','US2']],['胜者组决赛',['UF']],['冠军争夺',['GF']]]);bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);renderSchedule();renderGroups();statusMessage();}
+function render(){renderSpot();renderStats();bracket('#upper-grid',[['八强赛',['UQ1','UQ2','UQ3','UQ4']],['半决赛',['US1','US2']],['胜者组决赛',['UF']],['冠军争夺',['GF']]]);bracket('#lower-grid',[['败者组第1轮',['L1A','L1B']],['败者组八强',['LQ1','LQ2']],['败者组半决赛',['LS']],['败者组决赛',['LF']]]);renderPickStats();renderSchedule();renderGroups();statusMessage();}
 async function refresh(){if(busy)return;busy=true;$('#refresh').disabled=true;try{const res=await fetch('/api/state',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const fresh=await res.json();if(fresh&&fresh.matches&&typeof fresh.matches==='object'){data=fresh;render();}}catch(e){data.mode='offline';render();}finally{busy=false;$('#refresh').disabled=false}}
 const dayButtons=$$('[data-day]');
 dayButtons.forEach(button=>button.addEventListener('click',()=>{
@@ -441,6 +521,7 @@ dayButtons.forEach(button=>button.addEventListener('click',()=>{
 }));
 $('#match-filter').addEventListener('change',event=>{filter=event.target.value;renderSchedule();});
 $('#refresh').addEventListener('click',refresh);
+$('#pick-more').addEventListener('click',()=>{picksExpanded=!picksExpanded;renderPickStats();});
 const bracketButtons=$$('[data-bracket]');
 bracketButtons.forEach(button=>button.addEventListener('click',()=>{
  bracketButtons.forEach(item=>{

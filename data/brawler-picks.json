@@ -1,0 +1,311 @@
+{
+  "sets": 67,
+  "recordedSets": 67,
+  "recordedSeries": 18,
+  "heroes": [
+    {
+      "id": "chester",
+      "picks": 17
+    },
+    {
+      "id": "ruffs",
+      "picks": 15
+    },
+    {
+      "id": "8bit",
+      "picks": 14
+    },
+    {
+      "id": "angelo",
+      "picks": 13
+    },
+    {
+      "id": "brock",
+      "picks": 13
+    },
+    {
+      "id": "gus",
+      "picks": 13
+    },
+    {
+      "id": "stu",
+      "picks": 13
+    },
+    {
+      "id": "lumi",
+      "picks": 11
+    },
+    {
+      "id": "otis",
+      "picks": 11
+    },
+    {
+      "id": "surge",
+      "picks": 11
+    },
+    {
+      "id": "amber",
+      "picks": 10
+    },
+    {
+      "id": "belle",
+      "picks": 10
+    },
+    {
+      "id": "colt",
+      "picks": 10
+    },
+    {
+      "id": "finx",
+      "picks": 10
+    },
+    {
+      "id": "max",
+      "picks": 10
+    },
+    {
+      "id": "colette",
+      "picks": 9
+    },
+    {
+      "id": "lou",
+      "picks": 9
+    },
+    {
+      "id": "berry",
+      "picks": 8
+    },
+    {
+      "id": "griff",
+      "picks": 8
+    },
+    {
+      "id": "kaze",
+      "picks": 8
+    },
+    {
+      "id": "squeak",
+      "picks": 8
+    },
+    {
+      "id": "emz",
+      "picks": 7
+    },
+    {
+      "id": "gale",
+      "picks": 7
+    },
+    {
+      "id": "nori",
+      "picks": 7
+    },
+    {
+      "id": "edgar",
+      "picks": 6
+    },
+    {
+      "id": "gray",
+      "picks": 6
+    },
+    {
+      "id": "moe",
+      "picks": 6
+    },
+    {
+      "id": "piper",
+      "picks": 6
+    },
+    {
+      "id": "rico",
+      "picks": 6
+    },
+    {
+      "id": "sirius",
+      "picks": 6
+    },
+    {
+      "id": "alli",
+      "picks": 5
+    },
+    {
+      "id": "byron",
+      "picks": 5
+    },
+    {
+      "id": "gene",
+      "picks": 5
+    },
+    {
+      "id": "janet",
+      "picks": 5
+    },
+    {
+      "id": "mina",
+      "picks": 5
+    },
+    {
+      "id": "mrp",
+      "picks": 5
+    },
+    {
+      "id": "ash",
+      "picks": 4
+    },
+    {
+      "id": "glowy",
+      "picks": 4
+    },
+    {
+      "id": "larrylawrie",
+      "picks": 4
+    },
+    {
+      "id": "leon",
+      "picks": 4
+    },
+    {
+      "id": "melodie",
+      "picks": 4
+    },
+    {
+      "id": "rt",
+      "picks": 4
+    },
+    {
+      "id": "bull",
+      "picks": 3
+    },
+    {
+      "id": "chuck",
+      "picks": 3
+    },
+    {
+      "id": "elprimo",
+      "picks": 3
+    },
+    {
+      "id": "hank",
+      "picks": 3
+    },
+    {
+      "id": "mandy",
+      "picks": 3
+    },
+    {
+      "id": "najia",
+      "picks": 3
+    },
+    {
+      "id": "penny",
+      "picks": 3
+    },
+    {
+      "id": "willow",
+      "picks": 3
+    },
+    {
+      "id": "barley",
+      "picks": 2
+    },
+    {
+      "id": "bolt",
+      "picks": 2
+    },
+    {
+      "id": "carl",
+      "picks": 2
+    },
+    {
+      "id": "cosmo",
+      "picks": 2
+    },
+    {
+      "id": "darryl",
+      "picks": 2
+    },
+    {
+      "id": "eve",
+      "picks": 2
+    },
+    {
+      "id": "juju",
+      "picks": 2
+    },
+    {
+      "id": "lola",
+      "picks": 2
+    },
+    {
+      "id": "pearl",
+      "picks": 2
+    },
+    {
+      "id": "ziggy",
+      "picks": 2
+    },
+    {
+      "id": "bibi",
+      "picks": 1
+    },
+    {
+      "id": "buzz",
+      "picks": 1
+    },
+    {
+      "id": "charlie",
+      "picks": 1
+    },
+    {
+      "id": "cordelius",
+      "picks": 1
+    },
+    {
+      "id": "damian",
+      "picks": 1
+    },
+    {
+      "id": "draco",
+      "picks": 1
+    },
+    {
+      "id": "jaeyong",
+      "picks": 1
+    },
+    {
+      "id": "maisie",
+      "picks": 1
+    },
+    {
+      "id": "mortis",
+      "picks": 1
+    },
+    {
+      "id": "nani",
+      "picks": 1
+    },
+    {
+      "id": "nita",
+      "picks": 1
+    },
+    {
+      "id": "ollie",
+      "picks": 1
+    },
+    {
+      "id": "pierce",
+      "picks": 1
+    },
+    {
+      "id": "shade",
+      "picks": 1
+    },
+    {
+      "id": "sprout",
+      "picks": 1
+    }
+  ],
+  "revision": 278415,
+  "checkedAt": "2026-11-21T13:47:15.234Z",
+  "source": "https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026",
+  "license": "https://creativecommons.org/licenses/by-sa/3.0/"
+}
