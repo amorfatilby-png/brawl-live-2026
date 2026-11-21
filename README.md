@@ -2,7 +2,34 @@
 
 这是一个可运行的中文赛事看板，包含 **14 场双败淘汰赛**、小组赛结果、赛程表、晋级与淘汰判定、北京时间、移动端布局及管理员实时改分。
 
-> **重要说明：** 本项目默认内置截至 2026-11-21 05:00 UTC 的「已核对快照」：小组赛出局队伍、**FUT Esports 2:3 NAVI** 与 **Bounty Hunters 0:3 HMBLE**。它**不是已经接入真实直播数据的成品**，页面会明确标出数据状态。真正自动更新比赛比分，必须提供一个有权使用的 JSON 赛事数据接口。项目**不会擅自抓取第三方网页**或把猜测当成直播比分。
+> **数据模式：** 启用 `FEED_PROVIDER=supercell` 后，服务器每 2 分钟读取 Supercell 官方赛事网页使用的公开 JSON，对本届总决赛 14 场淘汰赛自动同步盘比分。页面标注来源、最近核查时间、可能延迟数分钟及异常状态，不把抓取时间冒充比分更新时间。未配置时仍使用截至 2026-11-21 05:00 UTC 的历史快照；直接双击 HTML 也是快照预览。
+
+## 官方赛事自动同步
+
+已有 Render 服务：合并本次改动后，进入服务的 **Environment**，添加 `FEED_PROVIDER=supercell`、`FEED_INTERVAL_MS=120000`，移除旧的 `FEED_URL`、`FEED_TOKEN`，然后 **Save, rebuild, and deploy**。构建命令保持 `npm install`，启动命令保持 `npm start`，健康检查为 `/health`。`render.yaml` 已为新建 Blueprint 配好这两个变量；普通 Git 自动部署不会自动替已有服务添加环境变量。
+
+Windows 本地运行：
+
+```powershell
+$env:FEED_PROVIDER="supercell"
+$env:FEED_INTERVAL_MS="120000"
+npm start
+```
+
+官方源无需 API Key；不要同时设置 `FEED_URL`。这是官方网页实际使用的公开请求，不是附有第三方服务保证的正式开发者 API；应持续遵守源站条款与访问要求，未公布数字配额，不能保证秒级更新。2 分钟是本项目的保守轮询间隔，不是源站承诺的额度。遇到 429/503 会遵守 `Retry-After` 并暂停请求。
+
+- `https://event.supercell.com/brawlstars/v1/bracket`：盘比分、完赛标记及晋级关系。
+- `https://event.supercell.com/brawlstars/v1/state`：当前赛事、场次与直播阶段。
+- 固定本届 `eventId=6Yk1HZc0AIJdknCBGQZEI4`，赛事切换、维护、旧缓存、队伍/赛制不符时停止覆盖数据并显示异常。
+- 官方编号 11—24 对应本网站 14 场淘汰赛；15—24 的双方顺序需反转，适配器同时核对晋级关系与队伍 ID。
+- 未开赛的 0:0 不标进行中，总决赛预先领先 1 盘也不用于推断开赛；只有确认完赛才计算晋级。小组赛仍展示原有已核对快照。
+- `/api/state` 的 `feedLastOk` 是成功核查时间，`feedChangedAt` 是本进程观察到后续赛况变化的时间；首次读取为 `null`。官方没有提供比分更新时间，`sourceUpdatedAt`、`updatedAt` 均为 `null`，不能拿响应头时间代替。
+- 请求失败保留最后有效比分；超过最近成功核查的 6 分钟（默认轮询间隔的 3 倍）视为核查超时。页面会提示缓存可能过时，旧的进行中状态标为“上次进行中”。
+- 官方模式关闭管理员改分，防止两种来源混写。要人工维护，设置 `FEED_PROVIDER=snapshot` 并重新部署。
+
+上线验收：检查 `/health` 的 `feedProvider` 为 `supercell`、`feedLastOk` 非空、`feedError` 为 `null`、`feedStale` 为 `false`；再检查 `/api/state` 有 14 场比赛、队伍比分方向正确，页面显示官方来源和最近核查。`/health` 的 `ok=true` 只代表服务器能响应。
+
+Render 免费服务无入站访问时可能休眠；每次重启会重新读取上游，上游不可用则暂时回到原始历史快照并提示异常。当前自动同步不把结果持久化到磁盘。免费服务和源站缓存均可能影响延迟，不能承诺全天持续运行。
 
 ## 一、立即查看网页
 
@@ -22,7 +49,7 @@ npm start
 - 赛况一旦收到「已结束」状态，会自动计算获胜队伍和落败队伍，并填入胜者组、败者组下游位置。
 - 管理员可以实时录入比分，所有访客自动收到更新。
 
-## 二、管理员录入比分（不需要额外接口）
+## 二、管理员录入比分（快照模式）
 
 启动时设置 `ADMIN_KEY`。Windows PowerShell：
 
@@ -83,7 +110,7 @@ npm start
 
 1. 将整个项目上传到代码仓库或云主机。
 2. 使用 Node 20+；启动命令 `npm start`。
-3. 云平台通常自动提供 `PORT`；如需真实比分，设置 `FEED_URL` 和可选的 `FEED_TOKEN`。
+3. 云平台通常自动提供 `PORT`；官方同步设置 `FEED_PROVIDER=supercell`，自有 JSON 源则设置 `FEED_PROVIDER=json`、`FEED_URL` 和可选的 `FEED_TOKEN`。
 4. 部署成功后，把平台给你的 HTTPS 网址分享给朋友即可。
 
 > 只把 `index.html` 放在静态托管上**不能**让动态 `/api/state` 正常工作，除非另外部署兼容 API。**这个对话无法代替你的账户实际发布一个公网域名**。

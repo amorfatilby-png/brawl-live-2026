@@ -2,6 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readSupercellFeed } from './supercell-feed.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const FILE = process.env.STATE_FILE ? path.resolve(process.env.STATE_FILE) : path.join(ROOT, 'data', 'state.json');
@@ -9,11 +10,17 @@ const INDEX = path.join(ROOT, 'public', 'index.html');
 const PORT = Number(process.env.PORT || 3000);
 const FEED_URL = process.env.FEED_URL || '';
 const FEED_TOKEN = process.env.FEED_TOKEN || '';
+const FEED_PROVIDER = process.env.FEED_PROVIDER || (FEED_URL ? 'json' : 'snapshot');
+if (!['snapshot','json','supercell'].includes(FEED_PROVIDER)) throw new Error('FEED_PROVIDER 必须是 snapshot / json / supercell');
+if (FEED_PROVIDER === 'supercell' && FEED_URL) throw new Error('官方模式请移除 FEED_URL，避免数据源混淆');
+if (FEED_PROVIDER === 'json' && !FEED_URL) throw new Error('JSON 模式需要 FEED_URL');
 const ADMIN_KEY = process.env.ADMIN_KEY || '';
-const INTERVAL_MS = Math.max(15000, Number(process.env.FEED_INTERVAL_MS || 45000));
+const requestedInterval = Number(process.env.FEED_INTERVAL_MS || (FEED_PROVIDER === 'supercell' ? 120000 : 45000));
+if (!Number.isFinite(requestedInterval) || requestedInterval > 2147483647) throw new Error('FEED_INTERVAL_MS 必须是有效的毫秒数');
+const INTERVAL_MS = Math.max(FEED_PROVIDER === 'supercell' ? 120000 : 15000, requestedInterval);
 const MATCH_IDS = new Set(['UQ1','UQ2','UQ3','UQ4','US1','US2','UF','GF','L1A','L1B','LQ1','LQ2','LS','LF']);
 const STATES = new Set(['scheduled','live','final']);
-const feedConfigured = Boolean(FEED_URL);
+const feedConfigured = FEED_PROVIDER !== 'snapshot';
 if (FEED_URL && !/^https:\/\//i.test(FEED_URL) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(FEED_URL)) {
   throw new Error('FEED_URL 必须是 HTTPS（localhost 调试例外）');
 }
@@ -23,6 +30,11 @@ let manualUpdated = state.note === '管理员手动更新';
 let feedLastOk = null;
 let feedError = null;
 let feedInFlight = null;
+let feedChangedAt = null;
+let feedRetryAt = 0;
+let officialResponseDates = null;
+let officialAccepted = false;
+const feedStale = () => feedConfigured && (!feedLastOk || Date.now() - Date.parse(feedLastOk) > Math.max(300000, INTERVAL_MS * 3));
 
 function validatePayload(body, {partial = false} = {}) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('JSON 应为对象');
@@ -50,11 +62,26 @@ function validatePayload(body, {partial = false} = {}) {
 
 async function refreshFeed() {
   if (!feedConfigured) return;
+  if (Date.now() < feedRetryAt) return;
   if (feedInFlight) return feedInFlight;
   feedInFlight = (async () => {
     const abort = new AbortController();
     const timeout = setTimeout(() => abort.abort(), 12000);
     try {
+      if (FEED_PROVIDER === 'supercell') {
+        const incoming = await readSupercellFeed();
+        if (officialResponseDates && Object.keys(incoming.responseDates).some(k => incoming.responseDates[k] < officialResponseDates[k])) throw new Error('官方响应早于已接受的缓存，暂不覆盖');
+        if (Object.entries(state.matches).some(([id,m]) => m.status === 'final' && incoming.matches[id]?.status !== 'final')) throw new Error('官方响应回退了已完赛场次，暂不覆盖');
+        if (officialAccepted && JSON.stringify(incoming.matches) !== JSON.stringify(state.matches)) feedChangedAt = new Date().toISOString();
+        state = {...state, updatedAt:null, matches:incoming.matches, note:'来源：Supercell 官方赛事网页；比分更新时间未提供'};
+        officialResponseDates = incoming.responseDates;
+        officialAccepted = true;
+        manualUpdated = false;
+        feedLastOk = new Date().toISOString();
+        feedError = null;
+        feedRetryAt = 0;
+        return;
+      }
       const headers = { 'Accept': 'application/json', 'User-Agent': 'BrawlWorldsScoreboard/1.0' };
       if (FEED_TOKEN) headers.Authorization = `Bearer ${FEED_TOKEN}`;
       const res = await fetch(FEED_URL, { headers, signal: abort.signal, cache:'no-store' });
@@ -73,6 +100,7 @@ async function refreshFeed() {
       manualUpdated = false;
     } catch (e) {
       feedError = String(e.message || e).slice(0,180);
+      if (e.retryAfterMs) feedRetryAt = Date.now() + e.retryAfterMs;
       console.error('[feed]', feedError);
     } finally { clearTimeout(timeout); }
   })();
@@ -105,7 +133,7 @@ const server = http.createServer(async (req,res) => {
   try {
     const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
     if (req.method === 'GET' && url.pathname === '/health') {
-      return json(res,200,{ok:true,feedConfigured,feedLastOk,feedError});
+      return json(res,200,{ok:true,feedConfigured,feedProvider:FEED_PROVIDER,feedLastOk,feedError,feedStale:feedStale(),feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null});
     }
     if (req.method === 'GET' && url.pathname === '/api/state') {
       return json(res,200,{
@@ -114,11 +142,18 @@ const server = http.createServer(async (req,res) => {
         feedConfigured,
         feedLastOk,
         feedError,
+        feedProvider:FEED_PROVIDER,
+        feedStale:feedStale(),
+        feedChangedAt,
+        sourceUpdatedAt:FEED_PROVIDER === 'supercell' ? null : state.updatedAt,
+        sourceUrl:FEED_PROVIDER === 'supercell' ? 'https://event.supercell.com/brawlstars/en/live' : null,
+        feedRetryAt:feedRetryAt ? new Date(feedRetryAt).toISOString() : null,
         serverTime: new Date().toISOString(),
         refreshIntervalSeconds: Math.round(INTERVAL_MS / 1000)
       });
     }
     if (req.method === 'POST' && url.pathname === '/api/update') {
+      if (FEED_PROVIDER === 'supercell') return json(res,409,{error:'官方同步模式不接受人工改分，请切换数据源后操作'});
       if (!ADMIN_KEY) return json(res,403,{error:'未启用人工更新：请设置 ADMIN_KEY'});
       if (req.headers.authorization !== `Bearer ${ADMIN_KEY}`) return json(res,401,{error:'管理员密钥不正确'});
       const incoming = validatePayload(await readBody(req),{partial:true});
