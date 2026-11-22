@@ -94,7 +94,8 @@ test('tracks the counter side for completed and in-progress drafts, excluding th
     '}}',
   ].join('\n');
   const full=text+'\n'+final;
-  const preview=countBrawlerPicks(full).counterByMatch;
+  const parsed=countBrawlerPicks(full);
+  const preview=parsed.counterByMatch;
   assert.deepEqual(preview.A1,{teams:['HMBLE','Totem Esports'],sets:[
     {number:1,map:'Beach Ball',counter:'HMBLE',winner:'HMBLE'},
     {number:2,map:'Triple Dribble',counter:null,winner:'HMBLE'},
@@ -104,6 +105,10 @@ test('tracks the counter side for completed and in-progress drafts, excluding th
     {number:1,map:'Dry Season',counter:'Team Elektros',winner:'NAVI'},
     {number:2,map:'Safe Zone',counter:'Team Elektros',winner:null},
   ]);
+  assert.deepEqual(parsed.setsByMatch.GF,[{number:1,map:'Dry Season',mode:'',games:2}]);
+  assert.deepEqual(parsed.seriesByMatch.GF,{
+    teams:['Natus Vincere','Team Elektros'],played:[1,0],declared:[2,0],
+  });
   const source=(revid,content)=>async()=>Response.json({query:{pages:[{
     title:'Brawl Stars World Finals/2026',revisions:[{revid,slots:{main:{content}}}],
   }]}});
@@ -118,4 +123,21 @@ test('tracks the counter side for completed and in-progress drafts, excluding th
   replaySet.replay='https://www.youtube.com/watch?v=example';
   const rechecked=await readBrawlerPicks(conflict,source(22,full.replace('map=Beach Ball|firstpick=2','map=Hideout|firstpick=1')));
   assert.deepEqual(rechecked.counterByMatch.A1.sets[0],replaySet);
+});
+
+test('accounts for the grand-final advantage in the MVP clincher without counting it as a played set',()=>{
+  const final=[
+    '|R5M1={{Match',' |bestof=7',' |mvp=Nowy297',
+    ' |opponent1={{TeamOpponent|NAVI|score=}}',' |opponent2={{TeamOpponent|FUT Esports|score=}}',
+    ' |map1={{Map|winner=navi}}',
+    ' |map2={{Map|map=Dry Season|score1=2|score2=0}}',
+    ' |map3={{Map|map=Safe Zone|score1=2|score2=0}}',
+    ' |map4={{Map|map=Hard Rock Mine|score1=2|score2=1}}',
+    '}}',
+  ].join('\n');
+  const result=countBrawlerPicks(article+'\n'+final);
+  assert.deepEqual(result.setsByMatch.GF.map(set=>set.number),[1,2,3]);
+  assert.deepEqual(result.seriesByMatch.GF,{teams:['NAVI','FUT Esports'],played:[3,0],declared:null});
+  assert.deepEqual(result.mvps,{nowy297:1});
+  assert.equal(countBrawlerPicks(article+'\n'+final.replace('score1=2|score2=1','score1=1|score2=1')).mvps.nowy297,undefined);
 });

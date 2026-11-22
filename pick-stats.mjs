@@ -20,6 +20,10 @@ const COUNTER_TEAMS = new Map([
   ['redcanidskalunga','RED Canids'],['crazyraccoon','Crazy Raccoon'],['novo','NOVO Esports'],['novoesports','NOVO Esports'],
 ]);
 
+function counterTeam(name) {
+  return COUNTER_TEAMS.get(name.toLowerCase().replace(/[^a-z0-9]/g,''));
+}
+
 function scoredSet(fields) {
   return fields.winner !== 'skip' && ['0','1','2'].includes(fields.score1) &&
     ['0','1','2'].includes(fields.score2) && fields.score1 !== fields.score2 &&
@@ -79,22 +83,27 @@ export function countBrawlerPicks(wikitext) {
     const countedSeries = new Set();
     const setWins = [0,0];
     const opponents = [...match.matchAll(/^[ \t]*\|opponent[12]\s*=\s*\{\{TeamOpponent\|([^|{}\n]+)(?:\|[^{}\n]*)?\}\}/gm)].map(([,team])=>team.trim());
-    const draftTeams = opponents.map(team=>COUNTER_TEAMS.get(team.toLowerCase().replace(/[^a-z0-9]/g,'')));
+    const draftTeams = opponents.map(counterTeam);
     const validDraftTeams = draftTeams.length===2 && draftTeams.every(Boolean) && draftTeams[0]!==draftTeams[1];
     let openingAdvantageSlot = 0;
+    let openingAdvantageSide = -1;
     for (const [,number,map] of match.matchAll(/\|\s*map([1-7])\s*=\s*\{\{Map\b([^{}]*)\}\}/g)) {
       const fields = Object.fromEntries([...map.matchAll(/\|\s*(\w+)\s*=\s*([^|\n]*)/g)].map(([,key,value])=>[key,value.trim()]));
       const complete = scoredSet(fields);
-      if (matchId==='GF' && number==='1' && (fields.winner==='skip'||!fields.map)) openingAdvantageSlot=1;
-      const draftNumber = Number(number)-openingAdvantageSlot;
+      if (matchId==='GF' && number==='1' && (fields.winner==='skip'||!fields.map)) {
+        openingAdvantageSlot=1;
+        const winner=counterTeam(fields.winner??'');
+        if (winner) openingAdvantageSide=draftTeams.indexOf(winner);
+      }
+      const playedNumber = Number(number)-openingAdvantageSlot;
       const counter = fields.firstpick==='1' ? draftTeams[1] : fields.firstpick==='2' ? draftTeams[0] : null;
       if (validDraftTeams && fields.map && fields.winner!=='skip' && (counter||complete) &&
-          draftNumber>=1 && draftNumber<=(matchId==='GF'?6:5)) {
+          playedNumber>=1 && playedNumber<=(matchId==='GF'?6:5)) {
         const winner = complete ? draftTeams[fields.score1==='2'?0:1] : null;
-        draftSets.set(draftNumber,{number:draftNumber,map:fields.map,counter,winner});
+        draftSets.set(playedNumber,{number:playedNumber,map:fields.map,counter,winner});
       }
-      if (!complete) continue;
-      playedSets.push({number:Number(number),map:fields.map||'',mode:fields.maptype||'',games:Number(fields.score1)+Number(fields.score2)});
+      if (!complete||playedNumber<1) continue;
+      playedSets.push({number:playedNumber,map:fields.map||'',mode:fields.maptype||'',games:Number(fields.score1)+Number(fields.score2)});
       const winningSide = fields.score1 === '2' ? 0 : 1;
       setWins[winningSide]++;
       const mode = fields.maptype;
@@ -120,7 +129,7 @@ export function countBrawlerPicks(wikitext) {
     const bestOf = Number(match.match(/(?:^|\n)[ \t]*\|bestof=(\d+)\b/)?.[1] ?? 5);
     const clincher = Math.floor(bestOf/2)+1;
     const seriesScores = [...match.matchAll(/\|\s*opponent[12]\s*=\s*\{\{TeamOpponent\|[^{}\n]+?\|score=(\d+)\b/gi)].map(([,score])=>Number(score));
-    const scores = seriesScores.length===2 ? seriesScores : setWins;
+    const scores = seriesScores.length===2 ? seriesScores : setWins.map((wins,side)=>wins+Number(side===openingAdvantageSide));
     if (matchId && opponents.length===2 && playedSets.length &&
         playedSets.every((set,index)=>set.number===index+1)) {
       seriesByMatch[matchId]={teams:opponents,played:setWins,declared:seriesScores.length===2?seriesScores:null};
