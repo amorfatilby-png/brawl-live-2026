@@ -6,7 +6,7 @@ const checkpoint=JSON.parse(await fs.readFile(new URL('../data/supercell-checkpo
 const archive={eventId:'6Yk1HZc0AIJdknCBGQZEI4',updatedAt:'2026-11-22T04:00:00Z',matches:{...checkpoint.matches,LQ1:{status:'final',score1:3,score2:0}}};
 const nativeFetch=globalThis.fetch,nativeInterval=globalThis.setInterval;
 let bracketCalls=0;
-globalThis.setInterval=(fn,ms,...args)=>nativeInterval(fn,ms===120000?60:ms,...args);
+globalThis.setInterval=(fn,ms,...args)=>nativeInterval(fn,ms===60000?60:ms,...args);
 globalThis.fetch=async(url,options)=>{
  const scenario=process.env.TEST_OFFICIAL_SCENARIO;
  if(String(url).startsWith('https://liquipedia.net/'))return new Response('',{status:503});

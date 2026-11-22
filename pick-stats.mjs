@@ -1,7 +1,7 @@
 export const PICK_SOURCE = 'https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026';
-const API = 'https://liquipedia.net/brawlstars/api.php?action=query&prop=revisions&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&titles=Brawl_Stars_World_Finals%2F2026&format=json&formatversion=2&smaxage=120&maxage=120';
+const API = 'https://liquipedia.net/brawlstars/api.php?action=query&prop=revisions&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&titles=Brawl_Stars_World_Finals%2F2026&format=json&formatversion=2&smaxage=60&maxage=60';
 const USER_AGENT = 'BrawlLive2026/1.0 (https://github.com/amorfatilby-png/brawl-live-2026/issues)';
-export const PICK_INTERVAL_MS = 120000;
+export const PICK_INTERVAL_MS = 60000;
 const MODES = new Map([
   ['Gem Grab','宝石争霸'],['Brawl Ball','乱斗足球'],['Heist','金库攻防'],
   ['Bounty','赏金猎人'],['Hot Zone','热区争夺'],['Knockout','极限淘汰'],

@@ -13,6 +13,6 @@ services:
       - key: FEED_PROVIDER
         value: supercell
       - key: FEED_INTERVAL_MS
-        value: "120000"
+        value: "60000"
       # 官方网页源无需 Token；不要同时配置 FEED_URL
       # 如使用管理员功能，在 Render 面板添加 ADMIN_KEY，切勿提交到 GitHub
