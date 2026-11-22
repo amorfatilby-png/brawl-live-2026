@@ -77,3 +77,40 @@ test('counts recorded series MVPs only after a verified final score',()=>{
   ].join('\n');
   assert.deepEqual(countBrawlerPicks(withAwards+'\n'+grandFinal).mvps,{guesti:1,gero:1});
 });
+
+test('tracks the counter side for completed and in-progress drafts, excluding the grand-final advantage',async()=>{
+  const text=article
+    .replace('|R1M1={{Match\n |map1={{Map|maptype=Brawl Ball',
+      '|R1M1={{Match\n |opponent1={{TeamOpponent|HMBLE}}\n |opponent2={{TeamOpponent|Reply Totem}}\n |map1={{Map|map=Beach Ball|firstpick=2|maptype=Brawl Ball')
+    .replace('|map2={{Map|maptype=Brawl Ball|score1=2',
+      '|map2={{Map|map=Triple Dribble|firstpick=|maptype=Brawl Ball|score1=2')
+    .replace('|map3={{Map|score1=1','|map3={{Map|map=Hideout|firstpick=1|score1=1');
+  const final=[
+    '|R5M1={{Match',' |bestof=7',
+    ' |opponent1={{TeamOpponent|Natus Vincere|score=2}}',' |opponent2={{TeamOpponent|Team Elektros|score=0}}',
+    ' |map1={{Map|winner=skip|score1=2|score2=0}}',
+    ' |map2={{Map|map=Dry Season|firstpick=1|score1=2|score2=0}}',
+    ' |map3={{Map|map=Safe Zone|firstpick=1|score1=|score2=}}',
+    '}}',
+  ].join('\n');
+  const full=text+'\n'+final;
+  const preview=countBrawlerPicks(full).counterByMatch;
+  assert.deepEqual(preview.A1,{teams:['HMBLE','Totem Esports'],sets:[
+    {number:1,map:'Beach Ball',counter:'HMBLE',winner:'HMBLE'},
+    {number:2,map:'Triple Dribble',counter:null,winner:'HMBLE'},
+    {number:3,map:'Hideout',counter:'Totem Esports',winner:null},
+  ]});
+  assert.deepEqual(preview.GF.sets,[
+    {number:1,map:'Dry Season',counter:'Team Elektros',winner:'NAVI'},
+    {number:2,map:'Safe Zone',counter:'Team Elektros',winner:null},
+  ]);
+  const source=(revid,content)=>async()=>Response.json({query:{pages:[{
+    title:'Brawl Stars World Finals/2026',revisions:[{revid,slots:{main:{content}}}],
+  }]}});
+  const prior=await readBrawlerPicks(null,source(20,full));
+  const updated=await readBrawlerPicks(prior,source(21,full
+    .replace('map=Beach Ball|firstpick=2','map=Beach Ball|firstpick=')
+    .replace('map=Safe Zone|firstpick=1|score1=|score2=','map=Safe Zone|firstpick=|score1=1|score2=2')));
+  assert.deepEqual(updated.counterByMatch.A1,prior.counterByMatch.A1);
+  assert.deepEqual(updated.counterByMatch.GF.sets[1],{number:2,map:'Safe Zone',counter:'Team Elektros',winner:'Team Elektros'});
+});
