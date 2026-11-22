@@ -1,12 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import {normalizeSupercell,readSupercellFeed} from '../supercell-feed.mjs';
+import {normalizeSupercell,readSupercellFeed,supplementSupercellMatches} from '../supercell-feed.mjs';
 
 const bracket = JSON.parse(await fs.readFile(new URL('./fixtures/supercell-bracket.json',import.meta.url),'utf8'));
 const state = JSON.parse(await fs.readFile(new URL('./fixtures/supercell-state.json',import.meta.url),'utf8'));
 const copy = () => structuredClone(bracket);
 const match = (data,id) => data[0].ranges.flatMap(r=>r.matches).find(m=>m.id===id);
+
+test('supplements the stalled official score without changing official results or guessing teams',async()=>{
+ const snapshot=JSON.parse(await fs.readFile(new URL('../data/supercell-checkpoint.json',import.meta.url),'utf8'));
+ const official={...snapshot.matches,LQ1:{status:'live',score1:0,score2:0}};
+ const backup={teams:['FUT Esports','Reply Totem'],played:[2,0],declared:null};
+ assert.deepEqual(supplementSupercellMatches(official,{LQ1:backup}).LQ1,
+   {status:'live',score1:0,score2:2,source:'liquipedia'});
+ assert.equal(official.LQ1.score2,0);
+ assert.deepEqual(supplementSupercellMatches(official,{LQ1:{...backup,teams:['FUT Esports','NAVI']}}).LQ1,official.LQ1);
+ assert.deepEqual(supplementSupercellMatches(official,{LQ1:{...backup,declared:[3,0]}}).LQ1,official.LQ1);
+ const finished={...official,LQ1:{status:'final',score1:1,score2:3}};
+ assert.deepEqual(supplementSupercellMatches(finished,{LQ1:{...backup,played:[0,3]}}).LQ1,finished.LQ1);
+ assert.deepEqual(supplementSupercellMatches(official,{LQ1:{...backup,played:[3,0],declared:[3,0]}}).LQ1,
+   {status:'final',score1:0,score2:3,source:'liquipedia'});
+});
 
 test('captured official response maps all fourteen matches and preserves scheduled unknowns',()=>{
  const result=normalizeSupercell(copy(),state);

@@ -59,6 +59,7 @@ export function countBrawlerPicks(wikitext) {
   const byMode = new Map();
   const mvps = new Map();
   const setsByMatch = {};
+  const seriesByMatch = {};
   for (const entry of matches) {
     const [,slot,match] = entry;
     const groupSlot = GROUP_MATCHES[slot];
@@ -91,11 +92,16 @@ export function countBrawlerPicks(wikitext) {
       }
     }
     if (matchId && playedSets.length) setsByMatch[matchId]=playedSets;
+    const opponents = [...match.matchAll(/^[ \t]*\|opponent[12]\s*=\s*\{\{TeamOpponent\|([^|{}\n]+)(?:\|[^{}\n]*)?\}\}/gm)].map(([,team])=>team.trim());
     const mvp = match.match(/\|\s*mvp\s*=\s*([a-z0-9][a-z0-9?_. -]{0,31})(?=[|\r\n])/i)?.[1].trim().toLowerCase();
     const bestOf = Number(match.match(/(?:^|\n)[ \t]*\|bestof=(\d+)\b/)?.[1] ?? 5);
     const clincher = Math.floor(bestOf/2)+1;
     const seriesScores = [...match.matchAll(/\|\s*opponent[12]\s*=\s*\{\{TeamOpponent\|[^{}\n]+?\|score=(\d+)\b/gi)].map(([,score])=>Number(score));
     const scores = seriesScores.length===2 ? seriesScores : setWins;
+    if (matchId && opponents.length===2 && playedSets.length &&
+        playedSets.every((set,index)=>set.number===index+1)) {
+      seriesByMatch[matchId]={teams:opponents,played:setWins,declared:seriesScores.length===2?seriesScores:null};
+    }
     if (mvp && Math.max(...scores) === clincher && Math.min(...scores) < clincher) {
       mvps.set(mvp,(mvps.get(mvp)??0)+1);
     }
@@ -104,7 +110,7 @@ export function countBrawlerPicks(wikitext) {
   if (!overall.sets) throw new Error('暂无完整的已完赛英雄阵容');
   const modeNames = new Set([...MODES.keys(),...byMode.keys()]);
   const modes = [...modeNames].map(mode=>({mode,label:MODES.get(mode)??mode,...summarizeBucket(byMode.get(mode)??newBucket())}));
-  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps),setsByMatch};
+  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps),setsByMatch,seriesByMatch};
 }
 
 export async function readBrawlerPicks(previous, fetchImpl = fetch) {
@@ -127,7 +133,7 @@ export async function readBrawlerPicks(previous, fetchImpl = fetch) {
   if (previous && revision.revid < previous.revision) throw new Error('出场资料返回较早的版本');
   const checkedAt = new Date().toISOString();
   const hasWinStats = previous?.heroes.every(hero=>Number.isInteger(hero.teamPicks)&&Number.isInteger(hero.wins));
-  if (hasWinStats && previous.modes?.length && previous.mvps && previous.setsByMatch && revision.revid === previous.revision) return {...previous,checkedAt};
+  if (hasWinStats && previous.modes?.length && previous.mvps && previous.setsByMatch && previous.seriesByMatch && revision.revid === previous.revision) return {...previous,checkedAt};
   const stats = countBrawlerPicks(revision.slots.main.content);
   if (hasWinStats && stats.sets < previous.sets) throw new Error('出场资料的完整阵容数量回退');
   return {...stats,revision:revision.revid,checkedAt,source:PICK_SOURCE,license:'https://creativecommons.org/licenses/by-sa/3.0/'};

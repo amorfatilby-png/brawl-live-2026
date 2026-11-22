@@ -587,6 +587,7 @@
       <div id="sync-archive-row" hidden><dt>官方完赛归档</dt><dd id="sync-archive">—</dd></div>
     </dl>
     <p>网站运行时按下方间隔核查 Supercell，打开的网页每 5 秒读取站内比分。官方源使用共享缓存。同步中断时，页面会标明缓存状态并保留可用赛果。</p>
+    <p>官方比分落后时，标有「补录」的比分来自已核对场次和双方队名的 <a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia 盘次</a>。官方完赛比分确认后优先显示。</p>
     <p>本站由玩家制作，与 Supercell 无官方关联。英雄头像版权归 Supercell，由 Brawlify 提供原始素材。</p>
     <div class="info-links"><a href="https://event.supercell.com/brawlstars/en/live" target="_blank" rel="noopener noreferrer">Supercell 赛事 ↗</a><a href="https://github.com/amorfatilby-png/brawl-live-2026/blob/official-results/data/official-results.json" target="_blank" rel="noopener noreferrer">比分归档 ↗</a><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia ↗</a><a href="https://brawlytics.pro/worlds" target="_blank" rel="noopener noreferrer">Brawlytics ↗</a></div>
     <div class="info-links"><a href="https://supercell.com/en/fan-content-policy/" target="_blank" rel="noopener noreferrer">Supercell 粉丝内容政策 ↗</a></div>
@@ -756,12 +757,13 @@ function resolved(id, stack=new Set()){
    if(!previous || previous.status!=='final' || !previous.t1 || !previous.t2)return null;
    return which==='win'? (previous.score1>previous.score2?previous.t1:previous.t2):(previous.score1>previous.score2?previous.t2:previous.t1);
  });
- return {id,stage:d[1],date:d[2],t1:slots[0],t2:slots[1],status:entry.status||'scheduled',score1:entry.score1,score2:entry.score2};
+ return {id,stage:d[1],date:d[2],t1:slots[0],t2:slots[1],status:entry.status||'scheduled',score1:entry.score1,score2:entry.score2,source:entry.source};
 }
 function item(id){return resolved(id)}
 function cached(){return data.mode==='offline'||Boolean(data.feedConfigured&&(data.feedError||data.feedStale));}
 function label(s){return s==='final'?'已完赛':s==='live'?(cached()?'上次进行中':'进行中'):cached()||data.mode==='snapshot'?'待确认':'待开赛'}
-function badge(s){return `<span class="badge ${s}${s==='live'&&!cached()?' active':''}">${label(s)}</span>`}
+function matchLabel(status,source){return label(status)+(source==='liquipedia'?' · 补录':'');}
+function badge(s,source){return `<span class="badge ${s}${s==='live'&&!cached()?' active':''}">${matchLabel(s,source)}</span>`}
 function teamLogo(profile){
  return profile
   ?`<img class="team-logo" src="./assets/teams/${profile.slug}.webp" alt="" width="23" height="23" decoding="async">`
@@ -782,7 +784,7 @@ function matchCard(m){
    const to=dim==='loser'&&dropRoutes.find(route=>route.from===m.id);
    return `<div class="vs-team ${dim}">${team}<span class="route-score">${from?routePort(from,from.from,'↑'):(to?routePort(to,to.to,'↓'):'')}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></span></div>`;
  };
- return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
+ return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status,m.source)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
 }
 async function loadPlayerProfiles(){
  if(playerProfiles||profilesLoading)return;
@@ -908,7 +910,7 @@ function renderSpot(){const played=defs.map(d=>item(d[0]));const live=played.fil
   $(`#spot-team${i+1}`).innerHTML=profile?`<a href="#team-${profile.slug}" data-team-link>${content}</a>`:content;
  });
  $('#spot-score').innerHTML=`${Number.isInteger(match.score1)?match.score1:'—'}<span class="colon">:</span>${Number.isInteger(match.score2)?match.score2:'—'}`;
- $('#spot-badge').className='badge '+match.status+(match.status==='live'&&!cached()?' active':'');$('#spot-badge').textContent=label(match.status);$('#spot-round').textContent=`${match.stage} · ${fmt(match.date)}`;
+ $('#spot-badge').className='badge '+match.status+(match.status==='live'&&!cached()?' active':'');$('#spot-badge').textContent=matchLabel(match.status,match.source);$('#spot-round').textContent=`${match.stage} · ${fmt(match.date)}`;
  $('#spot-link').href=`#games-${match.id}`;
 }
 function renderStats(){
@@ -927,7 +929,7 @@ function renderSchedule(){
    <span class="time">${fmt(m.date)}</span><span class="stage">${esc(m.stage)}</span>
    <span class="match-name">${esc(m.t1||'待定')} <span>对</span> ${esc(m.t2||'待定')}</span>
    <span class="result ${esc(m.status)}">${Number.isInteger(m.score1)?m.score1:'—'} : ${Number.isInteger(m.score2)?m.score2:'—'}</span>
-   <span class="match-status">${badge(m.status)}</span>
+   <span class="match-status">${badge(m.status,m.source)}</span>
   </a>`;
  }).join(''):'<p class="empty">该筛选条件下没有比赛</p>';
 }
@@ -1176,7 +1178,7 @@ function statusMessage(){
  else if(data.feedConfigured){
   if(!data.feedLastOk&&archived)message='官方暂不可用 · 显示归档比分';
   else if(data.feedError||data.feedStale)message='同步暂不可用 · 显示缓存比分';
-  else if(data.feedLastOk){message=official?'官方同步正常':'数据同步正常';healthy=true;}
+  else if(data.feedLastOk){message=Object.values(data.matches).some(match=>match.source==='liquipedia')?'比分已同步 · 含赛事补录':official?'官方同步正常':'数据同步正常';healthy=true;}
   else message='正在核查比分';
  }else if(data.mode==='manual'){message='管理员更新';healthy=true;}
 
