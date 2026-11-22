@@ -1,67 +1,103 @@
 {
-  "sets": 66,
-  "recordedSets": 67,
-  "recordedSeries": 18,
+  "sets": 91,
+  "recordedSets": 91,
+  "recordedSeries": 24,
   "heroes": [
     {
+      "id": "ruffs",
+      "picks": 24,
+      "teamPicks": 24,
+      "wins": 9
+    },
+    {
       "id": "chester",
+      "picks": 23,
+      "teamPicks": 23,
+      "wins": 12
+    },
+    {
+      "id": "gus",
+      "picks": 22,
+      "teamPicks": 22,
+      "wins": 11
+    },
+    {
+      "id": "brock",
+      "picks": 18,
+      "teamPicks": 18,
+      "wins": 11
+    },
+    {
+      "id": "surge",
+      "picks": 18,
+      "teamPicks": 18,
+      "wins": 10
+    },
+    {
+      "id": "8bit",
+      "picks": 16,
+      "teamPicks": 16,
+      "wins": 8
+    },
+    {
+      "id": "angelo",
+      "picks": 16,
+      "teamPicks": 16,
+      "wins": 8
+    },
+    {
+      "id": "otis",
       "picks": 16,
       "teamPicks": 16,
       "wins": 6
     },
     {
-      "id": "ruffs",
+      "id": "stu",
       "picks": 15,
       "teamPicks": 15,
       "wins": 5
     },
     {
-      "id": "8bit",
-      "picks": 13,
-      "teamPicks": 13,
-      "wins": 7
-    },
-    {
-      "id": "angelo",
-      "picks": 13,
-      "teamPicks": 13,
+      "id": "colette",
+      "picks": 14,
+      "teamPicks": 14,
       "wins": 6
     },
     {
-      "id": "brock",
+      "id": "max",
+      "picks": 14,
+      "teamPicks": 14,
+      "wins": 7
+    },
+    {
+      "id": "lumi",
       "picks": 13,
       "teamPicks": 13,
       "wins": 8
     },
     {
-      "id": "gus",
+      "id": "nori",
       "picks": 13,
       "teamPicks": 13,
-      "wins": 6
+      "wins": 8
     },
     {
-      "id": "stu",
-      "picks": 13,
-      "teamPicks": 13,
+      "id": "griff",
+      "picks": 12,
+      "teamPicks": 12,
+      "wins": 3
+    },
+    {
+      "id": "lou",
+      "picks": 12,
+      "teamPicks": 12,
       "wins": 5
     },
     {
-      "id": "lumi",
+      "id": "colt",
       "picks": 11,
       "teamPicks": 11,
-      "wins": 6
-    },
-    {
-      "id": "otis",
-      "picks": 11,
-      "teamPicks": 11,
-      "wins": 5
-    },
-    {
-      "id": "surge",
-      "picks": 11,
-      "teamPicks": 11,
-      "wins": 5
+      "wins": 8
     },
     {
       "id": "amber",
@@ -76,7 +112,7 @@
       "wins": 2
     },
     {
-      "id": "colt",
+      "id": "emz",
       "picks": 10,
       "teamPicks": 10,
       "wins": 7
@@ -88,148 +124,154 @@
       "wins": 4
     },
     {
-      "id": "max",
+      "id": "gale",
+      "picks": 10,
+      "teamPicks": 10,
+      "wins": 7
+    },
+    {
+      "id": "kaze",
+      "picks": 10,
+      "teamPicks": 10,
+      "wins": 4
+    },
+    {
+      "id": "squeak",
       "picks": 10,
       "teamPicks": 10,
       "wins": 5
     },
     {
-      "id": "colette",
-      "picks": 9,
-      "teamPicks": 9,
-      "wins": 5
-    },
-    {
-      "id": "lou",
-      "picks": 9,
-      "teamPicks": 9,
-      "wins": 3
-    },
-    {
       "id": "berry",
-      "picks": 8,
-      "teamPicks": 8,
-      "wins": 4
-    },
-    {
-      "id": "griff",
-      "picks": 8,
-      "teamPicks": 8,
-      "wins": 2
-    },
-    {
-      "id": "kaze",
-      "picks": 8,
-      "teamPicks": 8,
-      "wins": 3
-    },
-    {
-      "id": "emz",
-      "picks": 7,
-      "teamPicks": 7,
-      "wins": 5
-    },
-    {
-      "id": "gale",
-      "picks": 7,
-      "teamPicks": 7,
-      "wins": 4
-    },
-    {
-      "id": "nori",
-      "picks": 7,
-      "teamPicks": 7,
-      "wins": 5
-    },
-    {
-      "id": "squeak",
-      "picks": 7,
-      "teamPicks": 7,
-      "wins": 5
-    },
-    {
-      "id": "edgar",
-      "picks": 6,
-      "teamPicks": 6,
-      "wins": 4
-    },
-    {
-      "id": "gray",
-      "picks": 6,
-      "teamPicks": 6,
-      "wins": 3
-    },
-    {
-      "id": "piper",
-      "picks": 6,
-      "teamPicks": 6,
-      "wins": 4
-    },
-    {
-      "id": "sirius",
-      "picks": 6,
-      "teamPicks": 6,
-      "wins": 2
-    },
-    {
-      "id": "alli",
-      "picks": 5,
-      "teamPicks": 5,
+      "picks": 9,
+      "teamPicks": 9,
       "wins": 5
     },
     {
       "id": "byron",
-      "picks": 5,
-      "teamPicks": 5,
-      "wins": 4
-    },
-    {
-      "id": "gene",
-      "picks": 5,
-      "teamPicks": 5,
+      "picks": 9,
+      "teamPicks": 9,
       "wins": 5
     },
     {
+      "id": "edgar",
+      "picks": 9,
+      "teamPicks": 9,
+      "wins": 6
+    },
+    {
       "id": "janet",
-      "picks": 5,
-      "teamPicks": 5,
-      "wins": 4
+      "picks": 9,
+      "teamPicks": 9,
+      "wins": 5
     },
     {
       "id": "mina",
+      "picks": 8,
+      "teamPicks": 8,
+      "wins": 4
+    },
+    {
+      "id": "rico",
+      "picks": 8,
+      "teamPicks": 8,
+      "wins": 3
+    },
+    {
+      "id": "alli",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 6
+    },
+    {
+      "id": "gene",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 7
+    },
+    {
+      "id": "gray",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 4
+    },
+    {
+      "id": "mrp",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 6
+    },
+    {
+      "id": "piper",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 4
+    },
+    {
+      "id": "sirius",
+      "picks": 7,
+      "teamPicks": 7,
+      "wins": 2
+    },
+    {
+      "id": "ash",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 2
+    },
+    {
+      "id": "melodie",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 3
+    },
+    {
+      "id": "moe",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 4
+    },
+    {
+      "id": "najia",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 1
+    },
+    {
+      "id": "penny",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 2
+    },
+    {
+      "id": "rt",
+      "picks": 6,
+      "teamPicks": 6,
+      "wins": 4
+    },
+    {
+      "id": "glowy",
       "picks": 5,
       "teamPicks": 5,
       "wins": 3
     },
     {
-      "id": "moe",
-      "picks": 5,
-      "teamPicks": 5,
-      "wins": 4
-    },
-    {
-      "id": "mrp",
-      "picks": 5,
-      "teamPicks": 5,
-      "wins": 4
-    },
-    {
-      "id": "rico",
+      "id": "leon",
       "picks": 5,
       "teamPicks": 5,
       "wins": 1
     },
     {
-      "id": "ash",
+      "id": "elprimo",
       "picks": 4,
       "teamPicks": 4,
-      "wins": 2
+      "wins": 1
     },
     {
-      "id": "glowy",
+      "id": "hank",
       "picks": 4,
       "teamPicks": 4,
-      "wins": 2
+      "wins": 3
     },
     {
       "id": "larrylawrie",
@@ -238,22 +280,16 @@
       "wins": 2
     },
     {
-      "id": "leon",
+      "id": "willow",
       "picks": 4,
       "teamPicks": 4,
-      "wins": 1
+      "wins": 2
     },
     {
-      "id": "melodie",
-      "picks": 4,
-      "teamPicks": 4,
-      "wins": 3
-    },
-    {
-      "id": "rt",
-      "picks": 4,
-      "teamPicks": 4,
-      "wins": 3
+      "id": "barley",
+      "picks": 3,
+      "teamPicks": 3,
+      "wins": 2
     },
     {
       "id": "bull",
@@ -268,16 +304,34 @@
       "wins": 1
     },
     {
-      "id": "elprimo",
+      "id": "cosmo",
+      "picks": 3,
+      "teamPicks": 3,
+      "wins": 2
+    },
+    {
+      "id": "darryl",
       "picks": 3,
       "teamPicks": 3,
       "wins": 1
     },
     {
-      "id": "hank",
+      "id": "eve",
       "picks": 3,
       "teamPicks": 3,
-      "wins": 3
+      "wins": 2
+    },
+    {
+      "id": "kit",
+      "picks": 3,
+      "teamPicks": 3,
+      "wins": 2
+    },
+    {
+      "id": "lola",
+      "picks": 3,
+      "teamPicks": 3,
+      "wins": 1
     },
     {
       "id": "mandy",
@@ -286,28 +340,16 @@
       "wins": 1
     },
     {
-      "id": "najia",
+      "id": "nita",
       "picks": 3,
       "teamPicks": 3,
-      "wins": 1
+      "wins": 2
     },
     {
-      "id": "penny",
+      "id": "pearl",
       "picks": 3,
       "teamPicks": 3,
-      "wins": 1
-    },
-    {
-      "id": "willow",
-      "picks": 3,
-      "teamPicks": 3,
-      "wins": 1
-    },
-    {
-      "id": "barley",
-      "picks": 2,
-      "teamPicks": 2,
-      "wins": 1
+      "wins": 3
     },
     {
       "id": "bolt",
@@ -322,22 +364,10 @@
       "wins": 1
     },
     {
-      "id": "cosmo",
+      "id": "charlie",
       "picks": 2,
       "teamPicks": 2,
-      "wins": 1
-    },
-    {
-      "id": "darryl",
-      "picks": 2,
-      "teamPicks": 2,
-      "wins": 1
-    },
-    {
-      "id": "eve",
-      "picks": 2,
-      "teamPicks": 2,
-      "wins": 1
+      "wins": 0
     },
     {
       "id": "juju",
@@ -346,16 +376,16 @@
       "wins": 2
     },
     {
-      "id": "lola",
+      "id": "pierce",
       "picks": 2,
       "teamPicks": 2,
       "wins": 1
     },
     {
-      "id": "pearl",
+      "id": "sprout",
       "picks": 2,
       "teamPicks": 2,
-      "wins": 2
+      "wins": 0
     },
     {
       "id": "ziggy",
@@ -370,16 +400,22 @@
       "wins": 0
     },
     {
+      "id": "buster",
+      "picks": 1,
+      "teamPicks": 1,
+      "wins": 0
+    },
+    {
       "id": "buzz",
       "picks": 1,
       "teamPicks": 1,
       "wins": 0
     },
     {
-      "id": "charlie",
+      "id": "clancy",
       "picks": 1,
       "teamPicks": 1,
-      "wins": 0
+      "wins": 1
     },
     {
       "id": "cordelius",
@@ -388,10 +424,22 @@
       "wins": 0
     },
     {
+      "id": "crow",
+      "picks": 1,
+      "teamPicks": 1,
+      "wins": 1
+    },
+    {
       "id": "damian",
       "picks": 1,
       "teamPicks": 1,
       "wins": 0
+    },
+    {
+      "id": "doug",
+      "picks": 1,
+      "teamPicks": 1,
+      "wins": 1
     },
     {
       "id": "draco",
@@ -424,22 +472,10 @@
       "wins": 1
     },
     {
-      "id": "nita",
-      "picks": 1,
-      "teamPicks": 1,
-      "wins": 1
-    },
-    {
       "id": "ollie",
       "picks": 1,
       "teamPicks": 1,
       "wins": 1
-    },
-    {
-      "id": "pierce",
-      "picks": 1,
-      "teamPicks": 1,
-      "wins": 0
     },
     {
       "id": "shade",
@@ -448,31 +484,61 @@
       "wins": 1
     },
     {
-      "id": "sprout",
+      "id": "spike",
       "picks": 1,
       "teamPicks": 1,
-      "wins": 0
+      "wins": 1
     }
   ],
   "modes": [
     {
       "mode": "Gem Grab",
       "label": "宝石争霸",
-      "sets": 10,
-      "recordedSets": 11,
-      "recordedSeries": 10,
+      "sets": 16,
+      "recordedSets": 16,
+      "recordedSeries": 16,
       "heroes": [
         {
-          "id": "ruffs",
-          "picks": 6,
-          "teamPicks": 6,
-          "wins": 2
+          "id": "janet",
+          "picks": 9,
+          "teamPicks": 9,
+          "wins": 5
         },
         {
-          "id": "janet",
+          "id": "ruffs",
+          "picks": 9,
+          "teamPicks": 9,
+          "wins": 3
+        },
+        {
+          "id": "gus",
+          "picks": 8,
+          "teamPicks": 8,
+          "wins": 4
+        },
+        {
+          "id": "chester",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 4
+        },
+        {
+          "id": "surge",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 5
+        },
+        {
+          "id": "nori",
           "picks": 5,
           "teamPicks": 5,
-          "wins": 4
+          "wins": 3
+        },
+        {
+          "id": "sirius",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 1
         },
         {
           "id": "stu",
@@ -481,28 +547,22 @@
           "wins": 3
         },
         {
-          "id": "chester",
-          "picks": 4,
-          "teamPicks": 4,
-          "wins": 1
-        },
-        {
-          "id": "sirius",
-          "picks": 4,
-          "teamPicks": 4,
-          "wins": 1
-        },
-        {
-          "id": "surge",
-          "picks": 4,
-          "teamPicks": 4,
-          "wins": 3
-        },
-        {
           "id": "8bit",
-          "picks": 3,
-          "teamPicks": 3,
-          "wins": 1
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "ash",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "lumi",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 4
         },
         {
           "id": "colette",
@@ -511,22 +571,16 @@
           "wins": 1
         },
         {
-          "id": "gus",
+          "id": "rico",
           "picks": 3,
           "teamPicks": 3,
           "wins": 1
         },
         {
-          "id": "nori",
+          "id": "squeak",
           "picks": 3,
           "teamPicks": 3,
-          "wins": 2
-        },
-        {
-          "id": "ash",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 2
+          "wins": 1
         },
         {
           "id": "elprimo",
@@ -535,19 +589,25 @@
           "wins": 1
         },
         {
-          "id": "lumi",
+          "id": "moe",
           "picks": 2,
           "teamPicks": 2,
-          "wins": 2
+          "wins": 1
         },
         {
-          "id": "penny",
+          "id": "nita",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 1
+        },
+        {
+          "id": "otis",
           "picks": 2,
           "teamPicks": 2,
           "wins": 0
         },
         {
-          "id": "rico",
+          "id": "penny",
           "picks": 2,
           "teamPicks": 2,
           "wins": 0
@@ -583,16 +643,22 @@
           "wins": 1
         },
         {
+          "id": "kit",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
           "id": "max",
           "picks": 1,
           "teamPicks": 1,
           "wins": 0
         },
         {
-          "id": "moe",
+          "id": "melodie",
           "picks": 1,
           "teamPicks": 1,
-          "wins": 1
+          "wins": 0
         },
         {
           "id": "mortis",
@@ -601,30 +667,48 @@
           "wins": 1
         },
         {
-          "id": "otis",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 0
-        },
-        {
-          "id": "squeak",
+          "id": "pearl",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
+        },
+        {
+          "id": "sprout",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
         }
       ]
     },
     {
       "mode": "Brawl Ball",
       "label": "乱斗足球",
-      "sets": 10,
-      "recordedSets": 10,
-      "recordedSeries": 10,
+      "sets": 13,
+      "recordedSets": 13,
+      "recordedSeries": 13,
       "heroes": [
         {
           "id": "chester",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 3
+        },
+        {
+          "id": "otis",
           "picks": 6,
           "teamPicks": 6,
+          "wins": 4
+        },
+        {
+          "id": "max",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 2
+        },
+        {
+          "id": "griff",
+          "picks": 4,
+          "teamPicks": 4,
           "wins": 2
         },
         {
@@ -652,16 +736,40 @@
           "wins": 2
         },
         {
-          "id": "max",
+          "id": "colette",
           "picks": 3,
           "teamPicks": 3,
           "wins": 1
         },
         {
-          "id": "otis",
+          "id": "emz",
           "picks": 3,
           "teamPicks": 3,
-          "wins": 3
+          "wins": 1
+        },
+        {
+          "id": "gale",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "rico",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "ruffs",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "surge",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
         },
         {
           "id": "willow",
@@ -670,16 +778,16 @@
           "wins": 1
         },
         {
+          "id": "alli",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
           "id": "ash",
           "picks": 2,
           "teamPicks": 2,
           "wins": 0
-        },
-        {
-          "id": "colette",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
         },
         {
           "id": "edgar",
@@ -688,46 +796,16 @@
           "wins": 1
         },
         {
-          "id": "emz",
+          "id": "elprimo",
           "picks": 2,
           "teamPicks": 2,
           "wins": 0
-        },
-        {
-          "id": "gale",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "griff",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
         },
         {
           "id": "hank",
           "picks": 2,
           "teamPicks": 2,
           "wins": 2
-        },
-        {
-          "id": "rico",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "ruffs",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "alli",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
         },
         {
           "id": "amber",
@@ -737,12 +815,6 @@
         },
         {
           "id": "barley",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 0
-        },
-        {
-          "id": "elprimo",
           "picks": 1,
           "teamPicks": 1,
           "wins": 0
@@ -772,16 +844,16 @@
           "wins": 1
         },
         {
-          "id": "squeak",
+          "id": "spike",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
         },
         {
-          "id": "surge",
+          "id": "squeak",
           "picks": 1,
           "teamPicks": 1,
-          "wins": 0
+          "wins": 1
         },
         {
           "id": "ziggy",
@@ -794,15 +866,27 @@
     {
       "mode": "Heist",
       "label": "金库攻防",
-      "sets": 14,
-      "recordedSets": 14,
-      "recordedSeries": 14,
+      "sets": 18,
+      "recordedSets": 18,
+      "recordedSeries": 18,
       "heroes": [
         {
           "id": "colt",
-          "picks": 8,
-          "teamPicks": 8,
-          "wins": 6
+          "picks": 9,
+          "teamPicks": 9,
+          "wins": 7
+        },
+        {
+          "id": "brock",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 4
+        },
+        {
+          "id": "kaze",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 2
         },
         {
           "id": "angelo",
@@ -811,16 +895,10 @@
           "wins": 3
         },
         {
-          "id": "kaze",
+          "id": "otis",
           "picks": 6,
           "teamPicks": 6,
-          "wins": 2
-        },
-        {
-          "id": "brock",
-          "picks": 5,
-          "teamPicks": 5,
-          "wins": 3
+          "wins": 1
         },
         {
           "id": "finx",
@@ -829,22 +907,22 @@
           "wins": 3
         },
         {
-          "id": "otis",
-          "picks": 5,
-          "teamPicks": 5,
-          "wins": 1
-        },
-        {
           "id": "8bit",
-          "picks": 3,
-          "teamPicks": 3,
+          "picks": 4,
+          "teamPicks": 4,
           "wins": 2
         },
         {
           "id": "alli",
-          "picks": 3,
-          "teamPicks": 3,
+          "picks": 4,
+          "teamPicks": 4,
           "wins": 3
+        },
+        {
+          "id": "colette",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
         },
         {
           "id": "amber",
@@ -859,7 +937,37 @@
           "wins": 1
         },
         {
+          "id": "byron",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "glowy",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "lola",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
           "id": "lou",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
+        },
+        {
+          "id": "nori",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "ruffs",
           "picks": 3,
           "teamPicks": 3,
           "wins": 2
@@ -868,6 +976,12 @@
           "id": "surge",
           "picks": 3,
           "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "berry",
+          "picks": 2,
+          "teamPicks": 2,
           "wins": 1
         },
         {
@@ -883,28 +997,10 @@
           "wins": 1
         },
         {
-          "id": "colette",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "glowy",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
           "id": "griff",
           "picks": 2,
           "teamPicks": 2,
           "wins": 0
-        },
-        {
-          "id": "lola",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
         },
         {
           "id": "lumi",
@@ -913,16 +1009,10 @@
           "wins": 1
         },
         {
-          "id": "ruffs",
+          "id": "melodie",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
-        },
-        {
-          "id": "berry",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 0
         },
         {
           "id": "bibi",
@@ -937,13 +1027,13 @@
           "wins": 0
         },
         {
-          "id": "byron",
+          "id": "chester",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
         },
         {
-          "id": "chester",
+          "id": "clancy",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -955,7 +1045,19 @@
           "wins": 0
         },
         {
+          "id": "crow",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
           "id": "emz",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "gus",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -979,12 +1081,6 @@
           "wins": 1
         },
         {
-          "id": "melodie",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
           "id": "najia",
           "picks": 1,
           "teamPicks": 1,
@@ -997,7 +1093,13 @@
           "wins": 1
         },
         {
-          "id": "nori",
+          "id": "penny",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "pierce",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -1007,16 +1109,28 @@
           "picks": 1,
           "teamPicks": 1,
           "wins": 0
+        },
+        {
+          "id": "squeak",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
         }
       ]
     },
     {
       "mode": "Bounty",
       "label": "赏金猎人",
-      "sets": 9,
-      "recordedSets": 9,
-      "recordedSeries": 9,
+      "sets": 13,
+      "recordedSets": 13,
+      "recordedSeries": 13,
       "heroes": [
+        {
+          "id": "gus",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 2
+        },
         {
           "id": "belle",
           "picks": 5,
@@ -1024,16 +1138,28 @@
           "wins": 0
         },
         {
-          "id": "gus",
+          "id": "brock",
           "picks": 5,
           "teamPicks": 5,
-          "wins": 2
+          "wins": 3
         },
         {
-          "id": "brock",
+          "id": "edgar",
+          "picks": 5,
+          "teamPicks": 5,
+          "wins": 3
+        },
+        {
+          "id": "angelo",
           "picks": 4,
           "teamPicks": 4,
-          "wins": 2
+          "wins": 3
+        },
+        {
+          "id": "byron",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 4
         },
         {
           "id": "max",
@@ -1042,28 +1168,40 @@
           "wins": 2
         },
         {
+          "id": "mina",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 1
+        },
+        {
           "id": "amber",
           "picks": 3,
           "teamPicks": 3,
           "wins": 0
         },
         {
-          "id": "angelo",
+          "id": "gene",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "kaze",
           "picks": 3,
           "teamPicks": 3,
           "wins": 2
         },
         {
-          "id": "byron",
+          "id": "mrp",
           "picks": 3,
           "teamPicks": 3,
-          "wins": 3
+          "wins": 2
         },
         {
-          "id": "gene",
+          "id": "najia",
           "picks": 3,
           "teamPicks": 3,
-          "wins": 3
+          "wins": 0
         },
         {
           "id": "piper",
@@ -1078,25 +1216,13 @@
           "wins": 1
         },
         {
-          "id": "edgar",
+          "id": "lou",
           "picks": 2,
           "teamPicks": 2,
-          "wins": 1
+          "wins": 2
         },
         {
-          "id": "kaze",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "mina",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "mrp",
+          "id": "surge",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
@@ -1106,6 +1232,24 @@
           "picks": 1,
           "teamPicks": 1,
           "wins": 0
+        },
+        {
+          "id": "charlie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "colette",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "doug",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
         },
         {
           "id": "glowy",
@@ -1126,12 +1270,6 @@
           "wins": 0
         },
         {
-          "id": "lou",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
           "id": "mandy",
           "picks": 1,
           "teamPicks": 1,
@@ -1144,7 +1282,25 @@
           "wins": 1
         },
         {
+          "id": "nori",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
           "id": "penny",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "rico",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "ruffs",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -1162,7 +1318,13 @@
           "wins": 1
         },
         {
-          "id": "surge",
+          "id": "stu",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 0
+        },
+        {
+          "id": "willow",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -1172,15 +1334,39 @@
     {
       "mode": "Hot Zone",
       "label": "热区争夺",
-      "sets": 12,
-      "recordedSets": 12,
-      "recordedSeries": 12,
+      "sets": 16,
+      "recordedSets": 16,
+      "recordedSeries": 16,
       "heroes": [
         {
-          "id": "8bit",
-          "picks": 5,
-          "teamPicks": 5,
+          "id": "chester",
+          "picks": 8,
+          "teamPicks": 8,
           "wins": 4
+        },
+        {
+          "id": "gale",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 5
+        },
+        {
+          "id": "ruffs",
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 1
+        },
+        {
+          "id": "8bit",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 4
+        },
+        {
+          "id": "emz",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 5
         },
         {
           "id": "berry",
@@ -1189,46 +1375,40 @@
           "wins": 3
         },
         {
-          "id": "chester",
-          "picks": 5,
-          "teamPicks": 5,
-          "wins": 2
-        },
-        {
           "id": "finx",
           "picks": 5,
           "teamPicks": 5,
           "wins": 1
         },
         {
-          "id": "gale",
-          "picks": 5,
-          "teamPicks": 5,
-          "wins": 3
-        },
-        {
-          "id": "ruffs",
+          "id": "griff",
           "picks": 5,
           "teamPicks": 5,
           "wins": 1
-        },
-        {
-          "id": "emz",
-          "picks": 4,
-          "teamPicks": 4,
-          "wins": 4
         },
         {
           "id": "stu",
-          "picks": 4,
-          "teamPicks": 4,
+          "picks": 5,
+          "teamPicks": 5,
           "wins": 0
         },
         {
-          "id": "griff",
+          "id": "surge",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "colette",
           "picks": 3,
           "teamPicks": 3,
-          "wins": 1
+          "wins": 2
+        },
+        {
+          "id": "cosmo",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 2
         },
         {
           "id": "lumi",
@@ -1237,13 +1417,31 @@
           "wins": 0
         },
         {
-          "id": "colette",
+          "id": "mrp",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 3
+        },
+        {
+          "id": "nori",
+          "picks": 3,
+          "teamPicks": 3,
+          "wins": 1
+        },
+        {
+          "id": "barley",
           "picks": 2,
           "teamPicks": 2,
           "wins": 2
         },
         {
-          "id": "cosmo",
+          "id": "gray",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 2
+        },
+        {
+          "id": "hank",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
@@ -1255,19 +1453,13 @@
           "wins": 2
         },
         {
-          "id": "mrp",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 2
-        },
-        {
-          "id": "nori",
+          "id": "otis",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
         },
         {
-          "id": "otis",
+          "id": "penny",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
@@ -1279,19 +1471,7 @@
           "wins": 1
         },
         {
-          "id": "surge",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 0
-        },
-        {
           "id": "alli",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
-          "id": "barley",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -1327,18 +1507,6 @@
           "wins": 1
         },
         {
-          "id": "gray",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
-          "id": "hank",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
           "id": "melodie",
           "picks": 1,
           "teamPicks": 1,
@@ -1361,27 +1529,45 @@
     {
       "mode": "Knockout",
       "label": "极限淘汰",
-      "sets": 11,
-      "recordedSets": 11,
-      "recordedSeries": 11,
+      "sets": 15,
+      "recordedSets": 15,
+      "recordedSeries": 15,
       "heroes": [
         {
           "id": "gus",
-          "picks": 5,
-          "teamPicks": 5,
-          "wins": 3
+          "picks": 7,
+          "teamPicks": 7,
+          "wins": 4
         },
         {
           "id": "angelo",
-          "picks": 4,
-          "teamPicks": 4,
-          "wins": 1
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 2
         },
         {
           "id": "brock",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 4
+        },
+        {
+          "id": "lou",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 1
+        },
+        {
+          "id": "rt",
+          "picks": 6,
+          "teamPicks": 6,
+          "wins": 4
+        },
+        {
+          "id": "gene",
           "picks": 4,
           "teamPicks": 4,
-          "wins": 3
+          "wins": 4
         },
         {
           "id": "gray",
@@ -1390,31 +1576,37 @@
           "wins": 2
         },
         {
-          "id": "lou",
+          "id": "leon",
           "picks": 4,
           "teamPicks": 4,
-          "wins": 0
+          "wins": 1
         },
         {
-          "id": "rt",
+          "id": "mina",
           "picks": 4,
           "teamPicks": 4,
           "wins": 3
         },
         {
-          "id": "leon",
+          "id": "piper",
+          "picks": 4,
+          "teamPicks": 4,
+          "wins": 2
+        },
+        {
+          "id": "darryl",
           "picks": 3,
           "teamPicks": 3,
           "wins": 1
         },
         {
-          "id": "mina",
+          "id": "eve",
           "picks": 3,
           "teamPicks": 3,
           "wins": 2
         },
         {
-          "id": "piper",
+          "id": "max",
           "picks": 3,
           "teamPicks": 3,
           "wins": 2
@@ -1444,22 +1636,16 @@
           "wins": 1
         },
         {
-          "id": "darryl",
+          "id": "byron",
+          "picks": 2,
+          "teamPicks": 2,
+          "wins": 0
+        },
+        {
+          "id": "kit",
           "picks": 2,
           "teamPicks": 2,
           "wins": 1
-        },
-        {
-          "id": "eve",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 1
-        },
-        {
-          "id": "gene",
-          "picks": 2,
-          "teamPicks": 2,
-          "wins": 2
         },
         {
           "id": "najia",
@@ -1480,7 +1666,7 @@
           "wins": 0
         },
         {
-          "id": "byron",
+          "id": "buster",
           "picks": 1,
           "teamPicks": 1,
           "wins": 0
@@ -1516,12 +1702,6 @@
           "wins": 1
         },
         {
-          "id": "max",
-          "picks": 1,
-          "teamPicks": 1,
-          "wins": 1
-        },
-        {
           "id": "mrp",
           "picks": 1,
           "teamPicks": 1,
@@ -1535,6 +1715,12 @@
         },
         {
           "id": "ollie",
+          "picks": 1,
+          "teamPicks": 1,
+          "wins": 1
+        },
+        {
+          "id": "ruffs",
           "picks": 1,
           "teamPicks": 1,
           "wins": 1
@@ -1554,10 +1740,6 @@
       ]
     }
   ],
-  "revision": 278415,
-  "checkedAt": "2026-11-21T14:27:00.840Z",
-  "source": "https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026",
-  "license": "https://creativecommons.org/licenses/by-sa/3.0/",
   "mvps": {
     "symantec": 1,
     "joker": 3,
@@ -1566,13 +1748,13 @@
     "nowy297": 2,
     "memen": 4,
     "meow": 1,
-    "enraged": 1,
+    "enraged": 3,
     "gero": 1,
-    "guesti": 1,
-    "sitetampo": 1
+    "guesti": 2,
+    "sitetampo": 2,
+    "angelboy": 2
   },
   "setsByMatch": {
-    "GF": [{"number":1,"map":"Hard Rock Mine","mode":"Gem Grab","games":2},{"number":2,"map":"Pinhole Punt","mode":"Brawl Ball","games":3},{"number":3,"map":"Layer Cake","mode":"Bounty","games":3},{"number":4,"map":"Open Business","mode":"Hot Zone","games":2},{"number":5,"map":"Out in the Open","mode":"Knockout","games":3}],
     "A1": [
       {
         "number": 1,
@@ -1959,6 +2141,32 @@
         "games": 3
       }
     ],
+    "UF": [
+      {
+        "number": 1,
+        "map": "Dry Season",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Belle's Rock",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      }
+    ],
     "L1A": [
       {
         "number": 1,
@@ -2010,34 +2218,911 @@
         "mode": "Brawl Ball",
         "games": 3
       }
+    ],
+    "LQ1": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Hot Potato",
+        "mode": "Heist",
+        "games": 2
+      }
+    ],
+    "LQ2": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Kaboom Canyon",
+        "mode": "Heist",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Dry Season",
+        "mode": "Bounty",
+        "games": 2
+      }
+    ],
+    "LS": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 2
+      }
+    ],
+    "LF": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 3
+      },
+      {
+        "number": 2,
+        "map": "Ring of Fire",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 3,
+        "map": "Layer Cake",
+        "mode": "Bounty",
+        "games": 2
+      },
+      {
+        "number": 4,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      }
+    ],
+    "GF": [
+      {
+        "number": 1,
+        "map": "Hard Rock Mine",
+        "mode": "Gem Grab",
+        "games": 2
+      },
+      {
+        "number": 2,
+        "map": "Pinhole Punt",
+        "mode": "Brawl Ball",
+        "games": 3
+      },
+      {
+        "number": 3,
+        "map": "Layer Cake",
+        "mode": "Bounty",
+        "games": 3
+      },
+      {
+        "number": 4,
+        "map": "Open Business",
+        "mode": "Hot Zone",
+        "games": 2
+      },
+      {
+        "number": 5,
+        "map": "Out in the Open",
+        "mode": "Knockout",
+        "games": 3
+      },
+      {
+        "number": 6,
+        "map": "Safe Zone",
+        "mode": "Heist",
+        "games": 3
+      }
     ]
   },
-  "counterCheckedAt": "2026-11-22T08:45:51.659Z",
-  "counterByMatch": {
-    "GF": {"teams":["NAVI","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"FUT Esports","winner":"NAVI"},{"number":2,"map":"Pinhole Punt","counter":"FUT Esports","winner":"FUT Esports"},{"number":3,"map":"Layer Cake","counter":"FUT Esports","winner":"FUT Esports"},{"number":4,"map":"Open Business","counter":"FUT Esports","winner":"FUT Esports"},{"number":5,"map":"Out in the Open","counter":"NAVI","winner":"NAVI","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=22320s"}]},
-    "A1": {"teams":["HMBLE","Team Heretics"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"Team Heretics","winner":"HMBLE"},{"number":2,"map":"Goldarm Gulch","counter":"Team Heretics","winner":"HMBLE"},{"number":3,"map":"Open Business","counter":"HMBLE","winner":"HMBLE"}]},
-    "A2": {"teams":["RED Canids","Totem Esports"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"RED Canids","winner":"Totem Esports"},{"number":2,"map":"Crystal Arcade","counter":"RED Canids","winner":"RED Canids"},{"number":3,"map":"Beach Ball","counter":"Totem Esports","winner":"Totem Esports"},{"number":4,"map":"Out in the Open","counter":"RED Canids","winner":"Totem Esports"}]},
-    "AW": {"teams":["HMBLE","Totem Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Totem Esports","winner":"Totem Esports"},{"number":2,"map":"Goldarm Gulch","counter":"Totem Esports","winner":"HMBLE"},{"number":3,"map":"Dueling Beetles","counter":"HMBLE","winner":"HMBLE"},{"number":4,"map":"Beach Ball","counter":"Totem Esports","winner":"HMBLE"}]},
-    "AE": {"teams":["Team Heretics","RED Canids"],"sets":[{"number":1,"map":"Hideout","counter":"Team Heretics","winner":"Team Heretics"},{"number":2,"map":"Belle's Rock","counter":"RED Canids","winner":"Team Heretics"},{"number":3,"map":"Hard Rock Mine","counter":"RED Canids","winner":"Team Heretics"}]},
-    "AD": {"teams":["Totem Esports","Team Heretics"],"sets":[{"number":1,"map":"Crystal Arcade","counter":"Team Heretics","winner":"Totem Esports"},{"number":2,"map":"Kaboom Canyon","counter":"Totem Esports","winner":"Totem Esports"},{"number":3,"map":"Triple Dribble","counter":"Team Heretics","winner":"Totem Esports"}]},
-    "B1": {"teams":["Crazy Raccoon","NAVI"],"sets":[{"number":1,"map":"Ring of Fire","counter":"Crazy Raccoon","winner":"Crazy Raccoon"},{"number":2,"map":"Safe Zone","counter":"NAVI","winner":"NAVI"},{"number":3,"map":"Pinhole Punt","counter":"Crazy Raccoon","winner":"NAVI"},{"number":4,"map":"Deathcap Trap","counter":"Crazy Raccoon","winner":"NAVI"}]},
-    "B2": {"teams":["Team Elektros","NOVO Esports"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"Team Elektros","winner":"Team Elektros"},{"number":2,"map":"Goldarm Gulch","counter":"NOVO Esports","winner":"Team Elektros"},{"number":3,"map":"Ring of Fire","counter":"Team Elektros","winner":"Team Elektros"}]},
-    "BW": {"teams":["NAVI","Team Elektros"],"sets":[{"number":1,"map":"Out in the Open","counter":"NAVI","winner":"NAVI"},{"number":2,"map":"Crystal Arcade","counter":"Team Elektros","winner":"Team Elektros"},{"number":3,"map":"Hideout","counter":"NAVI","winner":"Team Elektros"},{"number":4,"map":"Ring of Fire","counter":"NAVI","winner":"Team Elektros"}]},
-    "BE": {"teams":["Crazy Raccoon","NOVO Esports"],"sets":[{"number":1,"map":"Out in the Open","counter":"NOVO Esports","winner":"NOVO Esports"},{"number":2,"map":"Hideout","counter":"NOVO Esports","winner":"NOVO Esports"},{"number":3,"map":"Open Business","counter":"NOVO Esports","winner":"Crazy Raccoon"},{"number":4,"map":"Hard Rock Mine","counter":"NOVO Esports","winner":"NOVO Esports"}]},
-    "BD": {"teams":["NAVI","NOVO Esports"],"sets":[{"number":1,"map":"Belle's Rock","counter":"NAVI","winner":"NAVI"},{"number":2,"map":"Hot Potato","counter":"NOVO Esports","winner":"NAVI"},{"number":3,"map":"Pinhole Punt","counter":"NOVO Esports","winner":"NAVI"}]},
-    "UQ1": {"teams":["FUT Esports","NAVI"],"sets":[{"number":1,"map":"Beach Ball","counter":"NAVI","winner":"NAVI"},{"number":2,"map":"Hideout","counter":"NAVI","winner":"FUT Esports"},{"number":3,"map":"Hot Potato","counter":"FUT Esports","winner":"FUT Esports"},{"number":4,"map":"Belle's Rock","counter":"NAVI","winner":"NAVI"},{"number":5,"map":"Ring of Fire","counter":"FUT Esports","winner":"NAVI"}]},
-    "UQ2": {"teams":["Bounty Hunters","HMBLE"],"sets":[{"number":1,"map":"Hideout","counter":"Bounty Hunters","winner":"HMBLE"},{"number":2,"map":"Safe Zone","counter":"Bounty Hunters","winner":"HMBLE"},{"number":3,"map":"Ring of Fire","counter":"HMBLE","winner":"HMBLE"}]},
-    "UQ3": {"teams":["ZETA DIVISION","Totem Esports"],"sets":[{"number":1,"map":"Pinhole Punt","counter":"Totem Esports","winner":"ZETA DIVISION"},{"number":2,"map":"Kaboom Canyon","counter":"Totem Esports","winner":"ZETA DIVISION"},{"number":3,"map":"Hideout","counter":"ZETA DIVISION","winner":"Totem Esports"},{"number":4,"map":"Out in the Open","counter":"Totem Esports","winner":"Totem Esports"},{"number":5,"map":"Ring of Fire","counter":"ZETA DIVISION","winner":"Totem Esports"}]},
-    "UQ4": {"teams":["Tribe","Team Elektros"],"sets":[{"number":1,"map":"Out in the Open","counter":"Tribe","winner":"Team Elektros"},{"number":2,"map":"Dry Season","counter":"Tribe","winner":"Team Elektros"},{"number":3,"map":"Safe Zone","counter":"Team Elektros","winner":"Team Elektros"}]},
-    "US1": {"teams":["NAVI","HMBLE"],"sets":[{"number":1,"map":"Open Business","counter":"NAVI","winner":"NAVI"},{"number":2,"map":"Kaboom Canyon","counter":"NAVI","winner":"NAVI"},{"number":3,"map":"Beach Ball","counter":"HMBLE","winner":"HMBLE"},{"number":4,"map":"Deathcap Trap","counter":"HMBLE","winner":"NAVI"}]},
-    "US2": {"teams":["Totem Esports","Team Elektros"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"Team Elektros","winner":"Team Elektros"},{"number":2,"map":"Triple Dribble","counter":"Team Elektros","winner":"Team Elektros","replay":"https://www.youtube.com/watch?v=0TJR34NnpBo&t=26296s"},{"number":3,"map":"Layer Cake","counter":"Totem Esports","winner":"Totem Esports"},{"number":4,"map":"Hard Rock Mine","counter":"Totem Esports","winner":"Team Elektros"}]},
-    "UF": {"teams":["NAVI","Team Elektros"],"sets":[{"number":1,"map":"Dry Season","counter":"NAVI","winner":"Team Elektros"},{"number":2,"map":"Belle's Rock","counter":"Team Elektros","winner":"NAVI"},{"number":3,"map":"Kaboom Canyon","counter":"NAVI","winner":"NAVI"},{"number":4,"map":"Open Business","counter":"NAVI","winner":"NAVI"}]},
-    "L1A": {"teams":["FUT Esports","Bounty Hunters"],"sets":[{"number":1,"map":"Hideout","counter":"FUT Esports","winner":"FUT Esports"},{"number":2,"map":"Hot Potato","counter":"Bounty Hunters","winner":"Bounty Hunters"},{"number":3,"map":"Hard Rock Mine","counter":"FUT Esports","winner":"FUT Esports"},{"number":4,"map":"Ring of Fire","counter":"FUT Esports","winner":"FUT Esports"}]},
-    "L1B": {"teams":["ZETA DIVISION","Tribe"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Tribe","winner":"Tribe"},{"number":2,"map":"Kaboom Canyon","counter":"Tribe","winner":"ZETA DIVISION"},{"number":3,"map":"Open Business","counter":"Tribe","winner":"ZETA DIVISION"},{"number":4,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"ZETA DIVISION"}]},
-    "LQ1": {"teams":["Totem Esports","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"FUT Esports","winner":"FUT Esports"},{"number":2,"map":"Out in the Open","counter":"FUT Esports","winner":"FUT Esports"},{"number":3,"map":"Layer Cake","counter":"Totem Esports","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=3710s"}]},
-    "LQ2": {"teams":["HMBLE","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":2,"map":"Kaboom Canyon","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":3,"map":"Ring of Fire","counter":"ZETA DIVISION","winner":"HMBLE"},{"number":4,"map":"Dry Season","counter":"ZETA DIVISION","winner":"ZETA DIVISION"}]},
-    "LS": {"teams":["FUT Esports","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"FUT Esports"},{"number":2,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12080s"},{"number":3,"map":"Out in the Open","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12830s"}]},
-    "LF": {"teams":["Team Elektros","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Team Elektros","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=15180s"},{"number":2,"map":"Ring of Fire","counter":"Team Elektros","winner":"Team Elektros"},{"number":3,"map":"Layer Cake","counter":"Team Elektros","winner":"FUT Esports"},{"number":4,"map":"Pinhole Punt","counter":"Team Elektros","winner":"FUT Esports"}]}
+  "seriesByMatch": {
+    "LF": {
+      "teams": [
+        "Team Elektros",
+        "FUT Esports"
+      ],
+      "played": [
+        1,
+        3
+      ],
+      "declared": null
+    },
+    "GF": {
+      "teams": [
+        "NAVI",
+        "FUT Esports"
+      ],
+      "played": [
+        3,
+        3
+      ],
+      "declared": null
+    }
   },
-  "seriesByMatch": {"GF": {"teams":["NAVI","FUT Esports"],"played":[2,3],"declared":null}}
+  "counterByMatch": {
+    "GF": {
+      "teams": [
+        "NAVI",
+        "FUT Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "FUT Esports",
+          "winner": "NAVI"
+        },
+        {
+          "number": 2,
+          "map": "Pinhole Punt",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 3,
+          "map": "Layer Cake",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 4,
+          "map": "Open Business",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 5,
+          "map": "Out in the Open",
+          "counter": "NAVI",
+          "winner": "NAVI",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=22320s"
+        },
+        {
+          "number": 6,
+          "map": "Safe Zone",
+          "counter": "FUT Esports",
+          "winner": "NAVI",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=23165s"
+        }
+      ]
+    },
+    "A1": {
+      "teams": [
+        "HMBLE",
+        "Team Heretics"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Kaboom Canyon",
+          "counter": "Team Heretics",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 2,
+          "map": "Goldarm Gulch",
+          "counter": "Team Heretics",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 3,
+          "map": "Open Business",
+          "counter": "HMBLE",
+          "winner": "HMBLE"
+        }
+      ]
+    },
+    "A2": {
+      "teams": [
+        "RED Canids",
+        "Totem Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Kaboom Canyon",
+          "counter": "RED Canids",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 2,
+          "map": "Crystal Arcade",
+          "counter": "RED Canids",
+          "winner": "RED Canids"
+        },
+        {
+          "number": 3,
+          "map": "Beach Ball",
+          "counter": "Totem Esports",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 4,
+          "map": "Out in the Open",
+          "counter": "RED Canids",
+          "winner": "Totem Esports"
+        }
+      ]
+    },
+    "AW": {
+      "teams": [
+        "HMBLE",
+        "Totem Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "Totem Esports",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 2,
+          "map": "Goldarm Gulch",
+          "counter": "Totem Esports",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 3,
+          "map": "Dueling Beetles",
+          "counter": "HMBLE",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 4,
+          "map": "Beach Ball",
+          "counter": "Totem Esports",
+          "winner": "HMBLE"
+        }
+      ]
+    },
+    "AE": {
+      "teams": [
+        "Team Heretics",
+        "RED Canids"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hideout",
+          "counter": "Team Heretics",
+          "winner": "Team Heretics"
+        },
+        {
+          "number": 2,
+          "map": "Belle's Rock",
+          "counter": "RED Canids",
+          "winner": "Team Heretics"
+        },
+        {
+          "number": 3,
+          "map": "Hard Rock Mine",
+          "counter": "RED Canids",
+          "winner": "Team Heretics"
+        }
+      ]
+    },
+    "AD": {
+      "teams": [
+        "Totem Esports",
+        "Team Heretics"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Crystal Arcade",
+          "counter": "Team Heretics",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 2,
+          "map": "Kaboom Canyon",
+          "counter": "Totem Esports",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 3,
+          "map": "Triple Dribble",
+          "counter": "Team Heretics",
+          "winner": "Totem Esports"
+        }
+      ]
+    },
+    "B1": {
+      "teams": [
+        "Crazy Raccoon",
+        "NAVI"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Ring of Fire",
+          "counter": "Crazy Raccoon",
+          "winner": "Crazy Raccoon"
+        },
+        {
+          "number": 2,
+          "map": "Safe Zone",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 3,
+          "map": "Pinhole Punt",
+          "counter": "Crazy Raccoon",
+          "winner": "NAVI"
+        },
+        {
+          "number": 4,
+          "map": "Deathcap Trap",
+          "counter": "Crazy Raccoon",
+          "winner": "NAVI"
+        }
+      ]
+    },
+    "B2": {
+      "teams": [
+        "Team Elektros",
+        "NOVO Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Kaboom Canyon",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 2,
+          "map": "Goldarm Gulch",
+          "counter": "NOVO Esports",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 3,
+          "map": "Ring of Fire",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        }
+      ]
+    },
+    "BW": {
+      "teams": [
+        "NAVI",
+        "Team Elektros"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Out in the Open",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 2,
+          "map": "Crystal Arcade",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 3,
+          "map": "Hideout",
+          "counter": "NAVI",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 4,
+          "map": "Ring of Fire",
+          "counter": "NAVI",
+          "winner": "Team Elektros"
+        }
+      ]
+    },
+    "BE": {
+      "teams": [
+        "Crazy Raccoon",
+        "NOVO Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Out in the Open",
+          "counter": "NOVO Esports",
+          "winner": "NOVO Esports"
+        },
+        {
+          "number": 2,
+          "map": "Hideout",
+          "counter": "NOVO Esports",
+          "winner": "NOVO Esports"
+        },
+        {
+          "number": 3,
+          "map": "Open Business",
+          "counter": "NOVO Esports",
+          "winner": "Crazy Raccoon"
+        },
+        {
+          "number": 4,
+          "map": "Hard Rock Mine",
+          "counter": "NOVO Esports",
+          "winner": "NOVO Esports"
+        }
+      ]
+    },
+    "BD": {
+      "teams": [
+        "NAVI",
+        "NOVO Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Belle's Rock",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 2,
+          "map": "Hot Potato",
+          "counter": "NOVO Esports",
+          "winner": "NAVI"
+        },
+        {
+          "number": 3,
+          "map": "Pinhole Punt",
+          "counter": "NOVO Esports",
+          "winner": "NAVI"
+        }
+      ]
+    },
+    "UQ1": {
+      "teams": [
+        "FUT Esports",
+        "NAVI"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Beach Ball",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 2,
+          "map": "Hideout",
+          "counter": "NAVI",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 3,
+          "map": "Hot Potato",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 4,
+          "map": "Belle's Rock",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 5,
+          "map": "Ring of Fire",
+          "counter": "FUT Esports",
+          "winner": "NAVI"
+        }
+      ]
+    },
+    "UQ2": {
+      "teams": [
+        "Bounty Hunters",
+        "HMBLE"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hideout",
+          "counter": "Bounty Hunters",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 2,
+          "map": "Safe Zone",
+          "counter": "Bounty Hunters",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 3,
+          "map": "Ring of Fire",
+          "counter": "HMBLE",
+          "winner": "HMBLE"
+        }
+      ]
+    },
+    "UQ3": {
+      "teams": [
+        "ZETA DIVISION",
+        "Totem Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Pinhole Punt",
+          "counter": "Totem Esports",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 2,
+          "map": "Kaboom Canyon",
+          "counter": "Totem Esports",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 3,
+          "map": "Hideout",
+          "counter": "ZETA DIVISION",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 4,
+          "map": "Out in the Open",
+          "counter": "Totem Esports",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 5,
+          "map": "Ring of Fire",
+          "counter": "ZETA DIVISION",
+          "winner": "Totem Esports"
+        }
+      ]
+    },
+    "UQ4": {
+      "teams": [
+        "Tribe",
+        "Team Elektros"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Out in the Open",
+          "counter": "Tribe",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 2,
+          "map": "Dry Season",
+          "counter": "Tribe",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 3,
+          "map": "Safe Zone",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        }
+      ]
+    },
+    "US1": {
+      "teams": [
+        "NAVI",
+        "HMBLE"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Open Business",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 2,
+          "map": "Kaboom Canyon",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 3,
+          "map": "Beach Ball",
+          "counter": "HMBLE",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 4,
+          "map": "Deathcap Trap",
+          "counter": "HMBLE",
+          "winner": "NAVI"
+        }
+      ]
+    },
+    "US2": {
+      "teams": [
+        "Totem Esports",
+        "Team Elektros"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Kaboom Canyon",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 2,
+          "map": "Triple Dribble",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros",
+          "replay": "https://www.youtube.com/watch?v=0TJR34NnpBo&t=26296s"
+        },
+        {
+          "number": 3,
+          "map": "Layer Cake",
+          "counter": "Totem Esports",
+          "winner": "Totem Esports"
+        },
+        {
+          "number": 4,
+          "map": "Hard Rock Mine",
+          "counter": "Totem Esports",
+          "winner": "Team Elektros"
+        }
+      ]
+    },
+    "UF": {
+      "teams": [
+        "NAVI",
+        "Team Elektros"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Dry Season",
+          "counter": "NAVI",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 2,
+          "map": "Belle's Rock",
+          "counter": "Team Elektros",
+          "winner": "NAVI"
+        },
+        {
+          "number": 3,
+          "map": "Kaboom Canyon",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        },
+        {
+          "number": 4,
+          "map": "Open Business",
+          "counter": "NAVI",
+          "winner": "NAVI"
+        }
+      ]
+    },
+    "L1A": {
+      "teams": [
+        "FUT Esports",
+        "Bounty Hunters"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hideout",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 2,
+          "map": "Hot Potato",
+          "counter": "Bounty Hunters",
+          "winner": "Bounty Hunters"
+        },
+        {
+          "number": 3,
+          "map": "Hard Rock Mine",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 4,
+          "map": "Ring of Fire",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        }
+      ]
+    },
+    "L1B": {
+      "teams": [
+        "ZETA DIVISION",
+        "Tribe"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "Tribe",
+          "winner": "Tribe"
+        },
+        {
+          "number": 2,
+          "map": "Kaboom Canyon",
+          "counter": "Tribe",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 3,
+          "map": "Open Business",
+          "counter": "Tribe",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 4,
+          "map": "Pinhole Punt",
+          "counter": "ZETA DIVISION",
+          "winner": "ZETA DIVISION"
+        }
+      ]
+    },
+    "LQ1": {
+      "teams": [
+        "Totem Esports",
+        "FUT Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 2,
+          "map": "Out in the Open",
+          "counter": "FUT Esports",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 3,
+          "map": "Layer Cake",
+          "counter": "Totem Esports",
+          "winner": "FUT Esports",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=3710s"
+        }
+      ]
+    },
+    "LQ2": {
+      "teams": [
+        "HMBLE",
+        "ZETA DIVISION"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "ZETA DIVISION",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 2,
+          "map": "Kaboom Canyon",
+          "counter": "ZETA DIVISION",
+          "winner": "ZETA DIVISION"
+        },
+        {
+          "number": 3,
+          "map": "Ring of Fire",
+          "counter": "ZETA DIVISION",
+          "winner": "HMBLE"
+        },
+        {
+          "number": 4,
+          "map": "Dry Season",
+          "counter": "ZETA DIVISION",
+          "winner": "ZETA DIVISION"
+        }
+      ]
+    },
+    "LS": {
+      "teams": [
+        "FUT Esports",
+        "ZETA DIVISION"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "ZETA DIVISION",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 2,
+          "map": "Pinhole Punt",
+          "counter": "ZETA DIVISION",
+          "winner": "FUT Esports",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12080s"
+        },
+        {
+          "number": 3,
+          "map": "Out in the Open",
+          "counter": "ZETA DIVISION",
+          "winner": "FUT Esports",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12830s"
+        }
+      ]
+    },
+    "LF": {
+      "teams": [
+        "Team Elektros",
+        "FUT Esports"
+      ],
+      "sets": [
+        {
+          "number": 1,
+          "map": "Hard Rock Mine",
+          "counter": "Team Elektros",
+          "winner": "FUT Esports",
+          "replay": "https://www.youtube.com/watch?v=CEEFBI6bI5w&t=15180s"
+        },
+        {
+          "number": 2,
+          "map": "Ring of Fire",
+          "counter": "Team Elektros",
+          "winner": "Team Elektros"
+        },
+        {
+          "number": 3,
+          "map": "Layer Cake",
+          "counter": "Team Elektros",
+          "winner": "FUT Esports"
+        },
+        {
+          "number": 4,
+          "map": "Pinhole Punt",
+          "counter": "Team Elektros",
+          "winner": "FUT Esports"
+        }
+      ]
+    }
+  },
+  "revision": 278494,
+  "checkedAt": "2026-11-22T09:22:04.708Z",
+  "source": "https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026",
+  "license": "https://creativecommons.org/licenses/by-sa/3.0/"
 }
