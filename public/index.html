@@ -489,8 +489,8 @@
             <button type="button" id="live-jump" hidden>● 正在进行</button>
           </div>
           <div class="counter-summary">
-            <span>本届 Counter 位胜率</span><strong id="counter-rate">—</strong><small id="counter-coverage"></small>
-            <button class="info-btn" type="button" data-info="info-counter" aria-haspopup="dialog" aria-label="Counter 位胜率说明"><span aria-hidden="true">i</span></button>
+            <span>淘汰赛 Counter 位胜率</span><strong id="counter-rate">—</strong><small id="counter-coverage"></small>
+            <button class="info-btn" type="button" data-info="info-counter" aria-haspopup="dialog" aria-label="淘汰赛 Counter 位胜率说明"><span aria-hidden="true">i</span></button>
           </div>
         </div>
         <div class="bracket-scroll" role="region" aria-label="双败淘汰赛，可左右滚动" tabindex="0"><div class="bracket-row" id="bracket-grid"></div></div>
@@ -616,9 +616,9 @@
 </dialog>
 <dialog class="info-dialog" id="info-counter" aria-labelledby="info-counter-title">
   <div class="info-panel">
-    <div class="info-head"><h2 id="info-counter-title">Counter 位胜率</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
+    <div class="info-head"><h2 id="info-counter-title">淘汰赛 Counter 位胜率</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
     <p>Counter 位是每盘后选英雄的一方。对阵卡从左到右显示各盘后手，绿色表示后手赢了该盘，问号表示选人顺序待补。点击「明细」可查看逐盘选人记录。</p>
-    <p>分子是后手赢下的盘数，分母是小组赛和淘汰赛中已核对选人顺序及胜负的盘数。BO5 最多计 5 盘，总决赛的 1:0 开局优势不计入。</p>
+    <p>统计范围为淘汰赛，包含总决赛。后手赢下的盘数除以已核对选人顺序及胜负的盘数。BO5 最多计 5 盘，总决赛的 1:0 开局优势不计入。</p>
     <p>每分钟核查社区赛事资料，来源补录后自动更新。部分盘次用已核对的逐盘战报补充。</p>
     <dl><div><dt>最近核查（北京）</dt><dd id="counter-checked">—</dd></div></dl>
     <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a><a href="https://www.leafstats.net/officials/?t=294550838753" target="_blank" rel="noopener noreferrer">逐盘核对 · Leafstats ↗</a></div>
@@ -800,7 +800,8 @@ function playedCounterSets(m){
 }
 function renderCounterSummary(){
  let wins=0,covered=0,played=0;
- for(const match of allMatches()){
+ for(const [id] of defs){
+  const match=item(id);
   const completed=counterSets(match).filter(set=>set.winner);
   played+=Math.max(playedCounterSets(match),completed.length);
   for(const set of completed){
@@ -844,7 +845,16 @@ function matchCard(m){
    return `<div class="vs-team ${dim}">${team}<span class="route-score">${from?routePort(from,from.from,'↑'):(to?routePort(to,to.to,'↓'):'')}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></span></div>`;
  };
  const draft=counterSets(m);
- const note=m.id==='LQ2'&&draft.length===4&&draft.every(set=>set.counter==='ZETA DIVISION')?'<p class="match-note" title="Counter 位指选人后手">ZETA 连续四盘 Counter 位</p>':'';
+ let note='';
+ if(m.id==='LQ2'&&draft.length===4&&draft.every(set=>set.counter==='ZETA DIVISION')){
+  note='<p class="match-note" title="Counter 位指选人后手">ZETA 连续四盘 Counter 位</p>';
+ }
+ if(m.id==='LS'&&draft.length===3){
+  const quarterfinal=counterSets(item('LQ2'));
+  if(quarterfinal.length===4&&[...quarterfinal,...draft].every(set=>set.counter==='ZETA DIVISION')){
+   note='<p class="match-note" title="对 HMBLE 4 盘，对 FUT 3 盘">ZETA 连续 7 盘 Counter 位</p>';
+  }
+ }
  return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status,m.source)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}${counterStrip(m)}${note}</article>`;
 }
 async function loadPlayerProfiles(){
