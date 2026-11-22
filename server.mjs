@@ -19,9 +19,9 @@ if (!['snapshot','json','supercell'].includes(FEED_PROVIDER)) throw new Error('F
 if (FEED_PROVIDER === 'supercell' && FEED_URL) throw new Error('官方模式请移除 FEED_URL，避免数据源混淆');
 if (FEED_PROVIDER === 'json' && !FEED_URL) throw new Error('JSON 模式需要 FEED_URL');
 const ADMIN_KEY = process.env.ADMIN_KEY || '';
-const requestedInterval = Number(process.env.FEED_INTERVAL_MS || (FEED_PROVIDER === 'supercell' ? 120000 : 45000));
+const requestedInterval = Number(process.env.FEED_INTERVAL_MS || (FEED_PROVIDER === 'supercell' ? 60000 : 45000));
 if (!Number.isFinite(requestedInterval) || requestedInterval > 2147483647) throw new Error('FEED_INTERVAL_MS 必须是有效的毫秒数');
-const INTERVAL_MS = Math.max(FEED_PROVIDER === 'supercell' ? 120000 : 15000, requestedInterval);
+const INTERVAL_MS = Math.max(FEED_PROVIDER === 'supercell' ? 60000 : 15000, requestedInterval);
 const MATCH_IDS = new Set(OFFICIAL_MATCH_IDS);
 const STATES = new Set(['scheduled','live','final']);
 const feedConfigured = FEED_PROVIDER !== 'snapshot';
@@ -220,7 +220,7 @@ const server = http.createServer(async (req,res) => {
       await fs.writeFile(FILE, JSON.stringify({updatedAt:state.updatedAt,matches:state.matches,note:'管理员手动更新'},null,2)+'\n','utf8');
       return json(res,200,{ok:true,updatedAt:state.updatedAt});
     }
-    const asset = /^\/assets\/(brawlers\/16000\d{3}\.png|teams\/[a-z-]+\.webp)$/.exec(url.pathname);
+    const asset = /^\/assets\/(brawlers\/16000\d{3}\.png|teams\/[a-z-]+\.webp|phoenix-crow\.webp)$/.exec(url.pathname);
     if (asset && (req.method==='GET'||req.method==='HEAD')) {
       const filename = path.join(ROOT,'public','assets',asset[1]);
       let image;

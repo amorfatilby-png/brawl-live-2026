@@ -46,6 +46,8 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  const logoHead=await fetch(logoUrl,{method:'HEAD'});
  assert.equal(logoHead.status,200);assert.equal(logoHead.headers.get('content-type'),'image/webp');
  assert.equal((await fetch(ctx.base+'/assets/teams/unknown.webp')).status,404);
+ const phoenix=await fetch(ctx.base+'/assets/phoenix-crow.webp');
+ assert.equal(phoenix.status,200);assert.equal(phoenix.headers.get('content-type'),'image/webp');
  const profiles=await (await fetch(ctx.base+'/api/player-profiles')).json();
  assert.equal(Object.keys(profiles).length,36);
  assert.equal(profiles.Angelboy.age,21);
@@ -66,7 +68,7 @@ test('official sync reports source and honest timestamps, and prevents mixed man
  try{
   const data=await(await fetch(ctx.base+'/api/state')).json();
   assert.equal(data.feedProvider,'supercell');assert.equal(data.updatedAt,null);assert.equal(data.sourceUpdatedAt,null);assert.equal(data.feedChangedAt,null);
-  assert.ok(data.feedLastOk);assert.equal(data.feedError,null);assert.equal(data.feedStale,false);assert.equal(data.refreshIntervalSeconds,120);
+  assert.ok(data.feedLastOk);assert.equal(data.feedError,null);assert.equal(data.feedStale,false);assert.equal(data.refreshIntervalSeconds,60);
   assert.equal(Object.keys(data.matches).length,14);assert.equal(data.matches.L1A.status,'live');
   assert.equal((await fetch(ctx.base+'/api/update',{method:'POST',headers:{authorization:'Bearer test-admin-token'}})).status,409);
  }finally{await stop(ctx)}

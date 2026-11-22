@@ -2,21 +2,21 @@
 
 这是一个可运行的中文赛事看板，包含 **14 场双败淘汰赛**、小组赛结果、赛程表、晋级与淘汰判定、北京时间、移动端布局及管理员实时改分。
 
-> **数据模式：** 启用 `FEED_PROVIDER=supercell` 后，服务器每 2 分钟读取 Supercell 官方赛事网页使用的公开 JSON，对本届总决赛 14 场淘汰赛自动同步盘比分。页面标注来源、最近核查时间、可能延迟数分钟及异常状态，不把抓取时间冒充比分更新时间。未配置时仍使用截至 2026-11-21 05:00 UTC 的历史快照；直接双击 HTML 也是快照预览。
+> **数据模式：** 官方比分默认每 60 秒核查一次，前台每 5 秒读取站内比分。实际延迟取决于官方发布和共享缓存。
 
 ## 官方赛事自动同步
 
-已有 Render 服务：合并本次改动后，进入服务的 **Environment**，添加 `FEED_PROVIDER=supercell`、`FEED_INTERVAL_MS=120000`，移除旧的 `FEED_URL`、`FEED_TOKEN`，然后 **Save, rebuild, and deploy**。构建命令保持 `npm install`，启动命令保持 `npm start`，健康检查为 `/health`。`render.yaml` 已为新建 Blueprint 配好这两个变量；普通 Git 自动部署不会自动替已有服务添加环境变量。
+已有 Render 服务：合并本次改动后，进入服务的 **Environment**，添加 `FEED_PROVIDER=supercell`、`FEED_INTERVAL_MS=60000`，移除旧的 `FEED_URL`、`FEED_TOKEN`，然后 **Save, rebuild, and deploy**。构建命令保持 `npm install`，启动命令保持 `npm start`，健康检查为 `/health`。`render.yaml` 已为新建 Blueprint 配好这两个变量；普通 Git 自动部署不会自动替已有服务添加环境变量。
 
 Windows 本地运行：
 
 ```powershell
 $env:FEED_PROVIDER="supercell"
-$env:FEED_INTERVAL_MS="120000"
+$env:FEED_INTERVAL_MS="60000"
 npm start
 ```
 
-官方源无需 API Key；不要同时设置 `FEED_URL`。这是官方网页实际使用的公开请求，不是附有第三方服务保证的正式开发者 API；应持续遵守源站条款与访问要求，未公布数字配额，不能保证秒级更新。2 分钟是本项目的保守轮询间隔，不是源站承诺的额度。遇到 429/503 会遵守 `Retry-After` 并暂停请求。
+官方源无需 API Key。其共享缓存约为 60 秒，核查默认每 60 秒进行，遇到 429 或 503 会遵守 Retry-After。
 
 - `https://event.supercell.com/brawlstars/v1/bracket`：盘比分、完赛标记及晋级关系。
 - `https://event.supercell.com/brawlstars/v1/state`：当前赛事、场次与直播阶段。
@@ -24,7 +24,7 @@ npm start
 - 官方编号 11—24 对应本网站 14 场淘汰赛；15—24 的双方顺序需反转，适配器同时核对晋级关系与队伍 ID。
 - 未开赛的 0:0 不标进行中，总决赛预先领先 1 盘也不用于推断开赛；只有确认完赛才计算晋级。小组赛仍展示原有已核对快照。
 - `/api/state` 的 `feedLastOk` 是成功核查时间，`feedChangedAt` 是本进程观察到后续赛况变化的时间；首次读取为 `null`。官方没有提供比分更新时间，`sourceUpdatedAt`、`updatedAt` 均为 `null`，不能拿响应头时间代替。
-- 请求失败保留最后有效比分；超过最近成功核查的 6 分钟（默认轮询间隔的 3 倍）视为核查超时。页面会提示缓存可能过时，旧的进行中状态标为“上次进行中”。
+- 抓取失败时保留最后有效比分，并标出缓存状态。
 - 官方模式关闭管理员改分，防止两种来源混写。要人工维护，设置 `FEED_PROVIDER=snapshot` 并重新部署。
 
 上线验收：检查 `/health` 的 `feedProvider` 为 `supercell`、`feedLastOk` 非空、`feedError` 为 `null`、`feedStale` 为 `false`；再检查 `/api/state` 有 14 场比赛、队伍比分方向正确，页面显示官方来源和最近核查。`/health` 的 `ok=true` 只代表服务器能响应。
@@ -35,7 +35,7 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 顶部菜单切换对阵图、英雄数据、赛程和小组赛。对阵图下方的战队投票使用 `VOTE_DATABASE_URL` 连接 PostgreSQL，并为每个浏览器保留一张可改投或取消的匿名票。投票服务未配置时显示未开放状态。
 
-「英雄数据」可按本届六种比赛模式查看出场率与盘胜率。出场率分母是所选模式中阵容完整的已完赛盘数，盘胜率分母是该英雄的队伍出场次数。双方都选同一英雄时，出场率计一盘，胜率计一胜一负。同队重复选人或阵容缺项的记录待修正后纳入。官方模式下，网站每 2 分钟通过 [Liquipedia MediaWiki API](https://liquipedia.net/api-terms-of-use) 核查。同步失败时保留最近可用统计，启动时可显示随版本发布的已核对快照。[统计数据](data/brawler-picks.json) 改编自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。
+「英雄数据」可按本届六种比赛模式查看出场率与盘胜率。出场率分母是所选模式中阵容完整的已完赛盘数，盘胜率分母是该英雄的队伍出场次数。双方都选同一英雄时，出场率计一盘，胜率计一胜一负。同队重复选人或阵容缺项的记录待修正后纳入。官方模式下，网站每分钟通过 [Liquipedia MediaWiki API](https://liquipedia.net/api-terms-of-use) 核查。同步失败时保留最近可用统计，启动时可显示随版本发布的已核对快照。[统计数据](data/brawler-picks.json) 改编自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，采用 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)。
 
 英雄英文名与编号来自 [BrawlAPI](https://brawlapi.com/)，简体中文名对照 [Brawlify 英雄列表](https://brawlify.com/zh-cn/brawlers)。头像素材由 [Brawlify CDN](https://github.com/Brawlify/CDN) 提供，版权归 Supercell，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
 
@@ -45,7 +45,7 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 「选手表现」按本届已收录的系列赛 MVP 次数排序，可筛选战队。MVP 和英雄阵容共用一次 Liquipedia 核查，完赛比分提供战队系列赛胜负。公开阵容按战队记录选用英雄，个人常用英雄通过 [Brawlytics 赛季资料](https://brawlytics.pro/worlds#teams) 查看。
 
-点击淘汰赛卡片的比分、空白处或「明细」可以打开该场比赛。逐局明细按赛段分组，地图与小局选择使用中文，已记录盘次来自 [Liquipedia 赛事资料](https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026)，简体地图名对照 [Brawlify](https://brawlify.com/zh-cn/maps)。个人英雄、击杀、死亡、伤害与治疗通过 [Leafstats 的公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 呈现。面板提供英文统计词汇的中文对照。
+「逐局明细」按阶段筛选，可从淘汰赛卡片和小组赛战绩直达。盘次由 Liquipedia 提供，各局的选手统计通过 [Leafstats 公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 展示。败者组的凤凰火鸦来自 Supercell 粉丝素材，由 [DraftMeta](https://draftmeta.com/games/brawl-stars/brawlers/crow/skins) 提供。本站是非官方粉丝项目，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
 
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 
@@ -114,7 +114,7 @@ $env:FEED_TOKEN="可选接口令牌"
 npm start
 ```
 
-更新流：数据源 ➜ Node 服务器每 45 秒同步 ➜ 网站每 15 秒拉取 ➜ 比分与晋级路线刷新。频率可通过 `FEED_INTERVAL_MS` 配置，服务端最小间隔 15 秒。实际延迟受**上游更新频率和网络状态**影响，不保证秒级。
+自定义比分源默认每 45 秒同步，前台每 5 秒读取站内比分。
 
 ## 四、部署上线
 
