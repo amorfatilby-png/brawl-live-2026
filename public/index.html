@@ -664,7 +664,7 @@ const teamProfiles = {
  'Tribe':{slug:'tribe-gaming',title:'Tribe Gaming',region:'北美',qualifier:'赛区第 1 · 直通八强',
   players:[['Lxffy','波多黎各'],['Diegogamer','墨西哥'],['RBM','墨西哥']],staff:[['Roledu','教练','墨西哥'],['Sugus','分析师','西班牙']]},
  'Team Elektros':{slug:'team-elektros',title:'Team Elektros',region:'北美',qualifier:'赛区第 2 · B 组',
-  players:[['Snoiy','加拿大'],['Doin','加拿大'],['Memen','墨西哥']],staff:[['Kapi','教练','波兰']]},
+  players:[['Snoiy','加拿大'],['Doin','加拿大'],['Memxn','墨西哥']],staff:[['Kapi','教练','波兰']]},
  'Crazy Raccoon':{slug:'crazy-raccoon',title:'Crazy Raccoon',region:'东亚',qualifier:'赛区第 2 · B 组',
   players:[['Milkreo','日本'],['Moya','日本'],['Tensai','日本']],staff:[['Relyh','教练','日本']]},
  'NOVO Esports':{slug:'novo-esports',title:'NOVO Esports',region:'EMEA',qualifier:'赛区第 4 · B 组',
@@ -968,7 +968,7 @@ function renderPlayerStats(){
   const wins=played.filter(match=>(match.score1>match.score2?match.t1:match.t2)===name).length;
   const seasonUrl=`https://brawlytics.pro/worlds/team/${encodeURIComponent(seasonTeams[name])}`;
   return team.players.map(([handle])=>{
-   const alias={Batman:'battoman',Jus:'jusorange'}[handle];
+   const alias={Batman:'battoman',Jus:'jusorange',Memxn:'memen'}[handle];
    const awards=(mvp?.[handle.toLowerCase()]??0)+(mvp?.[alias]??0);
    return {handle,team,wins,losses:played.length-wins,mvp:awards,seasonUrl};
   });
