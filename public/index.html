@@ -617,8 +617,8 @@
 <dialog class="info-dialog" id="info-counter" aria-labelledby="info-counter-title">
   <div class="info-panel">
     <div class="info-head"><h2 id="info-counter-title">淘汰赛 Counter 位胜率</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
-    <p>Counter 位是每盘后选英雄的一方。对阵卡从左到右显示各盘后手，绿色表示后手赢了该盘，问号表示选人顺序待补。点击「明细」可查看逐盘选人记录。</p>
-    <p>统计范围为淘汰赛，包含总决赛。后手赢下的盘数除以已核对选人顺序及胜负的盘数。BO5 最多计 5 盘，总决赛的 1:0 开局优势不计入。</p>
+    <p>Counter 位也叫六选，由选出该盘第六个英雄的队伍获得。对阵卡从左到右显示各盘的六选队伍，绿色表示该队赢了这盘，问号表示选人顺序待补。点击「明细」可查看逐盘选人记录。</p>
+    <p>统计范围为淘汰赛，包含总决赛。六选队伍赢下的盘数除以已核对选人顺序及胜负的盘数。BO5 最多计 5 盘，总决赛的 1:0 开局优势不计入。</p>
     <p>每分钟核查社区赛事资料，来源补录后自动更新。部分盘次用已核对的逐盘战报补充。</p>
     <dl><div><dt>最近核查（北京）</dt><dd id="counter-checked">—</dd></div></dl>
     <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a><a href="https://www.leafstats.net/officials/?t=294550838753" target="_blank" rel="noopener noreferrer">逐盘核对 · Leafstats ↗</a></div>
@@ -818,16 +818,16 @@ function renderCounterSummary(){
 function counterStrip(m){
  const sets=counterSets(m);
  const count=Math.min(m.id==='GF'?6:5,Math.max(playedCounterSets(m),...sets.map(set=>set.number)));
- if(!count)return `<div class="counter-strip">后手 · ${m.status==='scheduled'?'待开赛':'待同步'}</div>`;
+ if(!count)return `<div class="counter-strip">六选 · ${m.status==='scheduled'?'待开赛':'待同步'}</div>`;
  const chips=Array.from({length:count},(_,index)=>{
   const set=sets.find(row=>row.number===index+1);
   const team=set?.counter;
   const won=team&&set.winner===team;
   const result=set?.winner?(won?'胜':'负'):'进行中';
-  const label=`第 ${index+1} 盘${set?.map?' · '+(gameMapNames[set.map]||set.map):''} · ${team?team+' 后手 · '+result:'后手待核对'}`;
+  const label=`第 ${index+1} 盘${set?.map?' · '+(gameMapNames[set.map]||set.map):''} · ${team?team+' 六选 · '+result:'六选待核对'}`;
   return `<span class="counter-set${won?' won':team?'':' unknown'}" title="${esc(label)}" aria-label="${esc(label)}">${team?teamInfo(team)[0]:'?'}</span>`;
  }).join('');
- return `<div class="counter-strip"><span>后手</span>${chips}</div>`;
+ return `<div class="counter-strip"><span>六选</span>${chips}</div>`;
 }
 function matchCard(m){
  if(!m)return '';
@@ -847,7 +847,7 @@ function matchCard(m){
  const draft=counterSets(m);
  let note='';
  if(m.id==='LQ2'&&draft.length===4&&draft.every(set=>set.counter==='ZETA DIVISION')){
-  note='<p class="match-note" title="Counter 位指选人后手">ZETA 连续四盘 Counter 位</p>';
+  note='<p class="match-note" title="Counter 位指该盘第六个选人位">ZETA 连续四盘 Counter 位</p>';
  }
  if(m.id==='LS'&&draft.length===3){
   const quarterfinal=counterSets(item('LQ2'));
