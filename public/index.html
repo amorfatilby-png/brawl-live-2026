@@ -574,6 +574,10 @@
         </div>
         <div class="game-stats-notes" id="game-stats-notes">
           <a id="game-stats-source" target="_blank" rel="noopener noreferrer">原始数据 ↗</a>
+          <span id="game-stats-decider" hidden><strong>NAVI 2:1 FUT</strong> · 逐局统计可能补录
+            <a href="https://brawlytics.pro/worlds/match/GF" target="_blank" rel="noopener noreferrer">整盘选手统计 ↗</a>
+            <a href="https://www.youtube.com/watch?v=CEEFBI6bI5w&amp;t=23165s" target="_blank" rel="noopener noreferrer">决胜盘官方回放 ↗</a>
+          </span>
           <details><summary>英文表格对照</summary><p>盘次 Set · 小局 Game · 英雄 Brawler · 击杀 Kills · 死亡 Deaths · 伤害 Damage · 治疗 Healing</p></details>
         </div>
         <p class="empty" id="game-stats-empty" hidden></p>
@@ -1064,7 +1068,9 @@ function loadGameStats(){
  const url=new URL('https://www.leafstats.net/officials/');
  url.searchParams.set('t',gameStatsEvents[event]);
  url.searchParams.set('match',gameStatsMatches[id]);
- url.searchParams.set('set',$('#game-stats-set').value||'1');
+ const set=$('#game-stats-set').value||'1';
+ url.searchParams.set('set',set);
+ $('#game-stats-decider').hidden=id!=='GF'||set!=='6'||match.status!=='final';
  const game=$('#game-stats-game').value;
  if(game)url.searchParams.set('game',game);
  $('#game-stats-source').href=url.href;
