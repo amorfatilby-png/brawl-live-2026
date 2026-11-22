@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readOfficialArchive } from './official-archive.mjs';
 import { PICK_INTERVAL_MS, readBrawlerPicks } from './pick-stats.mjs';
-import { OFFICIAL_MATCH_IDS, readSupercellFeed } from './supercell-feed.mjs';
+import { OFFICIAL_MATCH_IDS, readSupercellFeed, supplementSupercellMatches } from './supercell-feed.mjs';
 import { teamVoteRoute } from './votes.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -188,8 +188,10 @@ const server = http.createServer(async (req,res) => {
       return json(res,200,playerProfiles);
     }
     if (req.method === 'GET' && url.pathname === '/api/state') {
+      const matches=FEED_PROVIDER==='supercell'?supplementSupercellMatches(state.matches,pickStats.seriesByMatch):state.matches;
       return json(res,200,{
         ...state,
+        matches,
         mode: feedConfigured ? 'feed' : manualUpdated ? 'manual' : 'snapshot',
         feedConfigured,
         feedLastOk,

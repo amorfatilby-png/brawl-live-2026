@@ -10,6 +10,42 @@ const SLOTS = [
   [[17,'winner'],[18,'winner']], [[19,'winner'],[20,'winner']],
   [[21,'loser'],[22,'winner']], [[21,'winner'],[23,'winner']]
 ];
+const TEAM_IDS = new Map([
+  ['futesports',15],['navi',5],['natusvincere',5],['bountyhunters',47],['bountyhuntersallu',47],['hmble',4],
+  ['zetadivision',8],['totemesports',2],['replytotem',2],['totem',2],['tribe',10],['tribegaming',10],['teamelektros',16],
+]);
+
+export function supplementSupercellMatches(official, series) {
+  const matches={...official};
+  const resolved=new Map();
+  for (const [index,id] of OFFICIAL_MATCH_IDS.entries()) {
+    const teams=SLOTS[index].map(slot=>{
+      if (Number.isInteger(slot)) return slot;
+      const previous=resolved.get(slot[0]);
+      if (previous?.winner===undefined) return null;
+      return previous.teams[slot[1]==='winner'?previous.winner:1-previous.winner];
+    });
+    let match=matches[id];
+    const backup=series?.[id];
+    if (match?.status!=='final'&&backup&&!teams.includes(null)) {
+      const order=backup.teams.map(team=>TEAM_IDS.get(team.toLowerCase().replace(/[^a-z0-9]/g,'')));
+      const positions=teams.map(team=>order.indexOf(team));
+      if (!positions.includes(-1)&&positions[0]!==positions[1]) {
+        const max=id==='GF'?4:3;
+        const points=positions.map((position,side)=>backup.played[position]+Number(id==='GF'&&side===0));
+        const valid=points.every((score,side)=>Number.isInteger(score)&&score>=0&&score<=max&&
+          (!backup.declared||score===backup.declared[positions[side]]));
+        const prior=[match?.score1??0,match?.score2??0];
+        if (valid&&Math.min(...points)<max&&points.every((score,side)=>score>=prior[side])&&
+            (Math.max(...points)===max||points.some((score,side)=>score>prior[side]))) {
+          match=matches[id]={status:Math.max(...points)===max?'final':'live',score1:points[0],score2:points[1],source:'liquipedia'};
+        }
+      }
+    }
+    resolved.set(index+11,{teams,winner:match?.status==='final'?Number(match.score2>match.score1):undefined});
+  }
+  return matches;
+}
 
 export function normalizeSupercell(brackets, globalState) {
   if (!Array.isArray(brackets)) throw new Error('官方对阵格式异常');
