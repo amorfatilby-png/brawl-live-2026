@@ -123,31 +123,48 @@
   .bracket-controls { padding: 11px 14px; border-bottom: 1px solid var(--line); }
   .bracket-controls button[aria-pressed="true"] { color: #171a20; background: var(--yellow); }
   .bracket-scroll { max-width: 100%; overflow-x: auto; padding: 12px 14px 14px; scrollbar-color: #657184 transparent; scrollbar-width: thin; }
-  .bracket-row { --card-width:clamp(160px,14vw,210px); --lane-gap:clamp(36px,4vw,65px); position:relative; height:790px; width:calc(5 * var(--card-width) + 4 * var(--lane-gap) + 36px); min-width:0; isolation:isolate; background:radial-gradient(ellipse at 65% 25%,#59421f 0,transparent 65%),#171824; border-radius:15px; }
-  .bracket-fire { position:absolute; inset:486px 0 0; background:linear-gradient(90deg,#1a1521 5%,#30182496 62%,#501f15b0),url('/assets/phoenix-crow.webp') right 44px center/auto 105% no-repeat,#291b25; border-top:1px solid #ac5839; border-radius:0 0 15px 15px; }
+  .bracket-row { --card-width:clamp(165px,14vw,210px); --lane-gap:clamp(38px,4vw,65px); position:relative; height:790px; width:calc(5 * var(--card-width) + 4 * var(--lane-gap) + 36px); isolation:isolate; border-radius:15px; overflow:hidden; background:radial-gradient(ellipse at 84% 21%,#4d3c2866,transparent 48%),radial-gradient(ellipse at 67% 101%,#8b372a55,transparent 56%),#171923; }
+  .bracket-atmosphere { position:absolute; inset:0; pointer-events:none; background:linear-gradient(155deg,transparent 15%,#ffd38b12 42%,transparent 49%),radial-gradient(ellipse at 70% 98%,#fa65252b,transparent 46%); }
+  .bracket-atmosphere::before { content:''; position:absolute; inset:20px 0 auto; height:370px; background:linear-gradient(160deg,transparent 20%,#eac47312 41%,transparent 43%,#eac4730d 47%,transparent 48%); }
+  .bracket-atmosphere::after { content:''; position:absolute; inset:515px 0 0; background:radial-gradient(circle at 39% 70%,#e9874488 0 1px,transparent 2px),radial-gradient(circle at 63% 85%,#ef804999 0 1.5px,transparent 2.5px),radial-gradient(circle at 69% 72%,#ffbf7777 0 1px,transparent 2px),radial-gradient(circle at 78% 90%,#eb673b99 0 2px,transparent 3px),radial-gradient(circle at 90% 66%,#ed804144 0 2px,transparent 3px); animation:embers 4s linear infinite alternate; }
+  @keyframes embers { to { transform:translateY(-14px); opacity:.38; } }
   .bracket-node,.bracket-round { position:absolute; left:calc(18px + var(--col) * (var(--card-width) + var(--lane-gap))); top:var(--y); width:var(--card-width); }
+  .bracket-node { isolation:isolate; }
   .bracket-round { font-size:12px; font-weight:800; color:#e2c78a; }
   .bracket-round.fire { color:#ffac80; }
   .bracket-route { position:absolute; left:18px; margin:0; color:#ffe5a0; font-size:16px; letter-spacing:.08em; }
   .bracket-route.fire { top:501px; color:#ffb171; }
-  .bracket-trophy { position:absolute; top:211px; left:calc(18px + 4 * (var(--card-width) + var(--lane-gap))); text-align:center; width:var(--card-width); color:#fff0a3; font-weight:850; }
-  .bracket-trophy span { display:block; font-size:55px; line-height:1.1; filter:drop-shadow(0 0 17px #ffb53d); }
+  .bracket-trophy { position:absolute; display:grid; justify-items:center; gap:4px; top:278px; left:calc(18px + 4 * (var(--card-width) + var(--lane-gap))); width:var(--card-width); color:#fff0be; text-align:center; }
+  .final-seal { position:relative; display:grid; place-items:center; width:73px; height:76px; background:linear-gradient(145deg,#fff7ce,#d6a052 54%,#ffe3a0 72%,#7b4b30); clip-path:polygon(50% 0,95% 18%,95% 69%,50% 100%,5% 69%,5% 18%); }
+  .final-seal::before { content:''; position:absolute; inset:3px; background:radial-gradient(circle at 50% 27%,#6d5129,#261d23 70%); clip-path:inherit; }
+  .seal-cup { position:relative; width:25px; height:24px; margin-top:-12px; border-radius:2px 2px 12px 12px; background:linear-gradient(105deg,#b2722b,#ffe8a1 41%,#edab45 66%,#b9762b); }
+  .seal-cup::before { content:''; position:absolute; inset:2px -8px 8px; border:2px solid #e9b45f; border-radius:3px 3px 12px 12px; }
+  .seal-cup::after { content:''; position:absolute; left:1px; right:1px; top:100%; height:12px; background:#efba62; clip-path:polygon(40% 0,60% 0,60% 55%,100% 73%,100% 100%,0 100%,0 73%,40% 55%); }
+  .final-title { font-size:14px; font-weight:850; }
+  .final-format { color:#d9aa65; font-size:10px; font-weight:850; letter-spacing:.16em; }
+  .final-winner { display:flex; gap:6px; align-items:center; font-size:13px; font-weight:850; }
+  .final-winner .team-logo { width:20px; height:20px; }
   .adv-chip { display:inline-block; color:#fff0b0; background:#49321d; padding:1px 5px; border-radius:5px; font-size:11px; white-space:nowrap; }
   .bracket-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
-  .bracket-lines path.flow { fill:none; stroke-width:2.25; opacity:.38; }
-  .bracket-lines path.confirmed { opacity:1; stroke-width:2.8; }
-  .bracket-lines path.drop { stroke-dasharray:6 4; }
-  .bracket-node.upper .vs-card { border-color:#9d7844; background:linear-gradient(120deg,#382b22,#221e25); }
-  .bracket-node.lower .vs-card { border-color:var(--flame,#b86240); background:linear-gradient(145deg,#352024,#221821); box-shadow:0 0 var(--glow,6px) var(--flame-glow,#b3432833); }
-  .bracket-node.lower::after,.bracket-node.phoenix::after { content:''; position:absolute; inset:auto 6px -3px; height:var(--glow); pointer-events:none; opacity:.86; background:linear-gradient(0deg,#fff3aa,#ffac43 25%,#f7562c 56%,transparent); clip-path:polygon(0 100%,8% 74%,13% 36%,16% 69%,26% 79%,33% 25%,38% 56%,44% 70%,54% 6%,59% 57%,67% 69%,75% 29%,81% 64%,89% 83%,94% 40%,100% 100%); }
-  .bracket-node.phoenix::after { height:25px; filter:drop-shadow(0 0 6px #ff6d3c); }
-  .bracket-node.phoenix .vs-card { border-color:#ffbd58; background:linear-gradient(125deg,#441e20,#331c25 58%,#492718); box-shadow:0 0 6px #ffd27e,0 0 25px #fe5b3890,inset 0 0 18px #ff7a3b42; animation:rebirth 2.9s ease-in-out infinite alternate; }
-  .bracket-node.champion .vs-card { border-color:#ffe38b; box-shadow:0 0 22px #daa93c65; background:linear-gradient(135deg,#49331b,#2b2030); }
-  @keyframes rebirth { to { box-shadow:0 0 9px #ffdda0,0 0 31px #fe5b38bd,inset 0 0 24px #ff7a3b73; } }
+  .bracket-lines path.flow { fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.7; opacity:.35; }
+  .bracket-lines path.confirmed { opacity:.98; stroke-width:2.7; }
+  .bracket-lines path.gold.confirmed { filter:drop-shadow(0 0 3px #ffd37d92); }
+  .bracket-node.upper .vs-card { border-color:#8d7249; background:linear-gradient(120deg,#352c28,#211f26); box-shadow:inset 0 1px 0 #ffe1a128; }
+  .bracket-node.upper .vs-card:has(.winner) { border-color:#c2a16d; box-shadow:inset 0 1px 0 #ffe1a24d,0 0 17px #efd28919; }
+  .bracket-node.lower .vs-card,.bracket-node.inferno .vs-card { position:relative; background:linear-gradient(140deg,#382528,#251e26 62%); border-color:var(--flame); box-shadow:0 1px var(--glow) var(--flame-glow); }
+  .bracket-node.lower .vs-card::after,.bracket-node.inferno .vs-card::after { content:''; position:absolute; bottom:-1px; left:9%; right:9%; height:2px; pointer-events:none; border-radius:50%; background:linear-gradient(90deg,transparent,var(--flame) 24%,#ffd699 62%,transparent); filter:drop-shadow(0 -2px 4px var(--flame)); opacity:.85; }
+  .bracket-node.inferno .vs-card { animation:rebirth 3.1s ease-in-out infinite alternate; box-shadow:0 0 15px #ff8d4a70,inset 0 0 14px #ff783725; }
+  .bracket-node.inferno::before { content:''; position:absolute; z-index:-1; inset:-16px -12px -13px; background:radial-gradient(ellipse at 9% 86%,#ff805daa,transparent 24%),radial-gradient(ellipse at 89% 82%,#ffa057a8,transparent 25%),radial-gradient(ellipse at 65% 94%,#ff5b435f,transparent 39%); filter:blur(6px); animation:embers 2.8s ease-in-out infinite alternate; }
+  .bracket-node.champion .vs-card { border-color:#ffdf9a; box-shadow:0 0 24px #f8c86649,inset 0 0 0 2px #efc56c25; background:linear-gradient(145deg,#433326,#262129 72%); }
+  @keyframes rebirth { to { box-shadow:0 0 21px #ff8d4aab,inset 0 0 17px #ff783747; } }
+  .route-port { flex:none; min-width:27px; padding:0 3px; height:20px; border:1px solid #b36947; border-radius:4px; color:#ffc398; background:#3d2926; font-size:10px; font-weight:850; line-height:1; }
+  .route-port:hover,.route-port.route-selected { background:#f1a574; color:#2c1811; }
+  .route-score { display:flex; align-items:center; gap:4px; }
+  .vs-card.route-target { outline:2px solid #ffbb84; outline-offset:3px; }
   .bracket-node .vs-card.is-live { outline:2px solid #7ef0b3; outline-offset:3px; }
   .badge.live.active::before { content:''; display:inline-block; width:7px; height:7px; vertical-align:1px; margin-right:5px; border-radius:50%; background:#85ffc2; box-shadow:0 0 10px #82ffc2; animation:live-glow 1.4s ease-in-out infinite alternate; }
   @keyframes live-glow { to { opacity:.38; } }
-  @media(prefers-reduced-motion:reduce) { .bracket-node.phoenix .vs-card,.badge.live.active::before { animation:none; } }
+  @media(prefers-reduced-motion:reduce) { .bracket-node.inferno .vs-card,.bracket-node.inferno::before,.bracket-atmosphere::after,.badge.live.active::before { animation:none; } }
   .vs-card { display: block; min-height: 88px; padding: 8px 9px; background: var(--card); border: 1px solid var(--line); border-radius: 9px; cursor: pointer; }
   .vs-card:hover { border-color: #8793a6; }
   .vs-card.is-live { border-color: #56ae90; background: #152822; }
@@ -461,7 +478,6 @@
           <div class="switch" role="group" aria-label="定位淘汰赛阶段">
             <button type="button" data-bracket-jump="UQ1">胜者组</button>
             <button type="button" data-bracket-jump="L1A">败者组</button>
-            <button type="button" data-bracket-jump="GF">总决赛</button>
             <button type="button" id="live-jump" hidden>● 正在进行</button>
           </div>
         </div>
@@ -581,7 +597,7 @@
     <div class="info-head"><h2 id="info-bracket-title">淘汰赛赛制</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
     <p>八强赛采用双败淘汰制。胜者组落败后进入败者组，败者组落败后出局。黄色队名表示该场胜队。淘汰总数包含小组赛出局队伍。</p>
     <p>普通场次先赢 3 盘获胜，冠军争夺战先赢 4 盘获胜，胜者组冠军预先领先 1 盘。</p>
-    <p>实线指向晋级场次，橙色虚线指向跌入败者组的场次。</p>
+    <p>连线指向胜队晋级的场次。橙色字母标出败者组落点，点击相同字母可在两场比赛之间定位。</p>
     <div class="info-links"><a href="https://supercell.com/brawlstars/en/blog/esports/brawl-stars-world-finals-format/" target="_blank" rel="noopener noreferrer">官方赛制 ↗</a></div>
   </div>
 </dialog>
@@ -762,8 +778,9 @@ function matchCard(m){
    const team=profile
     ?`<a class="vs-team-name" href="#team-${profile.slug}" data-team-link>${teamLogo(profile)}${label}</a>`
     :`<span class="vs-team-name">${teamLogo()}${label}</span>`;
-   const descends=dim==='loser'&&m.id.startsWith('U');
-   return `<div class="vs-team ${dim}">${team}<span class="vs-score">${descends?'<small style="color:#ffaf83" title="进入败者组" aria-label="进入败者组">↓ </small>':''}${Number.isInteger(score)?score:'—'}</span></div>`;
+   const from=dropRoutes.find(route=>route.to===m.id&&route.slot===side-1);
+   const to=dim==='loser'&&dropRoutes.find(route=>route.from===m.id);
+   return `<div class="vs-team ${dim}">${team}<span class="route-score">${from?routePort(from,from.from,'↑'):(to?routePort(to,to.to,'↓'):'')}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></span></div>`;
  };
  return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}</article>`;
 }
@@ -814,9 +831,22 @@ function renderTeamDirectory(profile){
  </article>`;
 }
 const bracketPositions = {
- UQ1:[0,83],UQ2:[0,180],UQ3:[0,277],UQ4:[0,374],US1:[1,131],US2:[1,325],UF:[2,228],GF:[4,300],
+ UQ1:[0,83],UQ2:[0,180],UQ3:[0,277],UQ4:[0,374],US1:[1,131],US2:[1,325],UF:[2,228],GF:[4,424],
  L1A:[0,566],L1B:[0,675],LQ1:[1,566],LQ2:[1,675],LS:[2,620],LF:[3,620],
 };
+const dropRoutes=defs.flatMap(([to,,,slots])=>slots.flatMap((slot,index)=>
+ Array.isArray(slot)&&slot[1]==='lose'?[{from:slot[0],to,slot:index}]:[]))
+ .sort((a,b)=>bracketPositions[a.from][0]-bracketPositions[b.from][0]||bracketPositions[a.from][1]-bracketPositions[b.from][1])
+ .map((route,index)=>({...route,code:'ABCDEFG'[index]}));
+let selectedRoute='',routeTarget='';
+function routePort(route,destination,direction){
+ const label=`${route.code} · ${direction==='↓'?'进入':'来自'}${item(destination).stage}`;
+ return `<button type="button" class="route-port" data-route="${route.code}" data-route-jump="${destination}" title="${esc(label)}" aria-label="${esc(label)}">${direction}${route.code}</button>`;
+}
+function highlightRoute(){
+ $$('#bracket-grid .route-port').forEach(button=>button.classList.toggle('route-selected',button.dataset.route===selectedRoute));
+ $$('#bracket-grid .vs-card').forEach(card=>card.classList.toggle('route-target',card.dataset.matchId===routeTarget));
+}
 let bracketMarkup='';
 function drawBracketLines(){
  const grid=$('#bracket-grid');
@@ -825,22 +855,21 @@ function drawBracketLines(){
  if(!svg||!area.width)return;
  svg.setAttribute('viewBox',`0 0 ${area.width} ${area.height}`);
  const ports=Object.fromEntries([...grid.querySelectorAll('.vs-card')].map(card=>[card.dataset.matchId,[...card.querySelectorAll('.vs-team')]]));
- const colors={gold:'#eac875',fire:'#ff9c58',drop:'#fa855c'};
+ const colors={gold:'#f4d89b',fire:'#eea170'};
  const markers=Object.entries(colors).map(([id,color])=>`<marker id="path-${id}" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="${color}"/></marker>`).join('');
  const lines=defs.flatMap(([id,,,slots])=>slots.flatMap((slot,index)=>{
-  if(!Array.isArray(slot))return [];
-  const [origin,outcome]=slot;
+  if(!Array.isArray(slot)||slot[1]!=='win')return [];
+  const [origin]=slot;
   const source=item(origin),confirmed=source.status==='final';
   const winner=Number(source.score2>source.score1);
-  const row=confirmed?(outcome==='lose'?1-winner:winner):0;
+  const row=confirmed?winner:0;
   const from=ports[origin][row].getBoundingClientRect();
   const to=ports[id][index].getBoundingClientRect();
-  const sameColumn=bracketPositions[origin][0]===bracketPositions[id][0];
   const x=Math.round(from.right-area.left+12),y=Math.round((from.top+from.bottom)/2-area.top);
-  const endX=Math.round((sameColumn?to.right+14:to.left-14)-area.left);
+  const endX=Math.round(to.left-14-area.left);
   const endY=Math.round((to.top+to.bottom)/2-area.top);
-  const bend=sameColumn?x+12+index*10:Math.min(endX-8,x+12+index*8);
-  const kind=outcome==='lose'?'drop':id.startsWith('L')||origin.startsWith('L')?'fire':'gold';
+  const bend=Math.max(x+6,endX-13);
+  const kind=origin.startsWith('L')?'fire':'gold';
   return `<path class="flow ${kind}${confirmed?' confirmed':''}" data-from="${origin}" data-to="${id}" d="M${x},${y}H${bend}V${endY}H${endX}" stroke="${colors[kind]}" marker-end="url(#path-${kind})"/>`;
  }));
  svg.innerHTML=`<defs>${markers}</defs>${lines.join('')}`;
@@ -849,18 +878,20 @@ function renderBracket(){
  const final=item('GF');
  const champion=final.status==='final'?(final.score1>final.score2?final.t1:final.t2):'';
  const labels=[[0,56,'八强'],[1,105,'半决赛'],[2,202,'胜者组决赛 <span class="adv-chip" title="胜者组冠军以 1:0 开启总决赛">1:0 · BO7</span>'],[0,541,'第 1 轮'],[1,541,'败者组八强'],[2,595,'败者组半决赛'],[3,595,'败者组决赛']];
- const markup=`<div class="bracket-fire" aria-hidden="true"></div><h3 class="bracket-route" style="top:17px">✦ 胜者组</h3><h3 class="bracket-route fire">♨ 败者组</h3>
-  <div class="bracket-trophy"><span aria-hidden="true">🏆</span>${champion?esc(champion):'全球总决赛'} <small>BO7</small></div>
+ const markup=`<div class="bracket-atmosphere" aria-hidden="true"></div><h3 class="bracket-route" style="top:17px">✦ 胜者组</h3><h3 class="bracket-route fire">♨ 败者组</h3>
+  <div class="bracket-trophy"><span class="final-seal" aria-hidden="true"><i class="seal-cup"></i></span><strong class="final-title">${champion?'世界冠军':'全球总决赛'}</strong>
+  ${champion?`<span class="final-winner">${teamLogo(teamProfiles[champion])}${esc(champion)}</span>`:'<small class="final-format">BO7</small>'}</div>
   <svg class="bracket-lines" aria-hidden="true"></svg>
   ${labels.map(([col,y,title])=>`<div class="bracket-round${y>500?' fire':''}" style="--col:${col};--y:${y}px">${title}</div>`).join('')}
   ${Object.entries(bracketPositions).map(([id,[col,y]])=>{
-   const style=id==='GF'?'champion':id==='LF'?'phoenix':id.startsWith('L')?'lower':'upper';
-   const flame=['#a9583f','#e4723b','#ff993e'][col];
+   const style=id==='GF'?'champion':id==='LF'?'inferno':id.startsWith('L')?'lower':'upper';
+   const flame=['#9d5949','#bc684c','#df8750','#ffb568'][col];
    return `<div class="bracket-node ${style}" style="--col:${col};--y:${y}px;--flame:${flame||'#ffba5e'};--glow:${6+col*5}px;--flame-glow:${flame||'#ffba5e'}77">${matchCard(item(id))}</div>`;
   }).join('')}`;
  if(bracketMarkup!==markup){
   bracketMarkup=markup;
   $('#bracket-grid').innerHTML=markup;
+  if(selectedRoute)highlightRoute();
   drawBracketLines();
  }
  const current=defs.find(([id])=>item(id).status==='live');
@@ -1221,6 +1252,15 @@ const playerTeamFilter=$('#player-team');
 Object.entries(teamProfiles).forEach(([name,team])=>playerTeamFilter.add(new Option(team.title,name)));
 playerTeamFilter.addEventListener('change',renderPlayerStats);
 $('#bracket').addEventListener('click',event=>{
+ const route=event.target.closest('[data-route-jump]');
+ if(route){
+  selectedRoute=route.dataset.route; routeTarget=route.dataset.routeJump;
+  const target=$('[data-match-id="'+routeTarget+'"]');
+  highlightRoute();
+  target.scrollIntoView({block:'center',inline:'center',behavior:'instant'});
+  (target.querySelector('[data-route="'+selectedRoute+'"]')||target.querySelector('.vs-details')).focus({preventScroll:true});
+  return;
+ }
  const card=event.target.closest('.vs-card');
  if(!card||event.target.closest('a'))return;
  card.querySelector('.vs-details').click();
