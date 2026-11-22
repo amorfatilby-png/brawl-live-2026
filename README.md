@@ -45,7 +45,7 @@ Render 免费服务无入站访问时可能休眠。官方直播间歇时，仍�
 
 「选手表现」按本届已收录的系列赛 MVP 次数排序，可筛选战队。MVP 和英雄阵容共用一次 Liquipedia 核查，完赛比分提供战队系列赛胜负。公开阵容按战队记录选用英雄，个人常用英雄通过 [Brawlytics 赛季资料](https://brawlytics.pro/worlds#teams) 查看。
 
-「逐局明细」按阶段筛选，可从淘汰赛卡片和小组赛战绩直达。盘次由 Liquipedia 提供，各局的选手统计通过 [Leafstats 公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 展示。败者组的凤凰火鸦来自 Supercell 粉丝素材，由 [DraftMeta](https://draftmeta.com/games/brawl-stars/brawlers/crow/skins) 提供。本站是非官方粉丝项目，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
+「逐局明细」按阶段筛选，可从淘汰赛卡片和小组赛战绩直达。盘次由 Liquipedia 提供，各局的选手统计通过 [Leafstats 公开嵌入](https://www.leafstats.net/officials/?t=294550838753) 展示。淘汰赛实线指向胜队的下一场，配对字母可在胜者组落败场次和败者组落点之间定位。本站是非官方粉丝项目，遵循 [Supercell 粉丝内容政策](https://supercell.com/en/fan-content-policy/)。
 
 直接双击 `public/index.html` 可以查看静态快照和可交互双败淘汰赛对阵。浏览器无法连接本地 API 时会显示「离线预览」。
 

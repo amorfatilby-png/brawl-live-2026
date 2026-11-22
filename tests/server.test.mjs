@@ -46,8 +46,6 @@ test('serves HTML and verified snapshot, no fabricated live scores',async()=>{
  const logoHead=await fetch(logoUrl,{method:'HEAD'});
  assert.equal(logoHead.status,200);assert.equal(logoHead.headers.get('content-type'),'image/webp');
  assert.equal((await fetch(ctx.base+'/assets/teams/unknown.webp')).status,404);
- const phoenix=await fetch(ctx.base+'/assets/phoenix-crow.webp');
- assert.equal(phoenix.status,200);assert.equal(phoenix.headers.get('content-type'),'image/webp');
  const profiles=await (await fetch(ctx.base+'/api/player-profiles')).json();
  assert.equal(Object.keys(profiles).length,36);
  assert.equal(profiles.Angelboy.age,21);
