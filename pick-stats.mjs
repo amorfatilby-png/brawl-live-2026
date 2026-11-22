@@ -144,6 +144,8 @@ function mergeCounterPicks(previous, current) {
     const rows = new Map(sameTeams ? saved.sets.map(set=>[set.number,set]) : []);
     for (const set of sets) {
       const prior = rows.get(set.number);
+      // Keep a draft verified from the broadcast when an upstream edit disagrees on the map or pick order.
+      if (prior?.replay && (!set.winner||set.winner===prior.winner)) continue;
       const sameMap = prior?.map===set.map;
       rows.set(set.number,{
         ...set,counter:set.counter??(sameMap?prior.counter:null),winner:set.winner??(sameMap?prior.winner:null),

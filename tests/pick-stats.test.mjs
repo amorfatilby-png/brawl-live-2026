@@ -113,4 +113,9 @@ test('tracks the counter side for completed and in-progress drafts, excluding th
     .replace('map=Safe Zone|firstpick=1|score1=|score2=','map=Safe Zone|firstpick=|score1=1|score2=2')));
   assert.deepEqual(updated.counterByMatch.A1,prior.counterByMatch.A1);
   assert.deepEqual(updated.counterByMatch.GF.sets[1],{number:2,map:'Safe Zone',counter:'Team Elektros',winner:'Team Elektros'});
+  const conflict=structuredClone(prior);
+  const replaySet=conflict.counterByMatch.A1.sets[0];
+  replaySet.replay='https://www.youtube.com/watch?v=example';
+  const rechecked=await readBrawlerPicks(conflict,source(22,full.replace('map=Beach Ball|firstpick=2','map=Hideout|firstpick=1')));
+  assert.deepEqual(rechecked.counterByMatch.A1.sets[0],replaySet);
 });
