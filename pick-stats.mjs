@@ -11,6 +11,14 @@ const PLAYOFF_MATCHES = {
   R1M1:'UQ1',R1M2:'UQ2',R1M3:'UQ3',R1M4:'UQ4',R1M5:'L1A',R1M6:'L1B',
   R2M1:'US1',R2M2:'US2',R2M3:'LQ1',R2M4:'LQ2',R3M1:'LS',R4M1:'UF',R4M2:'LF',R5M1:'GF',
 };
+const COUNTER_TEAMS = new Map([
+  ['futesports','FUT Esports'],['navi','NAVI'],['natusvincere','NAVI'],['bountyhunters','Bounty Hunters'],
+  ['bountyhuntersallu','Bounty Hunters'],['hmble','HMBLE'],['zetadivision','ZETA DIVISION'],
+  ['totem','Totem Esports'],['replytotem','Totem Esports'],['totemesports','Totem Esports'],
+  ['tribe','Tribe'],['tribegaming','Tribe'],['teamelektros','Team Elektros'],
+  ['heretics','Team Heretics'],['teamheretics','Team Heretics'],['redcanids','RED Canids'],
+  ['redcanidskalunga','RED Canids'],['crazyraccoon','Crazy Raccoon'],['novo','NOVO Esports'],['novoesports','NOVO Esports'],
+]);
 
 function scoredSet(fields) {
   return fields.winner !== 'skip' && ['0','1','2'].includes(fields.score1) &&
@@ -60,17 +68,32 @@ export function countBrawlerPicks(wikitext) {
   const mvps = new Map();
   const setsByMatch = {};
   const seriesByMatch = {};
+  const counterByMatch = {};
   for (const entry of matches) {
     const [,slot,match] = entry;
     const groupSlot = GROUP_MATCHES[slot];
     const matchId = entry.index>=playoffs-start ? PLAYOFF_MATCHES[slot] :
       groupB>=0 && groupSlot ? (entry.index<groupB?'A':'B')+groupSlot : null;
     const playedSets = [];
+    const draftSets = new Map();
     const countedSeries = new Set();
     const setWins = [0,0];
+    const opponents = [...match.matchAll(/^[ \t]*\|opponent[12]\s*=\s*\{\{TeamOpponent\|([^|{}\n]+)(?:\|[^{}\n]*)?\}\}/gm)].map(([,team])=>team.trim());
+    const draftTeams = opponents.map(team=>COUNTER_TEAMS.get(team.toLowerCase().replace(/[^a-z0-9]/g,'')));
+    const validDraftTeams = draftTeams.length===2 && draftTeams.every(Boolean) && draftTeams[0]!==draftTeams[1];
+    let openingAdvantageSlot = 0;
     for (const [,number,map] of match.matchAll(/\|\s*map([1-7])\s*=\s*\{\{Map\b([^{}]*)\}\}/g)) {
       const fields = Object.fromEntries([...map.matchAll(/\|\s*(\w+)\s*=\s*([^|\n]*)/g)].map(([,key,value])=>[key,value.trim()]));
-      if (!scoredSet(fields)) continue;
+      const complete = scoredSet(fields);
+      if (matchId==='GF' && number==='1' && (fields.winner==='skip'||!fields.map)) openingAdvantageSlot=1;
+      const draftNumber = Number(number)-openingAdvantageSlot;
+      const counter = fields.firstpick==='1' ? draftTeams[1] : fields.firstpick==='2' ? draftTeams[0] : null;
+      if (validDraftTeams && fields.map && fields.winner!=='skip' && (counter||complete) &&
+          draftNumber>=1 && draftNumber<=(matchId==='GF'?6:5)) {
+        const winner = complete ? draftTeams[fields.score1==='2'?0:1] : null;
+        draftSets.set(draftNumber,{number:draftNumber,map:fields.map,counter,winner});
+      }
+      if (!complete) continue;
       playedSets.push({number:Number(number),map:fields.map||'',mode:fields.maptype||'',games:Number(fields.score1)+Number(fields.score2)});
       const winningSide = fields.score1 === '2' ? 0 : 1;
       setWins[winningSide]++;
@@ -92,7 +115,7 @@ export function countBrawlerPicks(wikitext) {
       }
     }
     if (matchId && playedSets.length) setsByMatch[matchId]=playedSets;
-    const opponents = [...match.matchAll(/^[ \t]*\|opponent[12]\s*=\s*\{\{TeamOpponent\|([^|{}\n]+)(?:\|[^{}\n]*)?\}\}/gm)].map(([,team])=>team.trim());
+    if (matchId && draftSets.size) counterByMatch[matchId]={teams:draftTeams,sets:[...draftSets.values()]};
     const mvp = match.match(/\|\s*mvp\s*=\s*([a-z0-9][a-z0-9?_. -]{0,31})(?=[|\r\n])/i)?.[1].trim().toLowerCase();
     const bestOf = Number(match.match(/(?:^|\n)[ \t]*\|bestof=(\d+)\b/)?.[1] ?? 5);
     const clincher = Math.floor(bestOf/2)+1;
@@ -110,7 +133,26 @@ export function countBrawlerPicks(wikitext) {
   if (!overall.sets) throw new Error('暂无完整的已完赛英雄阵容');
   const modeNames = new Set([...MODES.keys(),...byMode.keys()]);
   const modes = [...modeNames].map(mode=>({mode,label:MODES.get(mode)??mode,...summarizeBucket(byMode.get(mode)??newBucket())}));
-  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps),setsByMatch,seriesByMatch};
+  return {...summarizeBucket(overall),modes,mvps:Object.fromEntries(mvps),setsByMatch,seriesByMatch,counterByMatch};
+}
+
+function mergeCounterPicks(previous, current) {
+  const result = {...previous};
+  for (const [id,{teams,sets}] of Object.entries(current)) {
+    const saved = previous?.[id];
+    const sameTeams = saved?.teams.every(team=>teams.includes(team));
+    const rows = new Map(sameTeams ? saved.sets.map(set=>[set.number,set]) : []);
+    for (const set of sets) {
+      const prior = rows.get(set.number);
+      const sameMap = prior?.map===set.map;
+      rows.set(set.number,{
+        ...set,counter:set.counter??(sameMap?prior.counter:null),winner:set.winner??(sameMap?prior.winner:null),
+      });
+    }
+    const reported = new Set(sets.map(set=>set.number));
+    result[id]={teams,sets:[...rows.values()].filter(set=>set.winner||reported.has(set.number)).sort((a,b)=>a.number-b.number)};
+  }
+  return result;
 }
 
 export async function readBrawlerPicks(previous, fetchImpl = fetch) {
@@ -133,8 +175,10 @@ export async function readBrawlerPicks(previous, fetchImpl = fetch) {
   if (previous && revision.revid < previous.revision) throw new Error('出场资料返回较早的版本');
   const checkedAt = new Date().toISOString();
   const hasWinStats = previous?.heroes.every(hero=>Number.isInteger(hero.teamPicks)&&Number.isInteger(hero.wins));
-  if (hasWinStats && previous.modes?.length && previous.mvps && previous.setsByMatch && previous.seriesByMatch && revision.revid === previous.revision) return {...previous,checkedAt};
+  if (hasWinStats && previous.modes?.length && previous.mvps && previous.setsByMatch && previous.seriesByMatch &&
+      previous.counterByMatch && revision.revid === previous.revision) return {...previous,checkedAt};
   const stats = countBrawlerPicks(revision.slots.main.content);
   if (hasWinStats && stats.sets < previous.sets) throw new Error('出场资料的完整阵容数量回退');
-  return {...stats,revision:revision.revid,checkedAt,source:PICK_SOURCE,license:'https://creativecommons.org/licenses/by-sa/3.0/'};
+  const counterByMatch = mergeCounterPicks(previous?.counterByMatch,stats.counterByMatch);
+  return {...stats,counterByMatch,revision:revision.revid,checkedAt,source:PICK_SOURCE,license:'https://creativecommons.org/licenses/by-sa/3.0/'};
 }

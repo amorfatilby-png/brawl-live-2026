@@ -120,10 +120,13 @@
   .switch button { background: transparent; border: 0; border-radius: 6px; padding: 6px 12px; color: var(--muted); min-height: 38px; white-space: nowrap; font-size: 13px; font-weight: 750; }
   .switch button[aria-pressed="true"] { background: #38404e; color: var(--ink); }
   .bracket-shell { border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }
-  .bracket-controls { padding: 11px 14px; border-bottom: 1px solid var(--line); }
+  .bracket-controls { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding:11px 14px; border-bottom:1px solid var(--line); }
   .bracket-controls button[aria-pressed="true"] { color: #171a20; background: var(--yellow); }
+  .counter-summary { display:flex; align-items:center; flex-wrap:wrap; gap:4px 8px; font-size:13px; }
+  .counter-summary strong { color:var(--yellow); font-size:16px; font-variant-numeric:tabular-nums; }
+  .counter-summary small { color:var(--muted); }
   .bracket-scroll { max-width: 100%; overflow-x: auto; padding: 12px 14px 14px; scrollbar-color: #657184 transparent; scrollbar-width: thin; }
-  .bracket-row { --card-width:clamp(165px,14vw,210px); --lane-gap:clamp(38px,4vw,65px); position:relative; height:810px; width:calc(5 * var(--card-width) + 4 * var(--lane-gap) + 36px); isolation:isolate; border-radius:15px; overflow:hidden; background:radial-gradient(ellipse at 84% 21%,#4d3c2866,transparent 48%),radial-gradient(ellipse at 67% 101%,#8b372a55,transparent 56%),#171923; }
+  .bracket-row { --card-width:clamp(165px,14vw,210px); --lane-gap:clamp(38px,4vw,65px); position:relative; height:920px; width:calc(5 * var(--card-width) + 4 * var(--lane-gap) + 36px); isolation:isolate; border-radius:15px; overflow:hidden; background:radial-gradient(ellipse at 84% 21%,#4d3c2866,transparent 48%),radial-gradient(ellipse at 67% 101%,#8b372a55,transparent 56%),#171923; }
   .bracket-atmosphere { position:absolute; inset:0; pointer-events:none; background:linear-gradient(155deg,transparent 15%,#ffd38b12 42%,transparent 49%),radial-gradient(ellipse at 70% 98%,#fa65252b,transparent 46%); }
   .bracket-atmosphere::before { content:''; position:absolute; inset:20px 0 auto; height:370px; background:linear-gradient(160deg,transparent 20%,#eac47312 41%,transparent 43%,#eac4730d 47%,transparent 48%); }
   .bracket-atmosphere::after { content:''; position:absolute; inset:515px 0 0; background:radial-gradient(circle at 39% 70%,#e9874488 0 1px,transparent 2px),radial-gradient(circle at 63% 85%,#ef804999 0 1.5px,transparent 2.5px),radial-gradient(circle at 69% 72%,#ffbf7777 0 1px,transparent 2px),radial-gradient(circle at 78% 90%,#eb673b99 0 2px,transparent 3px),radial-gradient(circle at 90% 66%,#ed804144 0 2px,transparent 3px); animation:embers 4s linear infinite alternate; }
@@ -133,7 +136,7 @@
   .bracket-round { font-size:12px; font-weight:800; color:#e2c78a; }
   .bracket-round.fire { color:#ffac80; }
   .bracket-route { position:absolute; left:18px; margin:0; color:#ffe5a0; font-size:16px; letter-spacing:.08em; }
-  .bracket-route.fire { top:501px; color:#ffb171; }
+  .bracket-route.fire { top:587px; color:#ffb171; }
   .bracket-trophy { position:absolute; display:grid; justify-items:center; gap:4px; top:278px; left:calc(18px + 4 * (var(--card-width) + var(--lane-gap))); width:var(--card-width); color:#fff0be; text-align:center; }
   .final-seal { position:relative; display:grid; place-items:center; width:73px; height:76px; background:linear-gradient(145deg,#fff7ce,#d6a052 54%,#ffe3a0 72%,#7b4b30); clip-path:polygon(50% 0,95% 18%,95% 69%,50% 100%,5% 69%,5% 18%); }
   .final-seal::before { content:''; position:absolute; inset:3px; background:radial-gradient(circle at 50% 27%,#6d5129,#261d23 70%); clip-path:inherit; }
@@ -161,6 +164,10 @@
   .route-port:hover,.route-port.route-selected { background:#f1a574; color:#2c1811; }
   .route-score { display:flex; align-items:center; gap:4px; }
   .match-note { margin:5px 0 0; padding-top:4px; border-top:1px solid #da986849; color:#ffc99e; font-size:11px; font-weight:750; line-height:1.4; }
+  .counter-strip { display:flex; align-items:center; gap:4px; margin-top:5px; padding-top:4px; border-top:1px solid #d1bec63d; color:var(--muted); font-size:10px; line-height:1.35; }
+  .counter-set { flex:1 0 0; min-width:0; padding:2px 0; background:#ffffff0a; border-radius:3px; color:#dfd7d9; text-align:center; font-weight:750; }
+  .counter-set.won { background:#26453b; color:#b4f6d9; }
+  .counter-set.unknown { color:#b2a6aa; }
   .vs-card.route-target { outline:2px solid #ffbb84; outline-offset:3px; }
   .bracket-node .vs-card.is-live { outline:2px solid #7ef0b3; outline-offset:3px; }
   .badge.live.active::before { content:''; display:inline-block; width:7px; height:7px; vertical-align:1px; margin-right:5px; border-radius:50%; background:#85ffc2; box-shadow:0 0 10px #82ffc2; animation:live-glow 1.4s ease-in-out infinite alternate; }
@@ -481,6 +488,10 @@
             <button type="button" data-bracket-jump="L1A">败者组</button>
             <button type="button" id="live-jump" hidden>● 正在进行</button>
           </div>
+          <div class="counter-summary">
+            <span>本届 Counter 位胜率</span><strong id="counter-rate">—</strong><small id="counter-coverage"></small>
+            <button class="info-btn" type="button" data-info="info-counter" aria-haspopup="dialog" aria-label="Counter 位胜率说明"><span aria-hidden="true">i</span></button>
+          </div>
         </div>
         <div class="bracket-scroll" role="region" aria-label="双败淘汰赛，可左右滚动" tabindex="0"><div class="bracket-row" id="bracket-grid"></div></div>
       </div>
@@ -601,6 +612,16 @@
     <p>普通场次先赢 3 盘获胜，冠军争夺战先赢 4 盘获胜，胜者组冠军预先领先 1 盘。</p>
     <p>连线指向胜队晋级的场次。橙色字母标出败者组落点，点击相同字母可在两场比赛之间定位。</p>
     <div class="info-links"><a href="https://supercell.com/brawlstars/en/blog/esports/brawl-stars-world-finals-format/" target="_blank" rel="noopener noreferrer">官方赛制 ↗</a></div>
+  </div>
+</dialog>
+<dialog class="info-dialog" id="info-counter" aria-labelledby="info-counter-title">
+  <div class="info-panel">
+    <div class="info-head"><h2 id="info-counter-title">Counter 位胜率</h2><form method="dialog"><button class="close-btn" aria-label="关闭说明" autofocus>×</button></form></div>
+    <p>Counter 位是每盘后选英雄的一方。对阵卡从左到右显示各盘后手，绿色表示后手赢了该盘，问号表示选人顺序待补。点击「明细」可查看逐盘选人记录。</p>
+    <p>分子是后手赢下的盘数，分母是小组赛和淘汰赛中已核对选人顺序及胜负的盘数。BO5 最多计 5 盘，总决赛的 1:0 开局优势不计入。</p>
+    <p>每分钟核查社区赛事资料，来源补录后自动更新。部分盘次用已核对的逐盘战报补充。</p>
+    <dl><div><dt>最近核查（北京）</dt><dd id="counter-checked">—</dd></div></dl>
+    <div class="info-links"><a href="https://liquipedia.net/brawlstars/Brawl_Stars_World_Finals/2026" target="_blank" rel="noopener noreferrer">Liquipedia ↗</a><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">统计改编 · CC BY-SA 3.0 ↗</a><a href="https://www.leafstats.net/officials/?t=294550838753" target="_blank" rel="noopener noreferrer">逐盘核对 · Leafstats ↗</a></div>
   </div>
 </dialog>
 <dialog class="info-dialog" id="info-schedule" aria-labelledby="info-schedule-title">
@@ -770,6 +791,43 @@ function teamLogo(profile){
   ?`<img class="team-logo" src="./assets/teams/${profile.slug}.webp" alt="" width="23" height="23" decoding="async">`
   :'<span class="team-logo-placeholder" aria-hidden="true"></span>';
 }
+function counterSets(m){
+ const draft=data.pickStats?.counterByMatch?.[m.id];
+ return draft&&m.t1&&m.t2&&draft.teams.includes(m.t1)&&draft.teams.includes(m.t2)?draft.sets:[];
+}
+function playedCounterSets(m){
+ return m.status==='scheduled'?0:Math.max(0,(m.score1??0)+(m.score2??0)-Number(m.id==='GF'));
+}
+function renderCounterSummary(){
+ let wins=0,covered=0,played=0;
+ for(const match of allMatches()){
+  const completed=counterSets(match).filter(set=>set.winner);
+  played+=Math.max(playedCounterSets(match),completed.length);
+  for(const set of completed){
+   if(!set.counter)continue;
+   covered++;
+   wins+=Number(set.counter===set.winner);
+  }
+ }
+ const cached=data.mode==='offline'||data.pickStats?.status!=='synced';
+ $('#counter-rate').textContent=covered?(100*wins/covered).toFixed(1)+'%':'—';
+ $('#counter-coverage').textContent=covered?`${wins}/${covered} 胜 · 覆盖 ${covered}/${played} 盘${cached?' · 缓存':''}`:'等待选人记录';
+ $('#counter-checked').textContent=fmt(data.pickStats?.counterCheckedAt??data.pickStats?.checkedAt);
+}
+function counterStrip(m){
+ const sets=counterSets(m);
+ const count=Math.min(m.id==='GF'?6:5,Math.max(playedCounterSets(m),...sets.map(set=>set.number)));
+ if(!count)return `<div class="counter-strip">后手 · ${m.status==='scheduled'?'待开赛':'待同步'}</div>`;
+ const chips=Array.from({length:count},(_,index)=>{
+  const set=sets.find(row=>row.number===index+1);
+  const team=set?.counter;
+  const won=team&&set.winner===team;
+  const result=set?.winner?(won?'胜':'负'):'进行中';
+  const label=`第 ${index+1} 盘${set?.map?' · '+(gameMapNames[set.map]||set.map):''} · ${team?team+' 后手 · '+result:'后手待核对'}`;
+  return `<span class="counter-set${won?' won':team?'':' unknown'}" title="${esc(label)}" aria-label="${esc(label)}">${team?teamInfo(team)[0]:'?'}</span>`;
+ }).join('');
+ return `<div class="counter-strip"><span>后手</span>${chips}</div>`;
+}
 function matchCard(m){
  if(!m)return '';
  const winner=m.status==='final'?(m.score1>m.score2?1:2):0;
@@ -785,8 +843,9 @@ function matchCard(m){
    const to=dim==='loser'&&dropRoutes.find(route=>route.from===m.id);
    return `<div class="vs-team ${dim}">${team}<span class="route-score">${from?routePort(from,from.from,'↑'):(to?routePort(to,to.to,'↓'):'')}<span class="vs-score">${Number.isInteger(score)?score:'—'}</span></span></div>`;
  };
- const note=m.id==='LQ2'&&m.t1==='HMBLE'&&m.t2==='ZETA DIVISION'?'<p class="match-note" title="观赛备注 · Counter 位指选人后手">ZETA 连续四盘 Counter 位</p>':'';
- return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status,m.source)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}${note}</article>`;
+ const draft=counterSets(m);
+ const note=m.id==='LQ2'&&draft.length===4&&draft.every(set=>set.counter==='ZETA DIVISION')?'<p class="match-note" title="Counter 位指选人后手">ZETA 连续四盘 Counter 位</p>':'';
+ return `<article class="vs-card is-${m.status==='live'&&cached()?'cached':m.status}" data-match-id="${m.id}"><div class="vs-top"><div class="vs-meta">${badge(m.status,m.source)}${m.status==='scheduled'?`<span class="vs-time">${fmt(m.date)}</span>`:''}</div><a class="vs-details" href="#games-${m.id}" data-nav="games" aria-label="${esc(m.stage)} ${esc(m.t1||'待定')} 对 ${esc(m.t2||'待定')} 明细">明细 ›</a></div>${line(m.t1,1,m.score1)}${line(m.t2,2,m.score2)}${counterStrip(m)}${note}</article>`;
 }
 async function loadPlayerProfiles(){
  if(playerProfiles||profilesLoading)return;
@@ -835,8 +894,8 @@ function renderTeamDirectory(profile){
  </article>`;
 }
 const bracketPositions = {
- UQ1:[0,83],UQ2:[0,180],UQ3:[0,277],UQ4:[0,374],US1:[1,131],US2:[1,325],UF:[2,228],GF:[4,424],
- L1A:[0,566],L1B:[0,675],LQ1:[1,566],LQ2:[1,675],LS:[2,620],LF:[3,620],
+ UQ1:[0,83],UQ2:[0,205],UQ3:[0,327],UQ4:[0,449],US1:[1,144],US2:[1,388],UF:[2,266],GF:[4,449],
+ L1A:[0,648],L1B:[0,774],LQ1:[1,648],LQ2:[1,774],LS:[2,711],LF:[3,711],
 };
 const dropRoutes=defs.flatMap(([to,,,slots])=>slots.flatMap((slot,index)=>
  Array.isArray(slot)&&slot[1]==='lose'?[{from:slot[0],to,slot:index}]:[]))
@@ -881,7 +940,7 @@ function drawBracketLines(){
 function renderBracket(){
  const final=item('GF');
  const champion=final.status==='final'?(final.score1>final.score2?final.t1:final.t2):'';
- const labels=[[0,56,'八强'],[1,105,'半决赛'],[2,202,'胜者组决赛'],[0,541,'第 1 轮'],[1,541,'败者组八强'],[2,595,'败者组半决赛'],[3,595,'败者组决赛']];
+ const labels=[[0,56,'八强'],[1,117,'半决赛'],[2,239,'胜者组决赛'],[0,622,'第 1 轮'],[1,622,'败者组八强'],[2,685,'败者组半决赛'],[3,685,'败者组决赛']];
  const markup=`<div class="bracket-atmosphere" aria-hidden="true"></div><h3 class="bracket-route" style="top:17px">✦ 胜者组</h3><h3 class="bracket-route fire">♨ 败者组</h3>
   <div class="bracket-trophy"><span class="final-seal" aria-hidden="true"><i class="seal-cup"></i></span><strong class="final-title">${champion?'世界冠军':'全球总决赛'}</strong>
   ${champion?`<span class="final-winner">${teamLogo(teamProfiles[champion])}${esc(champion)}</span>`:''}
@@ -1196,7 +1255,7 @@ function statusMessage(){
 }
 function render(){
  if(activePanel==='bracket'){
-  renderSpot();renderStats();
+  renderSpot();renderStats();renderCounterSummary();
   renderBracket();
  }else if(activePanel==='picks')renderPickStats();
  else if(activePanel==='schedule')renderSchedule();
