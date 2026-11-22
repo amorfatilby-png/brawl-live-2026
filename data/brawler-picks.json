@@ -2011,7 +2011,7 @@
       }
     ]
   },
-  "counterCheckedAt": "2026-11-22T06:26:19.765Z",
+  "counterCheckedAt": "2026-11-22T07:13:20.934Z",
   "counterByMatch": {
     "A1": {"teams":["HMBLE","Team Heretics"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"Team Heretics","winner":"HMBLE"},{"number":2,"map":"Goldarm Gulch","counter":"Team Heretics","winner":"HMBLE"},{"number":3,"map":"Open Business","counter":"HMBLE","winner":"HMBLE"}]},
     "A2": {"teams":["RED Canids","Totem Esports"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"RED Canids","winner":"Totem Esports"},{"number":2,"map":"Crystal Arcade","counter":"RED Canids","winner":"RED Canids"},{"number":3,"map":"Beach Ball","counter":"Totem Esports","winner":"Totem Esports"},{"number":4,"map":"Out in the Open","counter":"RED Canids","winner":"Totem Esports"}]},
@@ -2034,6 +2034,7 @@
     "L1B": {"teams":["ZETA DIVISION","Tribe"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Tribe","winner":"Tribe"},{"number":2,"map":"Kaboom Canyon","counter":"Tribe","winner":"ZETA DIVISION"},{"number":3,"map":"Open Business","counter":"Tribe","winner":"ZETA DIVISION"},{"number":4,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"ZETA DIVISION"}]},
     "LQ1": {"teams":["Totem Esports","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"FUT Esports","winner":"FUT Esports"},{"number":2,"map":"Out in the Open","counter":"FUT Esports","winner":"FUT Esports"},{"number":3,"map":"Layer Cake","counter":"Totem Esports","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=3710s"}]},
     "LQ2": {"teams":["HMBLE","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":2,"map":"Kaboom Canyon","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":3,"map":"Ring of Fire","counter":"ZETA DIVISION","winner":"HMBLE"},{"number":4,"map":"Dry Season","counter":"ZETA DIVISION","winner":"ZETA DIVISION"}]},
-    "LS": {"teams":["FUT Esports","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"FUT Esports"},{"number":2,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12080s"},{"number":3,"map":"Out in the Open","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12830s"}]}
+    "LS": {"teams":["FUT Esports","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"FUT Esports"},{"number":2,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12080s"},{"number":3,"map":"Out in the Open","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12830s"}]},
+    "LF": {"teams":["Team Elektros","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Team Elektros","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=15180s"}]}
   }
 }
