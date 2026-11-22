@@ -44,6 +44,11 @@ test('future finals resolve every side correctly, including grand final',()=>{
  const result=normalizeSupercell(data,{...state,eventState:3});
  const expected={L1A:[3,1],L1B:[3,0],US1:[3,2],US2:[1,3],LQ1:[3,1],LQ2:[3,0],UF:[3,1],LS:[3,2],LF:[3,1],GF:[4,2]};
  for(const [id,scores] of Object.entries(expected))assert.deepEqual(result[id],{status:'final',score1:scores[0],score2:scores[1]},id);
+ const old={...result,GF:{status:'live',score1:0,score2:0}};
+ const grandFinal={teams:['Natus Vincere','Team Elektros'],played:[1,2],declared:null};
+ assert.deepEqual(supplementSupercellMatches(old,{GF:grandFinal}).GF,{status:'live',score1:2,score2:2,source:'liquipedia'});
+ assert.deepEqual(supplementSupercellMatches(old,{GF:{...grandFinal,played:[3,2],declared:[4,2]}}).GF,
+   {status:'final',score1:4,score2:2,source:'liquipedia'});
 });
 
 test('a preassigned grand-final advantage does not imply live play',()=>{

@@ -1572,6 +1572,7 @@
     "sitetampo": 1
   },
   "setsByMatch": {
+    "GF": [{"number":1,"map":"Hard Rock Mine","mode":"Gem Grab","games":2},{"number":2,"map":"Pinhole Punt","mode":"Brawl Ball","games":3},{"number":3,"map":"Layer Cake","mode":"Bounty","games":3},{"number":4,"map":"Open Business","mode":"Hot Zone","games":2}],
     "A1": [
       {
         "number": 1,
@@ -2013,6 +2014,7 @@
   },
   "counterCheckedAt": "2026-11-22T08:45:51.659Z",
   "counterByMatch": {
+    "GF": {"teams":["NAVI","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"FUT Esports","winner":"NAVI"},{"number":2,"map":"Pinhole Punt","counter":"FUT Esports","winner":"FUT Esports"},{"number":3,"map":"Layer Cake","counter":"FUT Esports","winner":"FUT Esports"},{"number":4,"map":"Open Business","counter":"FUT Esports","winner":"FUT Esports"}]},
     "A1": {"teams":["HMBLE","Team Heretics"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"Team Heretics","winner":"HMBLE"},{"number":2,"map":"Goldarm Gulch","counter":"Team Heretics","winner":"HMBLE"},{"number":3,"map":"Open Business","counter":"HMBLE","winner":"HMBLE"}]},
     "A2": {"teams":["RED Canids","Totem Esports"],"sets":[{"number":1,"map":"Kaboom Canyon","counter":"RED Canids","winner":"Totem Esports"},{"number":2,"map":"Crystal Arcade","counter":"RED Canids","winner":"RED Canids"},{"number":3,"map":"Beach Ball","counter":"Totem Esports","winner":"Totem Esports"},{"number":4,"map":"Out in the Open","counter":"RED Canids","winner":"Totem Esports"}]},
     "AW": {"teams":["HMBLE","Totem Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Totem Esports","winner":"Totem Esports"},{"number":2,"map":"Goldarm Gulch","counter":"Totem Esports","winner":"HMBLE"},{"number":3,"map":"Dueling Beetles","counter":"HMBLE","winner":"HMBLE"},{"number":4,"map":"Beach Ball","counter":"Totem Esports","winner":"HMBLE"}]},
@@ -2036,5 +2038,6 @@
     "LQ2": {"teams":["HMBLE","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":2,"map":"Kaboom Canyon","counter":"ZETA DIVISION","winner":"ZETA DIVISION"},{"number":3,"map":"Ring of Fire","counter":"ZETA DIVISION","winner":"HMBLE"},{"number":4,"map":"Dry Season","counter":"ZETA DIVISION","winner":"ZETA DIVISION"}]},
     "LS": {"teams":["FUT Esports","ZETA DIVISION"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"ZETA DIVISION","winner":"FUT Esports"},{"number":2,"map":"Pinhole Punt","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12080s"},{"number":3,"map":"Out in the Open","counter":"ZETA DIVISION","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=12830s"}]},
     "LF": {"teams":["Team Elektros","FUT Esports"],"sets":[{"number":1,"map":"Hard Rock Mine","counter":"Team Elektros","winner":"FUT Esports","replay":"https://www.youtube.com/watch?v=CEEFBI6bI5w&t=15180s"},{"number":2,"map":"Ring of Fire","counter":"Team Elektros","winner":"Team Elektros"},{"number":3,"map":"Layer Cake","counter":"Team Elektros","winner":"FUT Esports"},{"number":4,"map":"Pinhole Punt","counter":"Team Elektros","winner":"FUT Esports"}]}
-  }
+  },
+  "seriesByMatch": {"GF": {"teams":["NAVI","FUT Esports"],"played":[1,3],"declared":null}}
 }
